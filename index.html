@@ -1,0 +1,1384 @@
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Roadmap Controladoria",
+  "schemaVersion": 1,
+  "description": "Roadmap vivo das automações da Controladoria Logcomex. 11 processos · 3 ondas · economia projetada ~178h/mês. Atualizado automaticamente via Slack, Gmail e sessões Claude.",
+  "mcpTools": [
+    "mcp__7b3f24cf-3f10-4035-90f4-8a3c6bbd6c50__slack_search_public_and_private",
+    "mcp__7d4dc0ab-a93c-48ec-9db7-81f021a49eab__search_threads",
+    "mcp__session_info__list_sessions"
+  ],
+  "mcpServerNames": [
+    "Slack",
+    "Gmail",
+    "session_info"
+  ]
+}
+</script>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roadmap Automações Controladoria — Logcomex</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+<style>
+  :root {
+    color-scheme: light;
+    --lx-purple: #6613D0;
+    --lx-purple-dark: #440C8C;
+    --lx-purple-light: #AA72F2;
+    --lx-purple-bg: #E2D0FA;
+    --lx-orange: #FE8F1C;
+    --lx-orange-light: #FEB366;
+    --lx-orange-bg: #FFF2E4;
+    --lx-offwhite: #F4F4F4;
+    --lx-dark: #0b0d19;
+    --lx-gray: #5f616a;
+    --lx-gray-light: #c0c1c9;
+    --lx-gray-bg: #f5f6fc;
+    --lx-green: #27D780;
+    --lx-green-bg: #d3f7e5;
+    --lx-green-dark: #1fac66;
+    --lx-teal: #24CFDA;
+    --lx-yellow: #FCC502;
+    --lx-red: #F90505;
+    --lx-red-bg: #fdcdcd;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--lx-offwhite);
+    color: var(--lx-dark);
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  .header {
+    background: linear-gradient(135deg, var(--lx-purple-dark), var(--lx-purple));
+    color: white;
+    padding: 28px 24px 24px;
+  }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; }
+  .header h1 { font-size: clamp(1.3rem, 3.5vw, 1.8rem); font-weight: 700; margin-bottom: 4px; }
+  .header .sub { font-size: 13px; font-weight: 300; opacity: 0.85; }
+  .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+  }
+  @media (min-width: 768px) { .hero-stats { grid-template-columns: repeat(5, 1fr); } }
+  .stat-card {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+  }
+  .stat-card .n { font-size: 26px; font-weight: 800; }
+  .stat-card .l { font-size: 10px; font-weight: 400; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.85; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 20px 16px; }
+  @media (min-width: 768px) { .container { padding: 24px; } }
+
+  .refresh-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; flex-wrap: wrap;
+    background: white;
+    border: 1px solid #e5e3de;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 12px;
+  }
+  .refresh-info { display: flex; align-items: center; gap: 8px; color: var(--lx-gray); flex-wrap: wrap; }
+  .refresh-info .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--lx-gray-light);
+  }
+  .refresh-info .dot.ok { background: var(--lx-green); }
+  .refresh-info .dot.loading { background: var(--lx-yellow); animation: pulse 1s infinite; }
+  .refresh-info .dot.err { background: var(--lx-red); }
+  .source-pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 8px; border-radius: 10px;
+    background: var(--lx-gray-bg); color: var(--lx-gray);
+    font-size: 10px; font-weight: 500;
+  }
+  .source-pill.ok { background: var(--lx-green-bg); color: var(--lx-green-dark); }
+  .source-pill.err { background: var(--lx-red-bg); color: var(--lx-red); }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .btn-primary {
+    background: var(--lx-purple);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    min-height: 36px;
+  }
+  .btn-primary:hover { background: var(--lx-purple-dark); }
+  .btn-secondary {
+    background: white;
+    color: var(--lx-purple);
+    border: 1px solid var(--lx-purple);
+    padding: 7px 12px;
+    border-radius: 8px;
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .btn-secondary:hover { background: var(--lx-purple-bg); }
+  .btn-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+
+  @media print {
+    body { background: white; }
+    .header { background: white !important; color: var(--lx-dark) !important; padding: 16px 0 8px !important; }
+    .header h1, .header .sub { color: var(--lx-dark) !important; }
+    .header .badge { background: var(--lx-purple-bg) !important; color: var(--lx-purple) !important; border-color: var(--lx-purple-light) !important; }
+    .stat-card { background: var(--lx-gray-bg) !important; border-color: #e5e3de !important; color: var(--lx-dark) !important; }
+    .refresh-bar, .tabs, .filter-bar, .history-toggle, .history-panel, .btn-primary, .btn-secondary { display: none !important; }
+    .tab-content { display: block !important; page-break-inside: avoid; }
+    .card { page-break-inside: avoid; }
+    .card-body { display: block !important; }
+    .card-chevron { display: none !important; }
+    .wave-panel { display: block !important; page-break-before: always; }
+    .gantt-detail { display: block !important; }
+  }
+
+  .section { margin-bottom: 24px; }
+  .section-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--lx-gray);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--lx-purple-bg);
+  }
+
+  .tabs { display: flex; gap: 0; margin-bottom: 20px; border-radius: 10px; overflow: hidden; border: 1px solid var(--lx-gray-light); flex-wrap: wrap; }
+  .tab-btn {
+    flex: 1; min-width: 90px;
+    padding: 12px 8px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+    background: white;
+    color: var(--lx-gray);
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 44px;
+  }
+  .tab-btn.active { background: var(--lx-purple); color: white; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .filter-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; align-items: center; }
+  .filter-label { font-size: 11px; font-weight: 600; color: var(--lx-gray); text-transform: uppercase; letter-spacing: 0.04em; }
+  .filter-btn { font-size: 11px; font-weight: 500; padding: 5px 11px; border-radius: 14px; border: 1px solid var(--lx-gray-light); background: white; color: var(--lx-gray); cursor: pointer; font-family: inherit; }
+  .filter-btn:hover { border-color: var(--lx-purple); color: var(--lx-purple); }
+  .filter-btn.active { background: var(--lx-purple); border-color: var(--lx-purple); color: white; }
+
+  .card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e5e3de;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .card.updated { border-left: 3px solid var(--lx-orange); }
+  .card.blocked { border-left: 3px solid var(--lx-red); }
+  .card.filtered-out { display: none; }
+  .card-header {
+    padding: 14px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    flex-wrap: wrap;
+  }
+  .card-header:hover { background: var(--lx-gray-bg); }
+  .card-body { padding: 0 16px 16px; display: none; }
+  .card.open .card-body { display: block; }
+  .card-num {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: white; flex-shrink: 0;
+  }
+  .card-title { flex: 1; font-size: 14px; font-weight: 600; min-width: 140px; }
+  .card-meta { font-size: 12px; color: var(--lx-gray); }
+  .card-chevron { font-size: 18px; color: var(--lx-gray-light); transition: transform 0.2s; }
+  .card.open .card-chevron { transform: rotate(90deg); }
+  .signal-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: var(--lx-green-bg); color: var(--lx-green-dark);
+    border-radius: 12px; padding: 2px 8px;
+    font-size: 10px; font-weight: 600;
+  }
+  .signal-badge::before { content: "●"; font-size: 8px; }
+  .blocker-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: var(--lx-red-bg); color: var(--lx-red);
+    border-radius: 12px; padding: 2px 8px;
+    font-size: 10px; font-weight: 700;
+  }
+
+  .status {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .status-done { background: var(--lx-green-bg); color: var(--lx-green-dark); }
+  .status-prog { background: var(--lx-orange-bg); color: #984D00; }
+  .status-plan { background: var(--lx-gray-bg); color: var(--lx-gray); }
+
+  .detail-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
+  @media (min-width: 768px) { .detail-grid { grid-template-columns: repeat(2, 1fr); } }
+  .detail-item { background: var(--lx-gray-bg); padding: 10px 12px; border-radius: 8px; }
+  .detail-item .dl { font-size: 11px; color: var(--lx-gray); text-transform: uppercase; letter-spacing: 0.04em; }
+  .detail-item .dv { font-size: 14px; font-weight: 500; margin-top: 2px; }
+
+  .insight-block { margin-top: 12px; padding: 10px 12px; background: var(--lx-gray-bg); border-radius: 8px; border-left: 3px solid var(--lx-purple-light); font-size: 12.5px; color: var(--lx-dark); line-height: 1.6; }
+  .insight-block strong { color: var(--lx-purple); }
+
+  .blocker-block { margin-top: 10px; padding: 10px 12px; background: var(--lx-red-bg); border-radius: 8px; border-left: 3px solid var(--lx-red); font-size: 12px; color: var(--lx-dark); line-height: 1.5; }
+  .blocker-block .bl-head { font-weight: 700; color: var(--lx-red); margin-bottom: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  .signals-list { margin-top: 10px; padding: 10px 12px; background: var(--lx-green-bg); border-radius: 8px; font-size: 12px; }
+  .signals-list .sig-head { font-weight: 600; color: var(--lx-green-dark); margin-bottom: 4px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .signals-list .sig-item { padding: 5px 0; border-top: 1px solid rgba(31,172,102,0.15); }
+  .signals-list .sig-item:first-of-type { border-top: none; }
+  .signals-list .sig-meta { color: var(--lx-gray); font-size: 9.5px; margin-top: 2px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .sig-src { display: inline-block; padding: 1px 6px; border-radius: 6px; font-size: 9px; font-weight: 600; text-transform: uppercase; }
+  .sig-src.slack { background: #4A154B; color: white; } .sig-src.gmail { background: #D14836; color: white; } .sig-src.claude { background: var(--lx-purple); color: white; }
+
+  .gantt-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; background: white; border: 1px solid #e5e3de; border-radius: 12px; padding: 16px; }
+  .gantt { min-width: 820px; }
+  .gantt-header-row, .gantt-row {
+    display: grid;
+    grid-template-columns: 200px repeat(5, 1fr);
+  }
+  .gantt-header-row {
+    border-bottom: 2px solid var(--lx-purple-bg);
+    padding-bottom: 8px; margin-bottom: 6px;
+  }
+  .gantt-header-row span { font-size: 11px; font-weight: 600; color: var(--lx-gray); text-align: center; text-transform: uppercase; letter-spacing: 0.04em; }
+  .gantt-header-row span:first-child { text-align: left; }
+  .gantt-row { align-items: center; padding: 6px 0; border-bottom: 1px solid #f0f0f0; cursor: pointer; }
+  .gantt-row:hover { background: var(--lx-gray-bg); }
+  .gantt-label { font-size: 12px; font-weight: 500; padding-right: 8px; display: flex; align-items: center; gap: 4px; }
+  .gantt-bar-area { position: relative; height: 22px; }
+  .gantt-bar { position: absolute; height: 22px; border-radius: 6px; top: 0; }
+  .gantt-diamond { width: 12px; height: 12px; transform: rotate(45deg); position: absolute; top: 5px; }
+  .gantt-detail { display: none; padding: 12px 16px 4px; margin-bottom: 6px; background: var(--lx-gray-bg); border-radius: 8px; }
+  .gantt-detail.open { display: block; }
+
+  .wave-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .wave-btn { font-size: 11.5px; font-weight: 500; padding: 7px 14px; border-radius: 16px; border: 1px solid var(--lx-gray-light); background: white; color: var(--lx-gray); cursor: pointer; font-family: inherit; }
+  .wave-btn.active { background: var(--lx-purple); border-color: var(--lx-purple); color: white; }
+  .wave-panel { display: none; }
+  .wave-panel.active { display: block; }
+  .wave-card { background: white; border: 1px solid #e5e3de; border-radius: 12px; padding: 16px; margin-bottom: 10px; }
+  .wave-card.w1 { border-left: 3px solid var(--lx-orange); }
+  .wave-card.w2 { border-left: 3px solid var(--lx-purple); }
+  .wave-card.w3 { border-left: 3px solid var(--lx-green-dark); }
+  .wave-meta-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
+  @media (min-width: 768px) { .wave-meta-grid { grid-template-columns: repeat(4, 1fr); } }
+  .wave-meta-item { text-align: center; padding: 8px; background: var(--lx-gray-bg); border-radius: 8px; }
+  .wave-meta-item .v { font-size: 16px; font-weight: 700; color: var(--lx-purple); }
+  .wave-meta-item .l { font-size: 10px; color: var(--lx-gray); text-transform: uppercase; margin-top: 2px; letter-spacing: 0.04em; }
+  .step-list { margin-top: 12px; }
+  .step-row { padding: 8px 0; border-bottom: 1px solid var(--lx-gray-bg); display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: start; }
+  .step-row:last-child { border-bottom: none; }
+  .step-num { font-size: 10px; font-weight: 700; color: var(--lx-purple); text-transform: uppercase; letter-spacing: 0.06em; padding-top: 2px; }
+  .step-content { font-size: 12.5px; color: var(--lx-dark); line-height: 1.55; }
+  .step-content strong { display: block; margin-bottom: 3px; }
+  .step-content ul { padding-left: 16px; color: var(--lx-gray); margin-top: 2px; font-size: 12px; }
+  .step-content li { margin-bottom: 2px; }
+  .wave-insight { margin-top: 12px; padding: 10px 12px; background: var(--lx-purple-bg); border-radius: 8px; font-size: 12px; color: var(--lx-dark); line-height: 1.6; }
+  .wave-insight strong { color: var(--lx-purple); }
+
+  .charts-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  @media (min-width: 768px) { .charts-grid { grid-template-columns: 1fr 1fr; } }
+  .chart-card { background: white; border: 1px solid #e5e3de; border-radius: 12px; padding: 16px; }
+  .chart-card h3 { font-size: 13px; font-weight: 600; color: var(--lx-gray); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 12px; }
+  .chart-box { position: relative; height: 240px; }
+  .impact-note { background: white; border: 1px solid #e5e3de; border-left: 3px solid var(--lx-orange); border-radius: 10px; padding: 14px 16px; font-size: 12px; color: var(--lx-gray); line-height: 1.65; margin-top: 14px; }
+  .impact-note strong { color: var(--lx-dark); }
+  .impact-totals { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-top: 14px; }
+  .impact-total-card { background: white; border: 1px solid #e5e3de; border-radius: 10px; padding: 14px; text-align: center; }
+  .impact-total-card .iv { font-size: 22px; font-weight: 700; }
+  .impact-total-card .il { font-size: 11px; color: var(--lx-gray); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; }
+
+  .arch-banner { margin-bottom: 18px; padding: 12px 14px; background: linear-gradient(90deg, var(--lx-purple-bg), #f5f6fc); border-left: 3px solid var(--lx-purple); border-radius: 10px; font-size: 12px; color: var(--lx-dark); line-height: 1.6; }
+  .arch-banner strong { color: var(--lx-purple); }
+  .arch-banner .arch-title { font-weight: 700; color: var(--lx-purple); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+
+  .history-toggle { margin-top: 20px; padding: 12px 16px; background: white; border: 1px solid #e5e3de; border-radius: 10px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 600; color: var(--lx-gray); }
+  .history-toggle:hover { color: var(--lx-purple); }
+  .history-toggle .chev { transition: transform 0.2s; font-size: 16px; color: var(--lx-gray-light); }
+  .history-toggle.open .chev { transform: rotate(90deg); }
+  .history-panel { display: none; padding: 12px 0 24px; }
+  .history-panel.open { display: block; }
+  .hist-item { background: white; border: 1px solid #e5e3de; border-left: 3px solid var(--lx-purple); border-radius: 8px; padding: 10px 12px; margin-bottom: 6px; }
+  .hist-meta { font-size: 11px; color: var(--lx-gray); margin-bottom: 3px; }
+  .hist-change { font-size: 12.5px; font-weight: 500; }
+  .hist-evidence { font-size: 11px; color: var(--lx-gray); margin-top: 4px; font-style: italic; }
+
+  .footer { text-align: center; padding: 20px; font-size: 11px; color: var(--lx-gray); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="container" style="padding-top:0;padding-bottom:0;">
+    <div class="header-top">
+      <div>
+        <h1>Roadmap Automações Controladoria</h1>
+        <div class="sub" id="sub">Logcomex · ao vivo</div>
+      </div>
+      <span class="badge" id="version-badge">v5 · carregando…</span>
+    </div>
+    <div class="hero-stats" id="hero-stats"></div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="refresh-bar">
+    <div class="refresh-info">
+      <span class="dot" id="refresh-dot"></span>
+      <span id="refresh-text">Inicializando…</span>
+      <span class="source-pill" id="src-slack">Slack</span>
+      <span class="source-pill" id="src-gmail">Gmail</span>
+      <span class="source-pill" id="src-claude">Claude</span>
+    </div>
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="downloadHTML()" title="Baixar HTML completo">⬇ HTML</button>
+      <button class="btn-secondary" onclick="downloadPDF()" title="Salvar como PDF (use 'Salvar em PDF' no diálogo)">⬇ PDF</button>
+      <button class="btn-primary" onclick="runSkill()">Atualizar com skill</button>
+    </div>
+  </div>
+
+  <div class="arch-banner">
+    <div class="arch-title">Diretrizes Omie API</div>
+    Toda automação que toca Omie segue: <strong>Web Hooks &gt; endpoints diretos</strong> (otimiza consumo, evita suspensão aleatória) · <strong>somente leitura</strong>, nunca escrita · alinhar projeto com Ana Lyvia <strong>antes</strong> de prod (rastreabilidade da chave única) · janela de execução <strong>19h–7h ou 12h–13h</strong>.
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="overview">Visão Geral</button>
+    <button class="tab-btn" data-tab="timeline">Cronograma</button>
+    <button class="tab-btn" data-tab="detail">Detalhamento</button>
+    <button class="tab-btn" data-tab="impact">Impacto</button>
+    <button class="tab-btn" data-tab="projects">Projetos</button>
+  </div>
+
+  <div class="tab-content active" id="tab-overview"></div>
+  <div class="tab-content" id="tab-timeline"></div>
+  <div class="tab-content" id="tab-detail"></div>
+  <div class="tab-content" id="tab-impact"></div>
+  <div class="tab-content" id="tab-projects"></div>
+
+  <div class="history-toggle" id="history-toggle">
+    <span>Histórico de mudanças (<span id="hist-count">0</span>)</span>
+    <span class="chev">›</span>
+  </div>
+  <div class="history-panel" id="history-panel"></div>
+</div>
+
+<div class="footer">
+  Roadmap Automações Controladoria · Logcomex · <span id="footer-date"></span>
+</div>
+
+<script>
+(function() {
+  const DEFAULT_SNAPSHOT = {
+    version: "v28",
+    lastUpdated: "2026-06-09",
+    projects: [
+      { id:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
+        economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
+        owner:"Ramon / Martin", area:"FP&A", color:"green", updated:false,
+        tagline:"Pipeline automatizado: coleta → processamento Claude → output Board-ready",
+        insightToday:"análise de cohort feita manualmente, consolidando dados de múltiplas fontes pra gerar visão por safra de clientes.",
+        insightFuture:"automação via skills que consolidam fontes e criam o arquivo da Logcomex e da UXCOMEX de forma automatizada.",
+        keywords:["cohort"] },
+      { id:2, name:"Fechamento Gerencial", wave:1, status:"done", statusLabel:"Concluído",
+        economyLabel:"-16h/mês", economyHours:16, goLive:"Abr/26", periodLabel:"Abr/26",
+        owner:"Martin", area:"FP&A", color:"green", updated:false,
+        tagline:"Relatório Contábil × Gerencial + Budget vs. Realizado por CC",
+        insightToday:"FP&A roda macro com base no razão contábil e atualiza arquivo Gerencial e Book através de fórmulas no Excel.",
+        insightFuture:"todos os processos via skills, com granularidade de conferências vs orçamento automatizadas. Meta D+5 atingida.",
+        keywords:["fechamento gerencial","gerencial"] },
+      { id:3, name:"Log US (Internacional)", wave:1, status:"done", statusLabel:"Concluído",
+        economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
+        owner:"Ramon / Maiara", area:"Contabilidade", color:"green", updated:true,
+        tagline:"Conciliação Stripe + Invoice + Citibank via N8N + Claude · 3º mês em prod (mai/26 ✓) · Reunião Automações Log US - contas a receber agendada 15/jun",
+        insightToday:"Maiara fazia manualmente: baixa Stripe CSV, cruza com invoices, categoriza Citibank, monta planilha. 1 dia inteiro por mês.",
+        insightFuture:"DEV finalizado 16/abr (9 blocos, 14 abas, 4 skills). Jan/Fev/Mar validados 100% em comparativo histórico. Validação operacional concluída no fech. abr/26 (08/mai · 412 linhas · Faturamento $147.064,44 · Stripe Coll $76.598,41 · Saldo Citi diff $0,00 ✓). 2 meses operados em prod pela Maiara (mar+abr). Stack Supabase+Omie virou referência arquitetural compartilhada com Carol no projeto de NFs. Aderente às diretrizes Omie (15/abr): leitura, base local Supabase, janela almoço. Ponto de atenção operacional: webhook N8N falha recorrente (erro 500) — fallback Drive MCP. Mesma falha do fech. Jan/26. Fech. Mai/26 entregue por Maiara em 09/jun — 3 meses consecutivos em prod (mar+abr+mai ✓). Reunião 'Automações Log US - contas a receber' agendada 15/jun 11h (Maiara, Eduarda Leme, Poliana Mecenas) — início da automação de AR pós go-live.",
+        keywords:["log us","fechamento internacional","citibank","stripe us"] },
+      { id:4, name:"Lanç. NFs/Invoices", wave:2, status:"prog", statusLabel:"Em Andamento",
+        economyLabel:"-32h/mês", economyHours:32, goLive:"Mai/26", periodLabel:"Abr–Mai",
+        owner:"Carol", area:"Contabilidade", color:"orange", updated:true,
+        tagline:"100% cobertura em operação assistida (1:1 Carol 25/mai) · Margem de exceção 2-3% · Dashboards em dev · Controles novos para despesas antecipadas / adiantamentos a fornecedores",
+        insightToday:"Mateus lança 2 dias por semana + Nicc nos 2 primeiros dias do fechamento. Regras de rateio manuais.",
+        insightFuture:"testes oficiais com APIs em 23/abr (Report Executivo OK). Carol cobrindo Match 100% no fech. de abril (~20h economizadas). Canal de teste com Ramon em 29/abr. Maiara 29/abr: 'no caminho, ainda tem coisas pra arrumar'. 1:1 Maia/Ramon 04/mai: Maiara vai enviar arquivos de input do mês (Poli + extratos) pra Ramon testar a automação no 3º dia útil. Bloqueador NODE_FUNCTION_ALLOW_EXTERNAL=xlsx resolvido. Go-live abr→mai/26. Reunião API Omie 15/abr (Ana Lyvia + Danilo): Carol citada como executora — diretrizes obrigatórias: Web Hooks > endpoints, somente leitura, alinhar projeto com Ana Lyvia antes de prod, janela 12h-14h pra batchs. 1:1 Maia/Ramon 14/mai: Nick + Carol vão automatizar lançamento de NFs e cartões de crédito ainda em maio. Gravidez Maiara cria urgência operacional — transição de processos até setembro/26 com documentação obrigatória dos fluxos críticos. 1:1 PDI Carol/Ramon 15/mai: Carol mantida na contabilidade pra aprofundar conhecimento técnico (CPC); decisão é acelerar automações ANTES da licença da equipe — uso recomendado de IA + Claude Code pra documentar projetos. 1:1 Carol/Ramon 25/mai: automação dos lançamentos financeiros atingiu 100% de cobertura, incluindo casos complexos com rateios que antes consumiam tempo significativo. Processo segue em regime de operação assistida (equipe faz conferências manuais em paralelo pra identificar divergências e padronizar entradas) — meta é definir margem de exceção aceitável (2-3%) em vez de buscar eliminação total. Carol desenvolvendo dashboards pra equipe acompanhar volume de lançamentos e correções. Novos controles implementados para despesas antecipadas e adiantamentos a fornecedores — sistema reconhece valores automaticamente e previne erros de deferimento que ocorreram em períodos anteriores. Carol vai enviar resumo HTML da automação pro Ramon (integrar funcionalidades de memória de base de dados). Planilha de auditoria e provisão será compartilhada com time de contabilidade hoje/amanhã pra validação da estrutura. Mindset: focar no sucesso da automação, tratar falhas como pontos de melhoria pra próxima iteração. Carol vai mapear processos pra criar roadmap unificado (referência: outros projetos). Reunião 'Provisão Contábil Conta Global | Remediar risco não emissão NFs' agendada por Ramon pra 29/mai 10h (Adriano, Evandro, Kamilla, Maiara confirmaram em 28/mai) — workstream paralela pra remediar risco operacional de não emissão de NFs via provisão contábil na Conta Global, antes do início do fechamento de mai/26. Reunião 'Atualizações automações fornecedores' 28/mai (Carol, Kamilla, Thaiane) definiu padronização documental obrigatória: campo de observação no OMIE deve constar 'NF' ou 'invoice' (nunca 'Danfe'/recibo/fatura), pré-requisito pra automação identificar o documento e eliminar correções manuais; divergências centralizadas em planilha compartilhada com monitoramento semanal; OME mantido como fonte única de CC; pagamentos passam a exigir documento fiscal completo (preparação NetSuite). Carol vai implementar trava de conformidade no robô — valida nº do documento + CNPJ do pipe contra os dados da Qive antes de aceitar o lançamento. Desvio de entendimento corrigido (02/jun): Kami e Thai chegaram a recusar pipes com DANFE achando que não era documento fiscal; Maiara realinhou com o time e formalizou por e-mail (Thaynara 02/jun — 'Alinhamento - Tipo de documentos'). Pós-fechamento, Maiara desenhando com Carol uma apresentação do que o robô está capturando e onde dá pra melhorar — preparo direto pro NetSuite. Reunião 'Automação Pagamentos' 02/jun (Gemini notes): funcionalidades críticas e dashboards integrados ao fluxo; limitações API NetSuite exigem ajustes no processamento; Ramon redesenha fluxo da automação; Adriano elabora planilha de referência para auditoria comparativa (09/jun). Foco: estabilizar processos antes de expandir para outras áreas. Sinal de reestruturação de equipe por gaps de senioridade.",
+        keywords:["nf","nfs","invoice","invoices","ome"] },
+      { id:5, name:"Fechamento Contábil", wave:3, status:"prog", statusLabel:"Em Andamento",
+        economyLabel:"-40h/mês", economyHours:40, goLive:"Ago/26", periodLabel:"Abr–Ago",
+        owner:"Maiara", area:"Contabilidade", color:"orange", updated:true,
+        tagline:"Quebrar em entregáveis menores · ECD permanece no Domínio · Arquitetura alvo NetSuite (HubSpot→fech. gerencial) desenhada · Escalonamento Oracle formalizado · Oracle: reunião semana 16/jun confirmada (09/jun) · Adriano formaliza bloqueio: sem op. assistida antes dos 4 pontos",
+        insightToday:"controle manual por e-mail e planilha descentralizada. Time todo nos primeiros 4 dias úteis revisando e lançando. GUT 80 — maior score do projeto.",
+        insightFuture:"Estratégia: quebrar o fechamento contábil em entregáveis de automação menores pra colher os frutos antes — não tratar como uma coisa só. Foco inicial em 5 frentes paralelas: (A) Bancos — conciliação extrato vs lançamento; (B) Faturamento — integração Omie → Domínio com regras de competência; (C) Folha vs Balanço — bater INSS/FGTS/13º/férias com provisões; (D) Provisões — bônus, férias, contingências, encargos; (E) Despesas Antecipadas — cronograma de amortização e baixa automática. Cada frente roda como mini-automação independente. NetSuite cobrirá faturamento + AR; Domínio mantido pras declarações fiscais (complexidade tributária BR). Receita diferida: decisão tomada em 14/mai — Looker mantido (não desenvolver no NetSuite). Reunião Oracle Arquivei × Pipefy 14/mai consolidou premissas: OME segue ativo por +1 semestre, pedidos de compra obrigatórios para itens não recorrentes, data de corte mensal fixa. Aplica diretrizes Omie API. 1:1 PDI Carol/Ramon 15/mai: Carol vai (a) mensurar volumetria contábil pra identificar oportunidades de automação, (b) revisar arquitetura NetSuite atual × futura e mandar feedback sobre viabilidade das integrações, (c) acelerar fluxos antes da licença Maiara. Reunião Oracle Netsuite × Project Dome 15/mai (notas Gemini): Project Dome alegou incapacidade técnica para entregar obrigações fiscais (CPRB, Lalur, ECF) — decisão de escalar diretamente para Oracle (Adriano contatará via Mônica) ao invés de assumir responsabilidades técnicas do fornecedor. Adriano revisará cláusulas contratuais Project Dome pra identificar responsabilidades. Danilo solicitará aprovação da receita diferida durante a renovação contratual (reforça decisão 14/mai). Maiara incluirá Ramon nos convites das reuniões de checkpoint. Arquitetura confirmada: middleware centralizando controle contábil no NetSuite (alinhada às diretrizes Omie API 15/abr). Primeiros testes em fech. mai/jun (go-live mai→jun/26). Email Adriano 18/mai (Eliane Albano + Mônica Espindula em cc) formaliza por escrito o escalonamento Oracle Tributário — CPRB, Lalur, ECF e Receita Diferida listados como urgentes, pedido de reunião com equipe tributária Oracle 'asap'. Sem resposta da Oracle até 21/mai (Adriano em pressing). Reversão arquitetural confirmada no mesmo email: ECD permanece no Domínio (ECF depende de ECD e NetSuite não gera ECF completa) → arquitetura final fica com 3 sistemas contábeis em paralelo (Domínio + NetSuite + Looker). Reforça que Receita Diferida continua no Looker (Project Dome alegou ausência de base histórica). 1:1 Carol/Ramon 25/mai: Ramon desenhou arquitetura ALVO do NetSuite pra sanar lacunas de processos — mapeamento do fluxo conectando HubSpot → fechamento gerencial, em discussão com especialistas Oracle. Esse mapa serve como modelo de padronização e pode orientar a estruturação de outros processos da Controladoria. Ramon vai enviar pra Carol o roadmap atualizado + fluxos da arquitetura NetSuite + orientações sobre PG Vector e memória de decisões. Email Raphael (Project Dome) 28/mai 17h21 pra Filipe/Vitor (Project Dome) cc Ágata/Danilo/Maiara/Adriano: documentação formal da Receita Diferida com descritivo dos campos da tabela principal do cálculo (já com fórmulas) — formaliza entrega da frente após decisão 14/mai de manter Looker e reforço Adriano 18/mai. Reunião Oracle 'devolutiva dúvidas' agendada pra 03/jun 11h (Adriano + Maiara + Thaynara + Eduarda + Danilo + equipe Oracle/Project Dome) pra responder pontos pendentes do escalonamento tributário. Oracle Tributário respondeu ao escalonamento em 08/jun (Eliane Albano + Jean Carlos Ferreira Oracle, cc Adriano/Maiara/Thaynara/Eduarda/Danilo/Ana Rocha + Vitor/Filipe Project Dome): devolutiva urgente com 4 pontos — (1) CPRB: NetSuite não calcula nativamente; (2) LALUR/LACS: sem eles não há como apurar IRPJ/CSLL; (3) ECF: NetSuite não gera ECF completa; (4) Receita Diferida: sem base histórica, 3 sistemas em paralelo (Domínio+NetSuite+Looker) confirmados. Oracle confirmou reunião semana 16/jun (09/jun — email Eliane Albano). Adriano formalizou bloqueio: Logcomex não avança para operação assistida sem resolução dos 4 pontos tributários (CPRB, LALUR/LACS, ECF, Receita Diferida); aguarda ≥22/jun para nova data. Nicc avançou automação do razão contábil: enviou formato correto a Martin em 09/jun.",
+        keywords:["fechamento contábil","fechamento contabil"] },
+      { id:6, name:"Zapier × Pipefy", wave:2, status:"prog", statusLabel:"Em Andamento",
+        economyLabel:"A mapear", economyHours:0, goLive:"Jun/26", periodLabel:"Abr–Jun",
+        owner:"Nicc", area:"Contabilidade", color:"orange", updated:false,
+        tagline:"Robô cruza cards Pipefy CP × Budget · Categorias e CC do orçamento · Reunião Oracle 14/mai redefiniu escopo",
+        insightToday:"robô já identifica casos relevantes na abertura de cards no Pipefy. Revisão de cadastro de categorias em andamento.",
+        insightFuture:"Nicc voltou de férias 30/abr. Reunião QIVE × Pipefy 30/abr 16h. Reunião Oracle Arquivei × Pipefy 14/mai redefiniu escopo: pedidos de compra obrigatórios para itens não recorrentes, data de corte mensal fixa, custos extras do integrador rejeitados, nova reunião com Oracle (Duda, Maceno, Tai) vai validar limitações técnicas alegadas pelo integrador. Definição de fluxo pra novos fornecedores e etiquetas automáticas em discussão. Diretrizes Omie API (15/abr): janela 12h-14h pra batchs (Omie suspende API aleatoriamente quando excede), alinhar consumo com Ana Lyvia antes de prod.",
+        keywords:["zapier","pipefy"] },
+      { id:8, name:"Obrigações Fiscais", wave:3, status:"prog", statusLabel:"Em Andamento",
+        economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
+        owner:"Tai", area:"Contabilidade", color:"orange", updated:false,
+        tagline:"Calendário fiscal com alertas · Escalonamento Oracle formalizado por email 18/mai (CPRB+Lalur+ECF)",
+        insightToday:"cálculos fiscais (RCS) manuais no Excel. Erro já detectado pela auditoria. 1 dia de fechamento + 2-3 dias pós-fechamento.",
+        insightFuture:"calendário fiscal automático com alertas de vencimento, cálculos automatizados, redução do risco de erro humano. Mapeamento já iniciado pela Tai. 1:1 Maia/Ramon 04/mai: manter no Domínio — complexidade tributária brasileira não comporta NetSuite. Tai vai atualizar status e enviar bullet points pro Ramon. Diretrizes Omie API (15/abr) aplicam-se aos consumos auxiliares (Web Hooks, leitura, janela almoço). Reunião Oracle Netsuite × Project Dome 15/mai (notas Gemini): CPRB, Lalur e ECF identificados como obrigações que Project Dome alegou não conseguir entregar — Adriano vai contatar Oracle diretamente pra esclarecer lacunas, solicitar informações sobre arquitetura e funcionalidades nativas, e agendar reunião urgente com equipe tributária Oracle no início da semana via briefing da representante Mônica. Decisão estratégica: não assumir responsabilidades técnicas do fornecedor — escalar estruturalmente. Adriano também esclarecerá grupo sobre recusa do pagamento de taxas comerciais que já estavam no escopo original. Email Adriano 18/mai (Eliane Albano + Mônica em cc) formaliza por escrito o escalonamento — CPRB, Lalur, ECF e Receita Diferida listados como urgentes, pedido de reunião com equipe tributária Oracle 'asap'. Sem resposta da Oracle até 21/mai.",
+        keywords:["obrigações fiscais","sped","darf","cprb","lalur","ecf"] },
+      { id:9, name:"Conc. e Alertas Fornecedor", wave:3, status:"prog", statusLabel:"Em Andamento",
+        economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
+        owner:"Nicc", area:"Contabilidade", color:"orange", updated:false,
+        tagline:"Merge de Alertas + Conc. Fornecedor · Automação Claude + arquivo .md",
+        insightToday:"Mateus faz compilado manual a cada 15 dias (~8h/semana). Limpeza manual do razão e nomes de fornecedores batidos individualmente.",
+        insightFuture:"Projetos #9 e #10 mesclados — mesma stack, mesmo owner. Arquitetura: automação Claude consumindo arquivo .md como fonte de truth. Nicc owner. Arquivei identifica fornecedores recorrentes, N8N gera alerta no Slack, cobra abertura de pipe dentro da competência. Conciliação automática com dados do ERP, apontando diferenças sem trabalho manual. Prioridade máxima da Onda 3 (1:1 Maia/Ramon 04/mai).",
+        keywords:["alertas fornecedor","conciliação fornecedor","conc fornecedor"] },
+      { id:11, name:"Conc. Balanço", wave:3, status:"plan", statusLabel:"Planejado",
+        economyLabel:"-20h/mês", economyHours:20, goLive:"Jul/26", periodLabel:"Mai–Jul",
+        owner:"A definir", area:"Contabilidade", color:"gray", updated:false,
+        tagline:"Prioridade Onda 3 · -20h/mês (recalibrado 15/mai)",
+        insightToday:"1 semana do Nicc + 1 semana da Tha. Todas as contas com relatório comprovando saldo. Time não chega a 50% do que deveria conciliar.",
+        insightFuture:"1:1 Maia/Ramon 04/mai: bloco de fornecedores/balanço foi definido como prioridade da Onda 3 pra ganho de eficiência. Busca automática de informações, eliminando o gargalo manual. Recalibração de economia 15/mai: -20h/mês (revisado por Ramon — esforço operacional mensal recorrente, não só ganho anual concentrado).",
+        keywords:["conciliação balanço","balanço"] },
+      { id:13, name:"Base Fornecedores", wave:2, status:"prog", statusLabel:"Em Andamento",
+        economyLabel:"-12h/mês", economyHours:12, goLive:"Jun/26", periodLabel:"Mai–Jun",
+        owner:"Martin (co: Nicc)", area:"Contabilidade", color:"orange", updated:true,
+        tagline:"712 fornecedores cadastrados · 92% das NFs extraídas · Classificação por departamento · API Receita Federal conectada · Parsing XML (NF-e + NFS-e) via API Qive · Lovable Front End pro Contas · Carol absorve frente memória de decisões (PG Vector)",
+        insightToday:"informações de fornecedores fragmentadas em planilhas, Pipefy, Omie e Arquivei — sem source of truth única. Construção de planilha de controle de fornecedores por CC ainda incompleta (Facilities pendente).",
+        insightFuture:"nova automação derivada da reunião API Omie 15/abr — Base Fornecedores como source of truth única. Martin owner, Nicc co-owner. Início mai/26, conclusão jun/26. Alimentará #9 (Conc. e Alertas Fornecedor) e dá visibilidade transversal aos demais projetos da Onda 3. Economia mapeada: -12h/mês. Kickoff operacional 19/mai (#projeto-base-unica-de-fornecedores): Nicc valida API e integração Arquivei nesta semana, Martin extrai lista atual de fornecedores e categoriza. Cadência de update toda sexta-feira no canal (proposta Nicc, vinculada às semanais). Reunião com Ramon + Maiara agendada semana de 25/mai (antes das rotinas de fechamento começarem). Stack ampliada 21/mai (insight Ramon): além de Supabase + n8n, adiciona pgvector + Hugging Face (free) pra fazer match semântico via embeddings — resolve casos como 'AWS LLC' ≡ 'Amazon Web Services Inc' ≡ 'AWS Brasil' que hoje viram 3 fornecedores diferentes na importação. O sistema sugere merge antes de criar duplicata e vira memória persistente do agente IA (melhora com o tempo, opera sobre a base de dados em vez de skill estática). Zero custo recorrente, zero plataforma nova. Martin (21/mai): vai substituir o fuzzy matching que criou na skill de Orçado vs Realizado. Update Nicc 22/mai (#projeto-base-unica-de-fornecedores 17:11): (1) tabela principal estruturada com colunas de auditoria interna + dados cadastrais + estratégicos; (2) Martin criou base auxiliar com CC + categoria — será enriquecida na base mãe Supabase após automação 100%; (3) primeiro contato com API da Receita Federal feito (dados cadastrais/situacionais apenas); (4) XMLs sendo capturados via API Qive em Base64 — Nicc trabalhando no parsing pra NF-e e NFS-e (necessário pra ter valores de NF e datas de emissão, dando rastreabilidade completa do fornecedor). Update Martin 22/mai 17:16: nova frente derivada — Lovable Front End para o Contas (Contabilidade), conectado à base, pra facilitar busca de fornecedores e batimento (Categoria, Departamento, valor histórico) → reduz trabalho do Contas/Contabilidade. 1:1 Carol/Ramon 25/mai: Carol vai absorver a frente de 'memória de decisões' via PG Vector + N8N + Supabase — armazenar contexto das decisões (padronização de nomes de fornecedores) pra automação aprender com casos passados em vez de reprocessar. Ramon vai enviar materiais (roadmap + arquitetura NetSuite + orientações PG Vector). Reunião 'Atualizações automações fornecedores' 28/mai (Gemini notes enviadas) + reunião 'Projeto Base Única - Fornecedores - Update' 28/mai 18h50 (Gemini notes) confirmam cadência semanal de update funcionando conforme proposta Nicc (19/mai). Update 28/mai (Gemini notes 'Projeto Base Única - Fornecedores - Update'): base atingiu 712 fornecedores cadastrados com 92% das NFs extraídas (automação diária garante cobertura das informações oficiais); decisão de priorizar classificação por departamento em vez de centro de custo (maior estabilidade da estrutura de dados); foco em estruturar os dados pra implementação do NetSuite. Próximas etapas: Carol/Nicc/Martin reconciliam as bases construídas individualmente pra evitar duplicação, Nicc cruza a base do projeto × base da contabilidade, grupo envia modelo completo de cadastro pro time NetSuite, valida igualdade de CNPJ entre o sistema da equipe × automação da Carol, e integra histórico desde 2022 pra análises orçamentárias. Reunião de acompanhamento pós-fechamento agendada pra 15-16/jun (Nicc, Maiara, Martin, Carol).",
+        keywords:["base fornecedores","fornecedor base"] },
+      { id:12, name:"DF Auditoria (mensal)", wave:3, status:"plan", statusLabel:"Discovery (próx.)",
+        economyLabel:"~80h/ano", economyHours:7, goLive:"Ago/26", periodLabel:"Mai–Ago",
+        owner:"Maiara", area:"Contabilidade", color:"gray", updated:false,
+        tagline:"DF anual virando processo mensal · Pré-balance contínuo com KPMG",
+        insightToday:"DF anual montada manualmente entre jan-fev — planilha-mãe de 42 abas + Word de 707 parágrafos / 54 tabelas, consolidando BR + Log US + UXComex. 5+ ciclos de revisão (Yuri, Almir, KPMG). Erros só aparecem na auditoria (passivos omissos, falhas de competência, divergências de PPA, dividendos no PL).",
+        insightFuture:"5 fases (mai-ago): (01) Discovery & De-Para Balancete Base; (02) MVP BP/DRE/DFC mensais via N8N + Omie API; (03) V1 com 28 notas explicativas numéricas; (04) V2 templating Word KPMG via Cowork skill; (05) V3 go-live e estabilização — DF mensal completa em <4h. Antecipa erros, pré-balance contínuo com KPMG, libera Maiara em jan-fev. Stack DF segue diretrizes Omie API (15/abr): leitura via Web Hooks, base local Supabase/RDS, janela 12h-14h, evolução pra NetSuite em 2027.",
+        keywords:["df auditoria","kpmg","balancete","dre","dfc","auditoria","yuri","almir","notas explicativas"] },
+    ]
+  };
+
+
+  const KEY_SNAP = "roadmap_snapshot_v1";
+  const KEY_HIST = "roadmap_history_v1";
+  const KEY_CACHE = "slack_cache_v1";
+  const memStore = {};
+  const store = {
+    get(k, fb) { try { if (window.storage && typeof window.storage.get === "function") { const v = window.storage.get(k); return (v === undefined || v === null) ? fb : v; } } catch(e) {} return memStore[k] !== undefined ? memStore[k] : fb; },
+    set(k, v) { try { if (window.storage && typeof window.storage.set === "function") { window.storage.set(k, v); return; } } catch(e) {} memStore[k] = v; }
+  };
+
+  let snapshot = store.get(KEY_SNAP, DEFAULT_SNAPSHOT);
+  if (!snapshot || snapshot.version !== DEFAULT_SNAPSHOT.version) {
+    snapshot = DEFAULT_SNAPSHOT;
+    store.set(KEY_SNAP, snapshot);
+  }
+
+  let history = store.get(KEY_HIST, []);
+  const seedKey = "seed_2026-05-04";
+  if (!store.get(seedKey)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-05-04", projectId:4, field:"status", from:"Go-live sem. que vem", to:"Em Andamento",
+        evidence:"Maiara 29/abr: 'no caminho, ainda tem coisas pra arrumar'. Carol cobrindo Match 100% no fech. de abr." },
+      { date:"2026-05-04", projectId:4, field:"go-live", from:"Abr/26", to:"Mai/26",
+        evidence:"DM Carol 23/abr + DM Maiara 29-30/abr." },
+      { date:"2026-05-04", projectId:5, field:"go-live", from:"Mai/26", to:"Jun/26",
+        evidence:"Maiara 29/abr: fluxo CP detalhado por Maia + Thay + Carol; primeiros testes em mai/jun." },
+      { date:"2026-05-04", projectId:6, field:"blocker", from:"—", to:"Bug Trem×Domínio (CC não sobe)",
+        evidence:"Maiara 30/abr: erro no Trem começou esse mês. Chamado Ana Lyvia + Ronaldo. Bloqueia 24% / R$ 150k docs fech. abr." },
+      { date:"2026-05-04", projectId:3, field:"descrição", from:"—", to:"Stack Supabase+Omie virou referência arquitetural pra Carol",
+        evidence:"DM Carol 23/abr 21:18-21:19." },
+    ]));
+    store.set(seedKey, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey2 = "seed_2026-05-04-economy-fix";
+  if (!store.get(seedKey2)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-05-04", projectId:1, field:"economia", from:"Entregue (0h)", to:"-8h/mês",
+        evidence:"Ajuste manual Ramon: Cohort entrega 8h/mês economizadas em produção." },
+      { date:"2026-05-04", projectId:2, field:"economia", from:"-32h/mês", to:"-16h/mês",
+        evidence:"Ajuste manual Ramon: Fechamento Gerencial recalibrado para 16h/mês." },
+    ]));
+    store.set(seedKey2, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey4 = "seed_2026-05-04-feedback-ramon";
+  if (!store.get(seedKey4)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-05-04", projectId:3, field:"status", from:"Concluído (DEV)", to:"Em Validação",
+        evidence:"Ramon 04/mai: Log US ainda não está concluído, será validado no fechamento de mai/26." },
+      { date:"2026-05-04", projectId:4, field:"blocker", from:"—", to:"Bug Trem×Domínio (movido do #6)",
+        evidence:"Ramon 04/mai: o bloqueio é no projeto de NFs/Invoices, não no Zapier×Pipefy." },
+      { date:"2026-05-04", projectId:6, field:"blocker", from:"Bug Trem×Domínio", to:"—",
+        evidence:"Ramon 04/mai: bloqueio realocado pro #4 NFs/Invoices." },
+      { date:"2026-05-04", projectId:7, field:"existência", from:"No roadmap", to:"Removido (é projeto, não automação)",
+        evidence:"Ramon 04/mai: Forecast ARR Bottoms-Up sai do roadmap de automações." },
+      { date:"2026-05-04", projectId:8, field:"status", from:"Planejado", to:"Em Andamento (mapeamento iniciado)",
+        evidence:"Ramon 04/mai: mapeamento de Obrigações Fiscais já iniciado pela Tai." },
+      { date:"2026-05-04", projectId:12, field:"existência", from:"—", to:"Adicionado ao roadmap",
+        evidence:"DF Auditoria mensal — projeto de 5 fases (mai-ago) pra transformar a DF anual KPMG num processo mensal. Conforme HTML detalhado." },
+    ]));
+    store.set(seedKey4, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey3 = "seed_2026-05-04-1on1-maiara";
+  if (!store.get(seedKey3)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-05-04", projectId:5, field:"escopo", from:"Bloco único", to:"Fragmentado em projetos menores",
+        evidence:"1:1 Maia/Ramon 04/mai (notas Gemini): escopo do fechamento contábil será fragmentado pra melhor acompanhamento." },
+      { date:"2026-05-04", projectId:5, field:"arquitetura", from:"—", to:"NetSuite (faturamento + AR) + Domínio (declarações fiscais)",
+        evidence:"1:1 Maia/Ramon 04/mai: NetSuite focará apenas em faturamento + AR; Domínio mantido pras declarações fiscais (complexidade tributária BR)." },
+      { date:"2026-05-04", projectId:5, field:"decisão pendente", from:"—", to:"Receita diferida: NetSuite ou Looker (Adriano define no retorno)",
+        evidence:"1:1 Maia/Ramon 04/mai: Maia vai conversar com Adriano." },
+      { date:"2026-05-04", projectId:8, field:"plataforma", from:"A definir", to:"Domínio (manter)",
+        evidence:"1:1 Maia/Ramon 04/mai: complexidade tributária BR não comporta NetSuite." },
+      { date:"2026-05-04", projectId:9, field:"prioridade", from:"Planejado", to:"Prioridade máxima da Onda 3",
+        evidence:"1:1 Maia/Ramon 04/mai: bloco de fornecedores foi definido como prioridade máxima pra ganho de eficiência." },
+      { date:"2026-05-04", projectId:10, field:"prioridade", from:"Planejado", to:"Prioridade máxima da Onda 3",
+        evidence:"1:1 Maia/Ramon 04/mai: bloco de fornecedores foi definido como prioridade máxima pra ganho de eficiência." },
+      { date:"2026-05-04", projectId:11, field:"prioridade", from:"Planejado", to:"Prioridade máxima da Onda 3",
+        evidence:"1:1 Maia/Ramon 04/mai: bloco de fornecedores/balanço foi definido como prioridade máxima pra ganho de eficiência." },
+      { date:"2026-05-04", projectId:4, field:"validação", from:"—", to:"Maiara enviará inputs do mês (Poli + extratos) pra teste no 3º dia útil",
+        evidence:"1:1 Maia/Ramon 04/mai: validação ao vivo no 3º dia útil de mai." },
+    ]));
+    store.set(seedKey3, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey6 = "seed_2026-05-06-merge-fornecedores-base";
+  if (!store.get(seedKey6)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-05-06", projectId:9, field:"escopo", from:"Alertas Fornecedor (isolado)", to:"Conc. e Alertas Fornecedor (#9 merged com #10)",
+        evidence:"Decisão Ramon 06/mai: merge #9 e #10 — mesma stack, mesmo owner, mesma arquitetura Claude + .md." },
+      { date:"2026-05-06", projectId:10, field:"existência", from:"No roadmap", to:"Mesclado em #9",
+        evidence:"Decisão Ramon 06/mai." },
+      { date:"2026-05-06", projectId:13, field:"existência", from:"—", to:"Adicionado ao roadmap (NOVO)",
+        evidence:"Base Fornecedores como source of truth — Martin owner, Nicc co-owner. Derivada da reunião API Omie 15/abr." },
+    ]));
+    store.set(seedKey6, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey5 = "seed_2026-05-06-omie-api-meeting";
+  if (!store.get(seedKey5)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-05-06", projectId:4, field:"diretrizes", from:"—", to:"Web Hooks, leitura, janela 12h-14h, alinhar Ana Lyvia",
+        evidence:"Reunião API Omie 15/abr (Ana Lyvia + Danilo)." },
+      { date:"2026-05-06", projectId:5, field:"diretrizes", from:"—", to:"Web Hooks, leitura, janela almoço",
+        evidence:"Reunião API Omie 15/abr." },
+      { date:"2026-05-06", projectId:6, field:"diretrizes", from:"—", to:"Web Hooks, janela 12h-14h, alinhar Ana Lyvia",
+        evidence:"Reunião API Omie 15/abr." },
+      { date:"2026-05-06", projectId:8, field:"diretrizes", from:"—", to:"Web Hooks aux, janela almoço",
+        evidence:"Reunião API Omie 15/abr." },
+      { date:"2026-05-06", projectId:12, field:"diretrizes", from:"—", to:"Leitura Web Hooks, base local Supabase/RDS, janela 12h-14h",
+        evidence:"Reunião API Omie 15/abr." },
+    ]));
+    store.set(seedKey5, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey7 = "seed_2026-05-07-economy-recalibration";
+  if (!store.get(seedKey7)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-05-07", projectId:11, field:"economia", from:"-8h/mês", to:"~80h/ano (recorrência baixa)",
+        evidence:"Decisão Ramon 07/mai: Conc. Balanço tem ganho anual concentrado, não mensal recorrente." },
+      { date:"2026-05-07", projectId:12, field:"economia", from:"—", to:"~80h/ano",
+        evidence:"Decisão Ramon 07/mai: DF Auditoria mensal entrega ~80h/ano (ganho qualitativo)." },
+    ]));
+    store.set(seedKey7, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey8 = "seed_2026-05-07-fech-contabil-quebra";
+  if (!store.get(seedKey8)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-05-07", projectId:5, field:"frentes paralelas", from:"Bloco único", to:"5 frentes: Bancos · Faturamento · Folha vs Balanço · Provisões · Despesas Antecipadas",
+        evidence:"Decisão Ramon 07/mai: fragmentar pra colher frutos antes do go-live total." },
+    ]));
+    store.set(seedKey8, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey9 = "seed_2026-05-11-log-us-concluido";
+  if (!store.get(seedKey9)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-05-11", projectId:3, field:"status", from:"Em Validação", to:"Concluído",
+        evidence:"Fech. Abr/26 operado em prod pela Maiara em 08/mai (412 linhas, Faturamento $147.064,44, Stripe Coll $76.598,41, Saldo Citi diff $0,00 ✓). 2 meses operados em prod (mar+abr). Decisão Ramon 11/mai: go-live efetivo." },
+      { date:"2026-05-11", projectId:3, field:"go-live", from:"Mai/26", to:"Abr/26",
+        evidence:"Go-live efetivo aconteceu no fech. de abril/26 (operado pela Maiara em prod, validado em 08/mai)." },
+      { date:"2026-05-11", projectId:3, field:"ponto de atenção", from:"—", to:"Webhook N8N falha recorrente (erro 500) — fallback Drive MCP",
+        evidence:"Slack #cowork-log-us-automacao 08/mai 16:29: 'Webhook N8N falhou (erro 500), upload feito direto via Drive MCP'. Mesma falha do fech. Jan/26." },
+    ]));
+    store.set(seedKey9, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey10 = "seed_2026-05-14-oracle-pipefy-1on1-maiara";
+  if (!store.get(seedKey10)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-05-14", projectId:5, field:"decisão receita diferida", from:"Pendente (NetSuite ou Looker)", to:"Looker (mantido, não desenvolver no NetSuite)",
+        evidence:"Reunião Oracle Arquivei × Pipefy 14/mai (notas Gemini): Maiara comunicará decisão ao Felipe — usar API para Looker em vez de dev no NetSuite." },
+      { date:"2026-05-14", projectId:5, field:"OME", from:"—", to:"Permanece ativo por +1 semestre",
+        evidence:"Reunião Oracle Arquivei × Pipefy 14/mai: sistema OME seguirá ativo durante 1 semestre." },
+      { date:"2026-05-14", projectId:6, field:"escopo Pipefy/CP", from:"—", to:"Pedido de compra obrigatório para itens não recorrentes + data de corte mensal fixa",
+        evidence:"Reunião Oracle Arquivei × Pipefy 14/mai: implementação imediata. Adriano valida workflow com Vinicius e Vittor." },
+      { date:"2026-05-14", projectId:6, field:"integrador Oracle", from:"—", to:"Custos extras rejeitados; nova reunião com Oracle (Duda, Maceno, Tai) vai validar limitações alegadas",
+        evidence:"Reunião Oracle Arquivei × Pipefy 14/mai: grupo listará limitações apontadas pelo integrador no NetSuite." },
+      { date:"2026-05-14", projectId:4, field:"execução", from:"—", to:"Nick + Carol vão automatizar lançamento de NFs e cartões de crédito ainda em maio",
+        evidence:"1:1 Maiara/Ramon 14/mai (notas Gemini): Maiara ajustará fluxo de notas + automatização de lançamentos delegada para Nick e Carol." },
+      { date:"2026-05-14", projectId:4, field:"urgência transição", from:"—", to:"Gravidez Maiara — transição até setembro/26 com documentação obrigatória",
+        evidence:"1:1 Maiara/Ramon 14/mai: gestação confirmada — antecipar planejamento, documentar processos críticos, automação prioritária." },
+    ]));
+    store.set(seedKey10, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey11 = "seed_2026-05-15-pdi-carol-lcc";
+  if (!store.get(seedKey11)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-05-15", projectId:4, field:"alocação Carol", from:"—", to:"Mantida na contabilidade — acelerar automações antes da licença Maiara",
+        evidence:"1:1 PDI Carol/Ramon 15/mai (notas Gemini): decisão estratégica manteve Carol alocada na contabilidade pra aprofundar conhecimento técnico (CPC); foco principal é acelerar automações." },
+      { date:"2026-05-15", projectId:5, field:"frentes Carol", from:"—", to:"(a) Mensurar volumetria contábil · (b) Revisar arquitetura NetSuite atual × futura · (c) Acelerar fluxos antes da licença Maiara",
+        evidence:"1:1 PDI Carol/Ramon 15/mai: Carol vai mensurar volumetria pra identificar oportunidades de automação + analisar viabilidade das integrações NetSuite." },
+      { date:"2026-05-15", projectId:0, field:"card J (Aprov. Pagamentos)", from:"Card temporário em Projetos", to:"Removido — Ramon: é projeto separado, não entra no roadmap",
+        evidence:"Decisão Ramon 15/mai: Automação Aprovação Pagamentos é projeto separado do roadmap de automações da Controladoria." },
+      { date:"2026-05-15", projectId:0, field:"card I (LCC)", from:"Placeholder sem contexto", to:"Locomped Consultant Program — vendas indiretas via despachantes · 30/20/10% comissão · lançamento jun/26",
+        evidence:"Reunião 'Programa LCC - Finance' 14/mai + 1:1 PDI Carol/Ramon 15/mai. Frentes Ramon: CPC 47, tributação, riscos contábeis, validação fiscal com Tainara." },
+    ]));
+    store.set(seedKey11, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey12 = "seed_2026-05-15-conc-balanco-economy";
+  if (!store.get(seedKey12)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-05-15", projectId:11, field:"economia", from:"~80h/ano (recorrência baixa)", to:"-20h/mês",
+        evidence:"Recalibração Ramon 15/mai: Conc. Balanço passa a contar como -20h/mês recorrente (esforço operacional mensal, não só ganho anual concentrado)." },
+    ]));
+    store.set(seedKey12, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey14 = "seed_2026-05-18-blocker-4-removido";
+  if (!store.get(seedKey14)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-05-18", projectId:4, field:"blocker", from:"Bug Trem×Domínio (CC não sobe pra Domínio)", to:"Removido — contornado pela própria automação",
+        evidence:"Decisão Ramon 18/mai: bug Trem×Domínio já está sendo contornado pela automação de lançamento de NFs (Nick + Carol), não bloqueia mais o roadmap. Status do projeto segue Em Andamento sem flag de bloqueio." },
+    ]));
+    store.set(seedKey14, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey13 = "seed_2026-05-18-oracle-netsuite-project-dome";
+  if (!store.get(seedKey13)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-05-18", projectId:8, field:"escalonamento Oracle", from:"—", to:"CPRB/Lalur/ECF — escalar diretamente para Oracle (Adriano via Mônica)",
+        evidence:"Reunião Oracle Netsuite × Project Dome 15/mai (notas Gemini): Project Dome alegou incapacidade técnica para entregar CPRB, Lalur e ECF. Adriano vai contatar Oracle, agendar reunião urgente com equipe tributária via briefing Mônica, e revisar cláusulas contratuais Project Dome." },
+      { date:"2026-05-18", projectId:5, field:"escalonamento Oracle", from:"—", to:"Project Dome questionada — middleware NetSuite confirmado",
+        evidence:"Reunião Oracle Netsuite × Project Dome 15/mai: arquitetura nova centraliza controle contábil no NetSuite com integração via middleware, evitando dependência de terceiros. Danilo solicitará aprovação da receita diferida durante a renovação contratual (reforça decisão 14/mai). Maiara incluirá Ramon nos convites das reuniões de checkpoint." },
+      { date:"2026-05-18", projectId:5, field:"contrato Project Dome", from:"—", to:"Revisar cláusulas — identificar responsabilidades de entrega + recusa de pagamento de taxas comerciais",
+        evidence:"Reunião Oracle Netsuite × Project Dome 15/mai: Adriano vai analisar cláusulas contratuais Project Dome (responsabilidades de entrega + obrigações fiscais) e esclarecer grupo sobre recusa do pagamento de taxas comerciais que já estavam no escopo original." },
+    ]));
+    store.set(seedKey13, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey15 = "seed_2026-05-21-v19";
+  if (!store.get(seedKey15)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-05-21", projectId:13, field:"kickoff", from:"—", to:"Kickoff operacional 19/mai · Nicc API Arquivei · Martin lista+categorização · weekly sexta",
+        evidence:"Slack #projeto-base-unica-de-fornecedores 19/mai (Martin Guesser): 'Ontem Nicc e eu demos start no projeto Base Fornecedor e formulamos um roadmap do projeto e próximos passos.'" },
+      { date:"2026-05-21", projectId:13, field:"stack", from:"Supabase + n8n", to:"+ pgvector + Hugging Face (match semântico, memória do agente IA)",
+        evidence:"Slack #projeto-base-unica-de-fornecedores 21/mai 10:27 (Ramon): pgvector dentro do Supabase pra match semântico via embeddings — resolve 'AWS LLC ≡ Amazon Web Services Inc ≡ AWS Brasil'. Zero custo recorrente." },
+      { date:"2026-05-21", projectId:13, field:"reunião", from:"—", to:"Ramon + Maia + Martin + Nicc agendada semana 25/mai (antes do fechamento)",
+        evidence:"Slack #projeto-base-unica-de-fornecedores 19/mai 09:46 (Ramon): 'mandem as updates aqui e já marquem comigo e Maia semana que vem. Vamos falar antes das rotinas de fechamento começarem.'" },
+      { date:"2026-05-21", projectId:5, field:"escalonamento Oracle", from:"Informal via Mônica (15/mai)", to:"Email formal 18/mai (Eliane Albano + Mônica em cc) — sem resposta",
+        evidence:"Gmail 18/mai (Adriano → Eliane Albano): CPRB, Lalur, ECF e Receita Diferida listados como urgentes, pedido de reunião com equipe tributária Oracle 'asap'." },
+      { date:"2026-05-21", projectId:5, field:"ECD", from:"Migração pendente pro NetSuite", to:"Permanece no Domínio (ECF depende de ECD; NetSuite não gera ECF completa)",
+        evidence:"Reversão arquitetural confirmada no email Adriano 18/mai. Arquitetura final = 3 sistemas em paralelo (Domínio + NetSuite + Looker)." },
+      { date:"2026-05-21", projectId:8, field:"escalonamento Oracle", from:"Briefing informal (15/mai)", to:"Email formal 18/mai (Eliane Albano + Mônica em cc) — sem resposta",
+        evidence:"Gmail 18/mai (Adriano → Eliane Albano): CPRB, Lalur, ECF listados como obrigações urgentes; pedido de reunião 'asap' com equipe tributária Oracle." },
+    ]));
+    store.set(seedKey15, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey16 = "seed_2026-05-22-v20";
+  if (!store.get(seedKey16)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-05-22", projectId:13, field:"tabela principal", from:"—", to:"Estruturada (auditoria interna + cadastrais + estratégicos)",
+        evidence:"Slack #projeto-base-unica-de-fornecedores 22/mai 17:11 (Nicc): tabela mãe formalizada esta semana com Martin; colunas voltadas pra auditoria interna + dados estratégicos e cadastrais." },
+      { date:"2026-05-22", projectId:13, field:"base auxiliar Martin", from:"—", to:"CC + Categoria por fornecedor (enriquece base mãe após automação 100%)",
+        evidence:"Slack 22/mai 17:11 (Nicc): Martin criou base auxiliar com CC + categoria; enriquecimento da mãe Supabase ocorrerá quando atualização estiver 100% automatizada." },
+      { date:"2026-05-22", projectId:13, field:"API Receita Federal", from:"—", to:"Primeiro contato feito (dados cadastrais/situacionais)",
+        evidence:"Slack 22/mai 17:11 (Nicc): captura de informações de novos fornecedores iniciada; Receita disponibiliza apenas cadastrais/situacionais." },
+      { date:"2026-05-22", projectId:13, field:"parsing XML", from:"—", to:"Em andamento via API Qive (Base64) — NF-e + NFS-e (rastreabilidade de valores e datas de emissão)",
+        evidence:"Slack 22/mai 17:11 (Nicc): XMLs vêm compactados em Base64; parsing necessário pra extrair valor da NF + data de emissão; cada fornecedor 'conta sua história'." },
+      { date:"2026-05-22", projectId:13, field:"frente Lovable Front End", from:"—", to:"Front pro Contas (Contabilidade) — busca fornecedor + batimento Categoria/Depto/valor histórico",
+        evidence:"Slack 22/mai 17:16 (Martin): vamos montar Lovable conectado à base pra reduzir trabalho do Contas/Contabilidade no batimento de informações." },
+    ]));
+    store.set(seedKey16, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey17 = "seed_2026-05-22-v21";
+  if (!store.get(seedKey17)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-05-22", projectId:9, field:"statusLabel", from:"Em Andamento (40%)", to:"Em Andamento",
+        evidence:"Correção Ramon 22/mai: remover percentual de progresso, manter apenas 'Em Andamento'." },
+    ]));
+    store.set(seedKey17, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey18 = "seed_2026-05-25-v22-1on1-carol";
+  if (!store.get(seedKey18)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-05-25", projectId:4, field:"cobertura", from:"Match 100% no fech. abr (testes)", to:"100% de cobertura em produção (operação assistida, incluindo rateios complexos)",
+        evidence:"1:1 Carol/Ramon 25/mai (notas Gemini): automação dos lançamentos atingiu 100% de cobertura, incluindo casos complexos com rateios que antes consumiam tempo significativo." },
+      { date:"2026-05-25", projectId:4, field:"meta de exceção", from:"—", to:"Margem aceitável 2-3% (em vez de buscar eliminação total)",
+        evidence:"1:1 Carol/Ramon 25/mai: validação humana é indispensável pra lidar com variáveis inéditas — meta é definir % de exceção aceitável, garantindo sistema auditável e confiável." },
+      { date:"2026-05-25", projectId:4, field:"dashboards", from:"—", to:"Em desenvolvimento (volume de lançamentos + correções)",
+        evidence:"1:1 Carol/Ramon 25/mai: Carol desenvolvendo dashboards pra equipe acompanhar indicadores." },
+      { date:"2026-05-25", projectId:4, field:"controles novos", from:"—", to:"Despesas antecipadas + adiantamentos a fornecedores — reconhecimento automático, previne erros de deferimento",
+        evidence:"1:1 Carol/Ramon 25/mai: novos controles previnem erros de deferimento que ocorreram em períodos anteriores." },
+      { date:"2026-05-25", projectId:4, field:"entregáveis Carol", from:"—", to:"(a) Resumo HTML automação pro Ramon · (b) Planilha auditoria/provisão pro time hoje/amanhã · (c) Mapear processos pra roadmap unificado",
+        evidence:"1:1 Carol/Ramon 25/mai: próximas etapas formalizadas." },
+      { date:"2026-05-25", projectId:5, field:"arquitetura alvo NetSuite", from:"Middleware genérico", to:"Fluxo completo desenhado: HubSpot → fechamento gerencial (em discussão com Oracle)",
+        evidence:"1:1 Carol/Ramon 25/mai: Ramon mapeou arquitetura alvo sanando lacunas de processos; serve como modelo de padronização pra outros processos da Controladoria." },
+      { date:"2026-05-25", projectId:13, field:"memória de decisões", from:"pgvector + Hugging Face (match semântico)", to:"Carol absorve a frente — PG Vector + N8N + Supabase como memória das decisões (padronização de nomes evolui com o uso)",
+        evidence:"1:1 Carol/Ramon 25/mai: Ramon propõe Supabase + vetores como memória da automação. Carol vai integrar funcionalidades de memória ao processo e receber materiais (roadmap + arquitetura NetSuite + orientações PG Vector)." },
+    ]));
+    store.set(seedKey18, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey19 = "seed_2026-05-28-v23";
+  if (!store.get(seedKey19)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-05-28", projectId:4, field:"workstream paralela", from:"—", to:"Provisão Contábil Conta Global — remediar risco não emissão NFs (reunião 29/mai 10h)",
+        evidence:"Gmail 28/mai: aceites confirmados por Adriano (16:51), Evandro (14:08), Kamilla (14:06) e Maiara (26/mai 14:12) pra reunião 'Provisão Contábil Conta Global | Remediar risco não emissão NFs' organizada pelo Ramon pra 29/mai 10h. Frente paralela pra mitigar risco operacional via provisão contábil antes do fechamento de mai/26." },
+      { date:"2026-05-28", projectId:5, field:"receita diferida — Project Dome", from:"Decisão 14/mai (manter no Looker)", to:"Documentação formal entregue por Raphael 28/mai (descritivo da tabela principal de cálculo com fórmulas)",
+        evidence:"Gmail 28/mai 17h21 (Raphael → Filipe/Vitor Project Dome, cc Ágata, Danilo, Maiara, Adriano): 'mandando abaixo a documentação conforme alinhamos para a receita diferida — segue o descritivo dos campos que compõe a tabela principal para o cálculo já com…' — formaliza por escrito o handoff técnico após decisão 14/mai." },
+      { date:"2026-05-28", projectId:13, field:"cadência update", from:"Proposta Nicc (19/mai) — toda sexta", to:"Em operação — 2 reuniões de update em 28/mai (Atualizações automações fornecedores + Projeto Base Única - Fornecedores - Update)",
+        evidence:"Gmail 28/mai 13h53 + 18h50: anotações Gemini de duas reuniões distintas confirmam que a cadência semanal proposta pelo Nicc no kickoff 19/mai está funcionando — Martin/Nicc/Ramon mantendo updates regulares no projeto Base Fornecedores." },
+    ]));
+    store.set(seedKey19, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey20 = "seed_2026-06-03-v24";
+  if (!store.get(seedKey20)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-06-03", projectId:13, field:"métricas", from:"Reuniões 28/mai registradas (sem números)", to:"712 fornecedores cadastrados · 92% das NFs extraídas · classificação por departamento (não CC)",
+        evidence:"Gemini notes 'Projeto Base Única - Fornecedores - Update' 28/mai: base atingiu 712 fornecedores, 92% de extração de NFs, automação diária; decisão de priorizar departamento p/ estabilidade da estrutura visando NetSuite. Ações: reconciliar bases (Carol/Nicc/Martin), cruzar base × contabilidade, integrar histórico desde 2022, reunião de acompanhamento 15-16/jun." },
+      { date:"2026-06-03", projectId:4, field:"padronização documental + trava", from:"—", to:"OMIE: campo deve ser 'NF'/'invoice' (não 'Danfe') · trava de conformidade nº doc + CNPJ × Qive (Carol)",
+        evidence:"Gemini notes 'Atualizações automações fornecedores' 28/mai (padronização NF/invoice, planilha de divergências semanal, pagamentos exigem doc fiscal completo, trava de conformidade no robô) + desvio Kami/Thai corrigido 02/jun (DM Maiara) e formalizado por e-mail (Thaynara 02/jun 'Alinhamento - Tipo de documentos')." },
+    ]));
+    store.set(seedKey20, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey21 = "seed_2026-06-09-v25";
+  if (!store.get(seedKey21)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-06-09", projectId:3, field:"prod (3º mês)", from:"2 meses em prod (mar+abr)", to:"3 meses consecutivos em prod (mar+abr+mai ✓)",
+        evidence:"Gmail 09/jun: Maiara entregou fech. mai/26 em prod. Reunião 'Automações Log US - contas a receber' agendada 15/jun 11h (Maiara, Eduarda Leme, Poliana Mecenas)." },
+      { date:"2026-06-09", projectId:4, field:"reunião Automação Pagamentos", from:"—", to:"02/jun: funcionalidades críticas + dashboards + limitações API NetSuite + Ramon redesenha fluxo + Adriano elabora planilha auditoria (09/jun)",
+        evidence:"Gmail Gemini notes 'Automação Pagamentos' 02/jun." },
+      { date:"2026-06-09", projectId:5, field:"Oracle respondeu escalonamento", from:"Reunião 03/jun 11h (devolutiva dúvidas)", to:"08/jun: 4 pontos (CPRB sem suporte nativo · LALUR/LACS sem IRPJ/CSLL · ECF incompleta · Receita Diferida 3 sistemas confirmados) · Reunião Oracle Zoom asap",
+        evidence:"Gmail 08/jun (Eliane Albano + Jean Carlos Ferreira Oracle, cc Adriano/Maiara/Thaynara/Eduarda/Danilo/Ana Rocha + Vitor/Filipe Project Dome)." },
+    ]));
+    store.set(seedKey21, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey22 = "seed_2026-06-09-v28";
+  if (!store.get(seedKey22)) {
+    const prev = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prev.concat([
+      { date:"2026-06-09", projectId:5, field:"Oracle reunião confirmada", from:"Reunião Oracle Zoom agendada asap", to:"Semana 16/jun confirmada · Adriano formaliza bloqueio: sem op. assistida sem os 4 pontos tributários · aguarda ≥22/jun",
+        evidence:"Email Oracle (Eliane Albano) 09/jun confirmando reunião semana 16/jun. Email Adriano 09/jun 14:00 + 14:47: formalizou que Logcomex não avança sem resolução de CPRB, LALUR/LACS, ECF, Receita Diferida — 'agenda não antes de 22/06'. Oracle: 'Teremos a reunião na próxima semana Adriano' (14:49)." },
+      { date:"2026-06-09", projectId:5, field:"Nicc automação razão", from:"—", to:"Razão contábil com formatação correta enviado a Martin em 09/jun",
+        evidence:"Gmail Nicc→Martin 18:27 09/jun: enviou razão com formatação correta para que a automação consiga ler e processar." },
+    ]));
+    store.set(seedKey22, true);
+    history = store.get(KEY_HIST, []);
+  }
+
+  let signals = {}; let lastFetch = null; let chartsReady = false;
+
+  const colorFor = k => ({ green:"var(--lx-green)", orange:"var(--lx-orange)", purple:"var(--lx-purple)", teal:"var(--lx-teal)", gray:"var(--lx-gray-light)" })[k] || "var(--lx-gray-light)";
+  const fmt = d => d ? new Date(d).toLocaleString("pt-BR", {dateStyle:"short", timeStyle:"short"}) : "—";
+  const esc = s => String(s||"").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+
+  // ===== HEADER =====
+  function renderHeader() {
+    document.getElementById("version-badge").textContent = snapshot.version + " · " + snapshot.lastUpdated;
+    document.getElementById("footer-date").textContent = "Atualizado em " + snapshot.lastUpdated;
+    const total = snapshot.projects.length;
+    const done = snapshot.projects.filter(p => p.status === "done").length;
+    const prog = snapshot.projects.filter(p => p.status === "prog").length;
+    const plan = snapshot.projects.filter(p => p.status === "plan").length;
+    const econ = snapshot.projects.reduce((s,p)=>s+(p.economyHours||0),0);
+    const stats = [
+      { n: total, l: "Processos" },
+      { n: done, l: "Concluídos" },
+      { n: prog, l: "Em Andamento" },
+      { n: plan, l: "Planejados" },
+      { n: "-" + econ + "h", l: "Economia/mês" },
+    ];
+    document.getElementById("hero-stats").innerHTML = stats.map(s => `<div class="stat-card"><div class="n">${s.n}</div><div class="l">${esc(s.l)}</div></div>`).join("");
+  }
+
+  // ===== TAB 1: VISÃO GERAL =====
+  function renderOverview() {
+    const waves = { 1:"Onda 1 — Concluída / Pronta para Go-live", 2:"Onda 2 — Em Execução", 3:"Onda 3 — Planejado" };
+    const byWave = { 1:[], 2:[], 3:[] };
+    snapshot.projects.forEach(p => byWave[p.wave].push(p));
+    const filterChips = `
+      <div class="filter-bar">
+        <span class="filter-label">Filtrar:</span>
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="w1">Onda 1</button>
+        <button class="filter-btn" data-filter="w2">Onda 2</button>
+        <button class="filter-btn" data-filter="w3">Onda 3</button>
+        <button class="filter-btn" data-filter="done">Concluído</button>
+        <button class="filter-btn" data-filter="prog">Em andamento</button>
+        <button class="filter-btn" data-filter="updated">Atualizados</button>
+        <button class="filter-btn" data-filter="blocked">Bloqueio</button>
+      </div>`;
+    const html = filterChips + [1,2,3].map(w => `
+      <div class="section">
+        <div class="section-title">${waves[w]}</div>
+        ${byWave[w].map(renderCard).join("")}
+      </div>
+    `).join("");
+    document.getElementById("tab-overview").innerHTML = html;
+    bindAccordion();
+    bindFilters();
+  }
+
+  function renderCard(p) {
+    const sig = signals[p.id] || [];
+    const sigBadge = sig.length ? `<span class="signal-badge">${sig.length} sinal${sig.length>1?"is":""}</span>` : "";
+    const blockerBadge = p.blocker ? `<span class="blocker-badge">⚠ Bloqueio</span>` : "";
+    const updBadge = p.updated ? `<span style="background:var(--lx-orange-bg);color:#984D00;font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;">ATUAL.</span>` : "";
+    const sigBlock = sig.length ? `
+      <div class="signals-list">
+        <div class="sig-head">${sig.length} sinal${sig.length>1?"is":""} recente${sig.length>1?"s":""}</div>
+        ${sig.slice(0,4).map(s => `<div class="sig-item"><div>${esc(s.text)}</div><div class="sig-meta"><span class="sig-src ${s.source}">${s.source}</span><span>${esc(s.context||"")}</span></div></div>`).join("")}
+      </div>` : "";
+    const blockerBlock = p.blocker ? `<div class="blocker-block"><div class="bl-head">⚠ Bloqueio ativo</div><div>${esc(p.blocker)}</div></div>` : "";
+    const cls = ["card"]; if (p.updated) cls.push("updated"); if (p.blocker) cls.push("blocked");
+    const grp = `w${p.wave} ${p.status}${p.updated?" updated":""}${p.blocker?" blocked":""}`;
+    return `
+      <div class="${cls.join(" ")}" data-pid="${p.id}" data-group="${grp}">
+        <div class="card-header">
+          <span class="card-num" style="background:${colorFor(p.color)}">${p.id}</span>
+          <span class="card-title">${esc(p.name)}</span>
+          <span class="status status-${p.status}">${esc(p.statusLabel)}</span>
+          ${blockerBadge}${updBadge}${sigBadge}
+          <span class="card-meta">${esc(p.economyLabel)}</span>
+          <span class="card-chevron">›</span>
+        </div>
+        <div class="card-body">
+          <p style="font-size:12px;color:var(--lx-gray);margin-top:8px;">${esc(p.tagline)}</p>
+          <div class="detail-grid">
+            <div class="detail-item"><div class="dl">Área</div><div class="dv">${esc(p.area)}</div></div>
+            <div class="detail-item"><div class="dl">Owner</div><div class="dv">${esc(p.owner)}</div></div>
+            <div class="detail-item"><div class="dl">Período</div><div class="dv">${esc(p.periodLabel)}</div></div>
+            <div class="detail-item"><div class="dl">Go-live</div><div class="dv">${esc(p.goLive)}</div></div>
+          </div>
+          <div class="insight-block">
+            <strong>Hoje:</strong> ${esc(p.insightToday)}<br>
+            <strong>Futuro:</strong> ${esc(p.insightFuture)}
+          </div>
+          ${blockerBlock}
+          ${sigBlock}
+        </div>
+      </div>`;
+  }
+
+  function bindAccordion() {
+    document.querySelectorAll("#tab-overview .card-header").forEach(h => {
+      h.onclick = e => { if (e.target.closest("a, button, input")) return; h.parentElement.classList.toggle("open"); };
+    });
+  }
+  function bindFilters() {
+    document.querySelectorAll("#tab-overview .filter-btn").forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll("#tab-overview .filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const f = btn.dataset.filter;
+        document.querySelectorAll("#tab-overview .card").forEach(c => {
+          c.classList.toggle("filtered-out", f !== "all" && (c.dataset.group||"").indexOf(f) === -1);
+        });
+      };
+    });
+  }
+
+  // ===== TAB 2: CRONOGRAMA =====
+  function renderTimeline() {
+    const months = ["Abr","Mai","Jun","Jul","Ago"];
+    const monthIdx = m => { const map = {"Abr":0,"Mai":1,"Jun":2,"Jul":3,"Ago":4}; for (const k of Object.keys(map)) if ((m||"").includes(k)) return map[k]; return 4; };
+    const rows = snapshot.projects.map(p => {
+      const gIdx = monthIdx(p.goLive);
+      const startIdx = p.status === "plan" ? 1 : 0;
+      const cells = months.map((m, i) => {
+        if (i < startIdx || i > gIdx) return `<div class="gantt-bar-area"></div>`;
+        const isGo = (i === gIdx);
+        const barColor = p.blocker && i === gIdx-1 ? "var(--lx-red)" : colorFor(p.color);
+        const opacity = p.status === "plan" ? "opacity:0.45;" : "";
+        const bar = `<div class="gantt-bar" style="width:${isGo?85:100}%;left:0;background:${barColor};${opacity}"></div>`;
+        const dia = isGo ? `<div class="gantt-diamond" style="left:78%;background:${colorFor(p.color)};"></div>` : "";
+        return `<div class="gantt-bar-area">${bar}${dia}</div>`;
+      }).join("");
+      const mark = (p.blocker?"⚠ ":"");
+      return `
+        <div class="gantt-row" onclick="toggleGantt(${p.id})">
+          <span class="gantt-label">${mark}${esc(p.name)}</span>
+          ${cells}
+        </div>
+        <div class="gantt-detail" id="gd-${p.id}">
+          <p style="font-size:12px;color:var(--lx-gray);margin-bottom:8px;">${esc(p.tagline)}</p>
+          <div class="detail-grid">
+            <div class="detail-item"><div class="dl">Owner</div><div class="dv">${esc(p.owner)}</div></div>
+            <div class="detail-item"><div class="dl">Área</div><div class="dv">${esc(p.area)}</div></div>
+            <div class="detail-item"><div class="dl">Status</div><div class="dv">${esc(p.statusLabel)}</div></div>
+            <div class="detail-item"><div class="dl">Economia</div><div class="dv">${esc(p.economyLabel)}</div></div>
+          </div>
+          <div class="insight-block">
+            <strong>Hoje:</strong> ${esc(p.insightToday)}<br>
+            <strong>Futuro:</strong> ${esc(p.insightFuture)}
+          </div>
+          ${p.blocker ? `<div class="blocker-block"><div class="bl-head">⚠ Bloqueio ativo</div><div>${esc(p.blocker)}</div></div>` : ""}
+        </div>`;
+    }).join("");
+    document.getElementById("tab-timeline").innerHTML = `
+      <div class="section">
+        <div class="section-title">Cronograma · Abr–Jul 2026</div>
+        <p style="font-size:12px;color:var(--lx-gray);margin-bottom:14px;">Clique em qualquer linha pra ver tudo do projeto.</p>
+        <div class="gantt-wrapper">
+          <div class="gantt">
+            <div class="gantt-header-row">
+              <span>Processo</span>${months.map(m => `<span>${m}</span>`).join("")}
+            </div>
+            ${rows}
+          </div>
+        </div>
+        <p style="margin-top:12px;font-size:11px;color:var(--lx-gray);">⚠ bloqueio · ◆ go-live · borda laranja = atualizado</p>
+      </div>`;
+  }
+  window.toggleGantt = function(pid) {
+    const el = document.getElementById("gd-" + pid);
+    if (el) el.classList.toggle("open");
+  };
+
+  // ===== TAB 3: DETALHAMENTO =====
+  function renderDetail() {
+    const waves = {
+      1: { title:"Onda 1 — Cohort + Gerencial + Log US", sub:"Abr–Mai 2026 · 3 processos · 3 concluídos · -32h/mês (Cohort 8h + Gerencial 16h + Log US 8h)", cls:"w1",
+        steps:[
+          { num:"01 · Mar", title:"Mapeamento e definição",
+            items:["9 processos mapeados (252h/mês) com Maiara","Log US escolhido como piloto: baixa complexidade","Stack: N8N + Claude + Drive + Slack","Cohort e Gerencial em paralelo"] },
+          { num:"02 · Mar–Abr", title:"Construção e entrega",
+            items:["Cohort: pipeline automatizado, entregue","Gerencial: fechamento + budget vs realizado, entregue","Log US: 2 workflows N8N + 4 skills Cowork","Coleta validada: 168 invoices em ~17s"] },
+          { num:"03 · Mai", title:"Validação operacional concluída",
+            items:["DEV finalizado 16/abr, Jan+Fev+Mar validados 100% (comparativo histórico)","Maiara operou ciclo completo no fech. de abr/26 (08/mai) — 412 linhas, Saldo Citi diff $0,00 ✓","2 meses em prod (mar+abr) — go-live efetivo confirmado","Stack Supabase+Omie firmou-se como referência arquitetural","Ponto de atenção: webhook N8N falha recorrente (erro 500) — fallback Drive MCP"] },
+        ],
+        metrics:[ { v:"-32h/mês", l:"Economia total da onda" }, { v:"3/3", l:"Concluídos" }, { v:"4 skills", l:"Cowork (Log US)" }, { v:"~22s", l:"Tempo execução" } ],
+        insight:'A Onda 1 validou a arquitetura "N8N magro + Claude gordo" e entregou os 3 processos. O Log US definiu o padrão técnico replicado pela Carol no projeto de NFs. <strong>Validação operacional concluída em 08/mai</strong> com o fech. de abril/26 (Maiara em prod, 412 linhas, Saldo Citi diff $0,00). 2 meses operados em prod (mar+abr). Stack Supabase+Omie firmou-se como referência arquitetural. Atenção contínua ao webhook N8N (falha recorrente erro 500 — fallback Drive MCP).' },
+      2: { title:"Onda 2 — NFs + Zapier + Base Fornecedores", sub:"Abr–Jun 2026 · 3 processos · -44h/mês · Bug Trem×Domínio contornado pela automação · Escalonamento Oracle pós reunião Project Dome 15/mai", cls:"w2",
+        steps:[
+          { num:"01 · Abr", title:"Mapeamento e início",
+            items:["NFs: testes oficiais APIs 23/abr (Match 100% no fech. abr)","Zapier: robô já identifica casos no Pipefy CP"] },
+          { num:"02 · Mai", title:"Desenvolvimento",
+            items:["NFs: ajustes pós-teste, Carol cobrindo Match 100% (validação 3º dia útil)","NFs: bug Trem×Domínio contornado pela automação (Nick + Carol) — sem bloqueio ativo","1:1 Maia/Ramon 14/mai: Nick+Carol automatizam NFs e cartões ainda em mai · transição até set/26 (gestação Maiara)","Reunião Oracle Netsuite × Project Dome 15/mai: middleware confirmado, escalonamento Oracle p/ CPRB/Lalur/ECF"] },
+          { num:"03 · Jun", title:"Go-live",
+            items:["NFs/Invoices: go-live (push de abr→mai/26)","Base Fornecedores: concluída jun/26","Reunião Oracle Arquivei × Pipefy 14/mai redefiniu escopo: PO obrigatório non-recurring, data corte mensal, Looker mantido p/ receita diferida, OME +1 semestre"] },
+        ],
+        metrics:[ { v:"-44h/mês", l:"Economia da onda" }, { v:"3 frentes", l:"Processos" }, { v:"0 bloqueios", l:"Trem×Domínio contornado" }, { v:"OMIE + Zapier", l:"Integrações" } ],
+        insight:'NFs/Invoices teve testes 100% e Carol já cobre Match 100% no fech. de abril (~20h economizadas), mas o full go-live empurrou pra mai. <strong>Bug Trem×Domínio</strong> (CC não subindo pra Domínio): contornado pela própria automação (Nick + Carol) — sem bloqueio ativo no roadmap. <strong>1:1 Maia/Ramon 14/mai</strong>: gestação Maiara confirmada — Nick + Carol assumem automação de NFs e cartões em maio; transição de processos críticos até set/26 com documentação obrigatória. <strong>Reunião Oracle Arquivei × Pipefy 14/mai</strong> redefiniu escopo: Looker mantido para receita diferida (não desenvolver no NetSuite), OME ativo +1 semestre, pedidos de compra obrigatórios para itens não recorrentes, data de corte mensal fixa, custos extras integrador rejeitados. <strong>Reunião Oracle Netsuite × Project Dome 15/mai (sexta)</strong>: Project Dome alegou incapacidade técnica para entregar obrigações fiscais (CPRB, Lalur, ECF) — decisão de escalar diretamente para Oracle (Adriano via Mônica), revisar cláusulas contratuais Project Dome, e arquitetar middleware centralizando controle contábil no NetSuite pra evitar dependência de terceiros. Danilo solicitará aprovação da receita diferida durante a renovação contratual. <strong>Diretrizes Omie API (15/abr)</strong>: Web Hooks, leitura, janela almoço — aplicáveis a NFs, Fech. Contábil e Zapier.' },
+      3: { title:"Onda 3 — Fech. Contábil + Fiscal + Fornecedores + Conc. Balanço + DF Auditoria", sub:"Mai–Ago 2026 · 5 processos · -102h/mês recorrente + ~160h/ano (Conc. Balanço + DF Auditoria) · Recalibrado em 07/mai", cls:"w3",
+        steps:[
+          { num:"01 · Mai", title:"Mapeamento e Discovery",
+            items:["Fech. Contábil: reunião Oracle semana 16/jun (09/jun) · Adriano formaliza bloqueio: sem op. assistida sem os 4 pontos tributários · aguarda ≥22/jun","Obrig. Fiscais: mapeamento iniciado pela Tai · reunião fiscal Oracle agendada (Adriano via Mônica) p/ CPRB+Lalur+ECF","DF Auditoria: Discovery & De-Para Balancete Base (BR+US+UX)","Conc. e Alertas Fornecedor (#9 merged): 40% resolvido — Nicc owner, automação Claude com .md"] },
+          { num:"02 · Jun–Jul", title:"Desenvolvimento",
+            items:["Fech. Contábil: checklist digital N8N + Slack (5 frentes: Bancos, Faturamento, Folha, Provisões, Despesas Antecipadas)","Obrig. Fiscais: calendário automático no Domínio","DF Auditoria: MVP BP/DRE/DFC mensais + 28 notas explicativas","Conc. e Alertas Fornecedor: compilado + conciliação automática consumindo a Base","Conc. Balanço: ~80h/ano (recorrência baixa, ganho qualitativo)"] },
+          { num:"03 · Jul–Ago", title:"Go-live",
+            items:["#5 / #8 / #9 / #11 em operação até jul–ago","DF Auditoria V2 (templating Word KPMG) jul, V3 go-live ago","Time contábil migra de operacional pra analítico","Economia total acumulada: ~178h/mês recorrente"] },
+        ],
+        metrics:[ { v:"-102h/mês", l:"Economia recorrente" }, { v:"5 frentes", l:"Processos" }, { v:"Mai–Ago", l:"Período" }, { v:"#9 a 40%", l:"Adiantado" } ],
+        insight:'A Onda 3 concentra ~102h/mês recorrentes — Fech. Contábil 40h, Obrig. Fiscais e Conc. Fornecedor 24h cada, e Conc. Balanço + DF Auditoria entregam ~80h/ano cada (recorrência baixa, ganho qualitativo). <strong>Conc. e Alertas Fornecedor (#9 merged)</strong> já está a 40% — Nicc owner, arquitetura automação Claude consumindo arquivo .md. <strong>Obrigações Fiscais</strong> em mapeamento (Tai) — reunião Oracle Netsuite × Project Dome 15/mai identificou CPRB/Lalur/ECF como gaps do fornecedor atual; Adriano vai agendar reunião urgente com equipe tributária Oracle via Mônica pra discutir arquitetura e funcionalidades nativas. DF Auditoria começa agora em mai com Discovery; vai até ago com go-live. Pré-balance contínuo com KPMG passa a ser mensal. <strong>Stack obrigatória pós-15/abr</strong>: leitura, Web Hooks, base local Supabase/RDS — evolução pra NetSuite em 2027.' },
+    };
+
+    const tabsHtml = `
+      <div class="wave-tabs">
+        <button class="wave-btn active" data-wave="1">Onda 1 — Entregue</button>
+        <button class="wave-btn" data-wave="2">Onda 2 — Em Andamento</button>
+        <button class="wave-btn" data-wave="3">Onda 3 — Próximo</button>
+      </div>`;
+
+    const panels = [1,2,3].map(w => {
+      const W = waves[w];
+      return `
+        <div class="wave-panel ${w===1?"active":""}" id="wave-${w}">
+          <div class="wave-card ${W.cls}">
+            <div style="font-size:15px;font-weight:700;margin-bottom:2px;">${esc(W.title)}</div>
+            <div style="font-size:11.5px;color:var(--lx-gray);">${esc(W.sub)}</div>
+            <div class="wave-meta-grid">
+              ${W.metrics.map(m => `<div class="wave-meta-item"><div class="v">${esc(m.v)}</div><div class="l">${esc(m.l)}</div></div>`).join("")}
+            </div>
+            <div class="step-list">
+              ${W.steps.map(s => `
+                <div class="step-row">
+                  <div class="step-num">${esc(s.num)}</div>
+                  <div class="step-content">
+                    <strong>${esc(s.title)}</strong>
+                    <ul>${s.items.map(it => `<li>${esc(it)}</li>`).join("")}</ul>
+                  </div>
+                </div>`).join("")}
+            </div>
+            <div class="wave-insight">${W.insight}</div>
+          </div>
+        </div>`;
+    }).join("");
+
+    document.getElementById("tab-detail").innerHTML = `
+      <div class="section">
+        <div class="section-title">Detalhamento por Onda</div>
+        ${tabsHtml}
+        ${panels}
+      </div>`;
+
+    document.querySelectorAll(".wave-btn").forEach(b => {
+      b.onclick = () => {
+        document.querySelectorAll(".wave-btn").forEach(x => x.classList.remove("active"));
+        document.querySelectorAll(".wave-panel").forEach(x => x.classList.remove("active"));
+        b.classList.add("active");
+        document.getElementById("wave-" + b.dataset.wave).classList.add("active");
+      };
+    });
+  }
+
+  // ===== TAB 4: IMPACTO =====
+  function renderImpact() {
+    const econ = snapshot.projects.reduce((s,p)=>s+(p.economyHours||0),0);
+    const done = snapshot.projects.filter(p=>p.status==="done").reduce((s,p)=>s+(p.economyHours||0),0);
+    document.getElementById("tab-impact").innerHTML = `
+      <div class="section">
+        <div class="section-title">Projeção de Impacto</div>
+        <div class="charts-grid">
+          <div class="chart-card"><h3>Economia acumulada por onda (h/mês)</h3><div class="chart-box"><canvas id="chartStack"></canvas></div></div>
+          <div class="chart-card"><h3>Economia por processo (h/mês)</h3><div class="chart-box"><canvas id="chartBar"></canvas></div></div>
+        </div>
+        <div class="impact-totals">
+          <div class="impact-total-card"><div class="iv" style="color:var(--lx-green-dark);">-${done}h/mês</div><div class="il">Já capturada</div></div>
+          <div class="impact-total-card"><div class="iv" style="color:var(--lx-purple);">-${econ}h/mês</div><div class="il">Total projetado</div></div>
+        </div>
+        <div class="impact-note">
+          <strong>Visão estratégica:</strong> Onda 1 entregou 32h/mês (Cohort 8h + Gerencial 16h + Log US 8h — 3/3 concluídos, Log US validado em prod no fech. abr/26). Onda 2 adiciona 44h/mês até junho — NFs/Invoices empurrado pra mai pelos ajustes pós-teste; bug Trem×Domínio agora contornado pela própria automação (Nick + Carol). Fech. Contábil com fluxo CP desenhado em 29/abr; <strong>reunião Oracle 14/mai</strong> consolidou premissas (Looker mantido p/ receita diferida, OME +1 semestre, PO obrigatório non-recurring). <strong>Reunião Oracle Netsuite × Project Dome 15/mai (sexta)</strong>: Project Dome alegou incapacidade técnica para CPRB/Lalur/ECF — decisão de escalar diretamente p/ Oracle (Adriano via Mônica), revisar contrato, arquitetar middleware NetSuite. Onda 3 completa com ~74h/mês recorrente até ago — Obrig. Fiscais e Conc. Fornecedor 24h cada, <strong>Conc. Balanço + DF Auditoria entregam ~80h/ano cada</strong> (recorrência baixa, ganho qualitativo). <strong>Conc. e Alertas Fornecedor (#9 merged) já está a 40%</strong> sob owner Nicc, com automação Claude + arquivo .md. <strong>Base Fornecedores (#13 NOVO)</strong> entra como source of truth única (Martin owner, Nicc co-owner, mai→jun/26). DF Auditoria mensal começa em mai com Discovery e go-live em ago. <strong>Diretrizes Omie API (15/abr)</strong> agora obrigatórias em todos os projetos que tocam Omie: Web Hooks, leitura, janela 12h-14h, base local — preparando migração pra NetSuite em 2027. Ao final de Ago/26: <strong>~${econ}h/mês</strong> de trabalho manual recorrente eliminado + ~160h/ano (Conc. Balanço + DF Auditoria).
+        </div>
+      </div>`;
+  }
+
+  function initCharts() {
+    if (typeof Chart === "undefined") return;
+    new Chart(document.getElementById("chartStack").getContext("2d"), {
+      type:"bar",
+      data:{ labels:["Abr","Mai","Jun","Jul","Ago"],
+        datasets:[
+          { label:"Onda 1", data:[32,32,32,32,32], backgroundColor:"rgba(254,143,28,0.85)", borderRadius:4 },
+          { label:"Onda 2", data:[0,32,72,72,72], backgroundColor:"rgba(102,19,208,0.85)", borderRadius:4 },
+          { label:"Onda 3", data:[0,0,0,67,74], backgroundColor:"rgba(39,215,128,0.85)", borderRadius:4 }
+        ] },
+      options:{ responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{ position:"bottom", labels:{ boxWidth:10, padding:12, font:{ size:11 } } } },
+        scales:{ x:{ stacked:true, grid:{ display:false } }, y:{ stacked:true, grid:{ color:"#f0eef5" }, ticks:{ callback:v=>v+"h" } } } }
+    });
+    const sorted = [...snapshot.projects].filter(p=>p.economyHours).sort((a,b)=>b.economyHours-a.economyHours);
+    const colors = sorted.map(p => p.wave===1 ? "rgba(254,143,28,0.85)" : p.wave===2 ? "rgba(102,19,208,0.85)" : "rgba(39,215,128,0.85)");
+    new Chart(document.getElementById("chartBar").getContext("2d"), {
+      type:"bar",
+      data:{ labels:sorted.map(p => p.name.length>22 ? p.name.slice(0,22)+"…" : p.name),
+        datasets:[{ data:sorted.map(p=>p.economyHours), backgroundColor:colors, borderRadius:6 }] },
+      options:{ indexAxis:"y", responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label:c => c.parsed.x + "h/mês" } } },
+        scales:{ x:{ grid:{ color:"#f0eef5" }, ticks:{ callback:v=>v+"h" } }, y:{ grid:{ display:false } } } }
+    });
+  }
+
+  // ===== TAB 5: PROJETOS =====
+  const PROJECTS_LIST = [
+    { letter:"A", name:"Automações Outros Times", area:"Cross-funcional", color:"purple",
+      tagline:"Replicação do padrão N8N + Claude pra times fora da Controladoria",
+      summary:"Outros times pedindo escala da arquitetura validada na Onda 1 (N8N magro + Claude gordo + skills Cowork). Demanda crescente após Cohort, Gerencial e Log US entregarem.",
+      detail:"Padrão arquitetural validado na Controladoria virou referência interna. Stack documentada: N8N orquestra fluxo, Claude faz o trabalho cognitivo via skills, Drive/Slack como I/O. Próximos times com pedidos: CS (campanhas Logcomex.AI Intermodal), Comercial (comissões), Produto (LogAI). Risco: avaliar capacidade de manutenção pelo time da Controladoria — considerar transferência de ownership pros times demandantes ou criação de centro de competência. Decisão pendente sobre como priorizar pedidos externos sem comprometer roadmap próprio." },
+    { letter:"B", name:"Reforma Tributária", area:"Fiscal/Estratégico", color:"orange",
+      tagline:"IBS + CBS + IS substituindo PIS/COFINS/ICMS/ISS · Transição até 2033",
+      summary:"Mudança estrutural do sistema tributário brasileiro. CBS (federal) e IBS (estadual+municipal) substituem PIS/COFINS/ICMS/ISS gradualmente. Imposto Seletivo (IS) sobre itens específicos. Logcomex precisa preparar precificação, sistemas e contabilidade.",
+      detail:"Cronograma da reforma: 2026 alíquota teste 0,9% CBS + 0,1% IBS, 2027 CBS plena substituindo PIS/COFINS, 2029-2032 transição IBS substituindo ICMS/ISS, 2033 sistema novo pleno. Impactos a mapear: (1) precificação SaaS — alíquota total provavelmente sobe, repasse ao cliente; (2) sistêmico — Omie/NetSuite precisam suportar novos tributos; (3) crédito tributário — regime de não cumulatividade muda, mapear cadeia de fornecedores; (4) operações cross-border — Log US e clientes internacionais. Owner natural: Tai (Obrigações Fiscais) + Adriano (Head Financeiro). Falta: criar grupo de trabalho com data de kickoff." },
+    { letter:"C", name:"ARR Forecast Bottoms-up", area:"FP&A", color:"green",
+      tagline:"Forecast por logo · saiu do roadmap de automação, segue como projeto estratégico",
+      summary:"Forecast de ARR construído de baixo pra cima (logo-a-logo, contrato por contrato), em vez de projeção macro. Removido do roadmap de automação em 04/mai porque é projeto, não automação.",
+      detail:"Lógica: cada cliente atual + cada deal em andamento entram no forecast com probabilidade ponderada e timeline de início. Output: ARR projetado por mês, com cenários (worst/base/best) e drivers visíveis. Substitui o forecast macro atual baseado em crescimento histórico. Conexão direta com GTM 2 offsite e 5Y Plan (apresentação Carlos COO). Owner: Martin (FP&A) + Ramon. Stack candidata: Looker (já tem licença) ou Excel + skill Claude. Decisão pendente: usar dados Salesforce (deals) ou planilha consolidada do Comercial?" },
+    { letter:"D", name:"Estrutura Societária", area:"Societário/Tributário", color:"purple",
+      tagline:"Logcomex BR + UXComex BR + Logcomex US Corp + UXUS · Otimização da estrutura",
+      summary:"Revisão da estrutura societária do grupo pós-aquisição UXComex. Inclui Log BR, UX BR, Log US Corp (Delaware), UXUS, holding e sociedades veículo. Tema reaberto pelo IRS Letter 2030 (2024) e pelo PPA UXComex.",
+      detail:"Estado atual: Logcomex BR controladora, UXComex BR adquirida set/25 (R$10M, 5+3+2 cash/parcelado/swap), Log US Corp recebe pela Stripe (10% intercompany agreement com Log BR), UXUS estrutura paralela. Pontos abertos: (1) IRS Letter 2030 — IRS cruzou Stripe US com receita reportada, Baker Tilly (Moss Adams) liderando resposta, intercompany agreement ainda procurado; (2) repasses Citi → Log BR pararam em mai/25; (3) pós-PPA, definir se UXComex permanece subsidiária ou se incorpora; (4) estrutura para CTF 2026 (eventos) — ISS São Paulo, CCM aberto. Owner: Adriano + Daniel + Ana Busato (Legal) + Carolina Tremel." },
+    { letter:"E", name:"Consolidações", area:"Contábil", color:"orange",
+      tagline:"Consolidação Logcomex + UXComex pós-M&A · MEP + goodwill provisório · DF anual KPMG",
+      summary:"Consolidação contábil-societária do grupo após aquisição UXComex (set/25). Bookkeeping provisório com goodwill de R$8,963M até saída do PPA definitivo. DF anual KPMG consolidando BR + Log US + UXComex.",
+      detail:"Premissas atuais (até PPA): Logcomex registra investimento R$10M via MEP + obrigações (5M caixa + 3M passivo + 2M earn-out swap). UXComex segue escrituração própria até dez/24 com tocada paralela. Goodwill provisório R$8,963M entra no consolidado. PPA contratado com IRKO (alternativa: empresa do DD original). DF anual de 2025 emitida em mar/26 com KPMG (Isabella Bonan, Allan Camargo); auditoria 2026 em planejamento. Conexão direta com #12 DF Auditoria (mensal) — projeto de automação que transforma esse processo anual em mensal. Owner: Maiara + Adriano + Daniel." },
+    { letter:"F", name:"NetSuite", area:"Sistemas/Estratégico", color:"green",
+      tagline:"Substituir Omie em 2027 · Faturamento + Contas a Receber · Domínio mantido pra fiscal BR · Escalonamento Oracle (15/mai)",
+      summary:"Migração do ERP de Omie para NetSuite, prevista pra 2027. Decidida em mar/abr/26 nas reuniões com Ana Lyvia + Danilo. NetSuite cobre faturamento e AR; Domínio permanece para declarações fiscais brasileiras (complexidade tributária BR não comporta NetSuite full).",
+      detail:"Razão da migração: Omie suspende API aleatoriamente (913s observados), tem limites pra escala internacional, e não acompanha visão multi-empresa do grupo. NetSuite traz consolidação multi-entity nativa, suporte global, robustez API. Implicação no roadmap de automações: tudo que está sendo construído agora (Log US, NFs, Fech. Contábil, DF Auditoria) deve ser arquitetado já pensando na migração — base local Supabase/RDS intermediando consumo Omie evita rebuild. Reunião Oracle Netsuite × Project Dome 15/mai (sexta): Project Dome alegou incapacidade técnica para entregar obrigações fiscais (CPRB, Lalur, ECF) — decisão de escalar diretamente para Oracle via Mônica pra esclarecer lacunas, solicitar informações sobre arquitetura e funcionalidades nativas, e agendar reunião urgente com equipe tributária Oracle no início da semana. Adriano vai revisar cláusulas contratuais Project Dome (responsabilidades de entrega + obrigações fiscais) e esclarecer grupo sobre recusa do pagamento de taxas comerciais que já estavam no escopo original. Danilo solicitará aprovação da receita diferida durante a renovação contratual. Maiara incluirá Ramon nos convites das reuniões de checkpoint. Owner: Adriano + Daniel + Ana Lyvia. Diretrizes obrigatórias pra todos os projetos que tocam Omie hoje: leitura, Web Hooks, janela 19h-7h ou 12h-13h." },
+    { letter:"G", name:"LogAI", area:"Produto/Tecnologia", color:"teal",
+      tagline:"Produto AI da Logcomex · Agente de embarques · Equipe Edu",
+      summary:"Produto de inteligência artificial da Logcomex, em rollout interno e com clientes piloto. Inclui agente de embarques (consulta de exportadores, incoterms, dados de supply chain) e outros agentes em desenvolvimento. Equipe liderada pelo Edu.",
+      detail:"Status (mai/26): demos com clientes em andamento, dados completos sendo entregues mas tempo de resposta sendo ajustado. Fórum interno #logcomex-ai-fórum ativo com Amanda Conde, Andreza Sandim, Rafael Anaya, Laryssa Andrade testando prompts e validando casos. Padrão emergente de uso: quebrar pedidos complexos em prompts menores (ex: ler docs → classificar → simular custo importação). Conexão com Controladoria: campanha Logcomex.AI Intermodal/26 → comissionamento CS (Alipio Leal 06/mai). Owner: Edu + time produto. Risco/oportunidade: como Controladoria, mapear modelo de receita (assinatura/uso/setup), revenue recognition e impacto fiscal." },
+    { letter:"H", name:"Conta Global", area:"Tesouraria/Internacional", color:"purple",
+      tagline:"Estruturação de conta global pra operações cross-border · Em definição",
+      summary:"Nova conta global em estruturação (mai/26), substituindo movimentações via Citi US. Maiara estudando como operacionalizar — caso de uso atual: reembolsos internacionais (Carlos pediu 05/mai) e pagamentos de fornecedores externos (Baker Tilly, Moss Adams).",
+      detail:"Contexto operacional: conta Citi US (Log US) parou de fazer repasses regulares pra Log BR em mai/25, hoje guarda recursos pra folha e eventos México. Reembolso internacional Carlos (05/mai) abriu discussão sobre rota: Log US Citi (escolhido), Conta Global (em estudo) ou pessoa física (descartado). Conta Global resolveria: tesouraria multi-moeda centralizada, fricção de câmbio, rastreabilidade. Owner: Maiara + Kamilla + Adriano. Pendente: definir banco/provedor (BTG Global Account? Wise Business? Citi Global?), governança de uso (quem aprova movimentações), contabilização. Decisão se sai antes ou depois da migração NetSuite." },
+    { letter:"I", name:"LCC — Locomped Consultant Program", area:"Comercial/Estratégico", color:"green",
+      tagline:"Programa de vendas indiretas via despachantes aduaneiros · Lançamento jun/26 · Ramon owner Controladoria",
+      summary:"Programa de canal aprovado pelo Allan (CSO) com despachantes aduaneiros atuando como consultores certificados pra ampliar cobertura comercial. Remuneração: 30% receita recorrente mensal no 1º ano, 20% no 2º, 10% no 3º. Carga tributária do consultor (custo empresa fica em 30%). Mirando lançamento em jun/26.",
+      detail:"Reunião 'Programa LCC - Finance' 14/mai com Rodrigo Mota, Allan, Daniel e Adriano. Estrutura: portal de parceiros conectado direto ao Data Lake (Damaceno) pra evitar dados inconsistentes; conflitos de venda arbitrados por tempo de inatividade dos leads. Pendências da Controladoria/Ramon: (1) estudar CPC 47 — exigências contábeis e provisionamento de comissões; (2) revisar tributação — implicações fiscais e emissão de NFs pra pagamento de comissões a terceiros; (3) revisar documento LCC e mapear riscos contábeis/fiscais/tributários; (4) validar processos fiscais com Tainara antes do lançamento. 1:1 PDI Carol/Ramon 15/mai: Carol vai apoiar a Maia no comissionamento LCC e avaliar o CPC correspondente. Owner: Rodrigo Mota (programa) + Ramon (frente contábil/fiscal) + Tainara (fiscal)." },
+  ];
+
+  function renderProjects() {
+    const cards = PROJECTS_LIST.map(p => `
+      <div class="card proj-card" data-letter="${esc(p.letter)}">
+        <div class="card-header">
+          <span class="card-num" style="background:${colorFor(p.color)}">${esc(p.letter)}</span>
+          <span class="card-title">${esc(p.name)}</span>
+          <span class="card-meta">${esc(p.area)}</span>
+          <span class="card-chevron">›</span>
+        </div>
+        <div class="card-body">
+          <p style="font-size:12px;color:var(--lx-gray);margin-top:8px;">${esc(p.tagline)}</p>
+          <div class="insight-block">
+            <strong>Resumo:</strong> ${esc(p.summary)}<br><br>
+            <strong>Contexto:</strong> ${esc(p.detail)}
+          </div>
+        </div>
+      </div>`).join("");
+    document.getElementById("tab-projects").innerHTML = `
+      <div class="section">
+        <div class="section-title">Projetos · Não-automação</div>
+        <p style="font-size:12px;color:var(--lx-gray);margin-bottom:14px;">Iniciativas estratégicas, sistêmicas, fiscais e societárias paralelas ao roadmap de automações. Clique em qualquer card pra ver o contexto completo.</p>
+        ${cards}
+      </div>`;
+    document.querySelectorAll("#tab-projects .card-header").forEach(h => {
+      h.onclick = e => { if (e.target.closest("a, button, input")) return; h.parentElement.classList.toggle("open"); };
+    });
+  }
+
+  // ===== HISTÓRICO =====
+  function renderHistory() {
+    document.getElementById("hist-count").textContent = history.length;
+    const panel = document.getElementById("history-panel");
+    if (!history.length) { panel.innerHTML = `<div style="padding:14px;color:var(--lx-gray);font-size:12px;">Sem mudanças registradas ainda.</div>`; return; }
+    panel.innerHTML = [...history].reverse().map(h => {
+      const p = snapshot.projects.find(x => x.id === h.projectId);
+      return `<div class="hist-item">
+        <div class="hist-meta">${esc(h.date)} · <strong>${esc(p?p.name:"#"+h.projectId)}</strong> · ${esc(h.field)}</div>
+        <div class="hist-change">${esc(h.from)} → <strong>${esc(h.to)}</strong></div>
+        ${h.evidence ? `<div class="hist-evidence">${esc(h.evidence)}</div>` : ""}
+      </div>`;
+    }).join("");
+  }
+
+  // ===== TABS =====
+  function bindTabs() {
+    document.querySelectorAll(".tab-btn").forEach(b => {
+      b.onclick = () => {
+        document.querySelectorAll(".tab-btn").forEach(x => x.classList.remove("active"));
+        document.querySelectorAll(".tab-content").forEach(x => x.classList.remove("active"));
+        b.classList.add("active");
+        document.getElementById("tab-" + b.dataset.tab).classList.add("active");
+        if (b.dataset.tab === "impact" && !chartsReady) { initCharts(); chartsReady = true; }
+      };
+    });
+    document.getElementById("history-toggle").onclick = function() {
+      this.classList.toggle("open");
+      document.getElementById("history-panel").classList.toggle("open");
+    };
+  }
+
+  // ===== SIGNALS =====
+  function setRefreshState(s, t) { document.getElementById("refresh-dot").className = "dot " + (s||""); document.getElementById("refresh-text").textContent = t; }
+  function setSourceState(id, s) { const el = document.getElementById("src-"+id); if (el) el.className = "source-pill " + s; }
+  function parseSlackMd(md) {
+    const blocks = (md||"").split(/\n(?=\d+\.\s)/); const items = [];
+    blocks.forEach(b => { const m = b.match(/^\d+\.\s+(#[^\s]+|@[^\s]+)?\s*-?\s*([^:]+):\s*([\s\S]*?)(?:\s+(\d{8,}))?$/); if (m) items.push({ source:"slack", text:(m[3]||"").trim().replace(/\s+/g," ").slice(0,240), context:(m[1]||"").trim()+" · "+(m[2]||"").trim() }); });
+    return items;
+  }
+  function parseGmail(p) {
+    const ts = (p && p.threads) || []; const items = [];
+    ts.forEach(t => (t.messages||[]).forEach(m => items.push({ source:"gmail", text:(m.subject?m.subject+" — ":"")+(m.snippet||"").replace(/&quot;/g,'"').replace(/\s+/g," ").slice(0,220), context:(m.sender||"").replace(/<[^>]+>/g,"").trim()+" · "+(m.date||"").slice(0,10) })));
+    return items;
+  }
+  function parseSessions(t) { const items=[]; const re=/^\s*-\s+\S+\s+"([^"]+)"/gm; let m; while ((m=re.exec(t||""))) items.push({source:"claude",text:m[1].trim(),context:"sessão recente"}); return items; }
+  function parseDM(md, name) {
+    const items = [];
+    const re = /=== Message from ([^(]+)\([^)]+\)[^=]*===\s*[^=]*?\n([\s\S]*?)(?===|$)/g;
+    let m;
+    while ((m = re.exec(md||""))) {
+      const txt = (m[2]||"").trim().replace(/\s+/g," ").slice(0,220);
+      if (txt && !txt.startsWith("Files:")) items.push({ source:"slack", text:txt, context:"DM "+name+" · "+(m[1]||"").trim() });
+    }
+    return items;
+  }
+  function ext(r) { if (!r) return null; if (r.structuredContent) return r.structuredContent;
+    if (Array.isArray(r.content)) { const tn = r.content.find(c=>c.type==="text"||typeof c.text==="string"); if (tn) { try { return JSON.parse(tn.text); } catch { return tn.text; } } }
+    return r.content || null; }
+
+  async function fetchSignals() {
+    const has = !!(window.cowork && typeof window.cowork.callMcpTool === "function");
+    if (!has) { setRefreshState("", "Modo offline — conectores indisponíveis"); ["slack","gmail","claude"].forEach(s=>setSourceState(s,"err")); return; }
+    setRefreshState("loading", "Buscando sinais em Slack, Gmail e Claude…");
+    ["slack","gmail","claude"].forEach(s => setSourceState(s, ""));
+
+    const slackQueries = [
+      "automação fechamento contabilidade zapier pipefy",
+      "Log US conciliação stripe citibank",
+      "NFs invoice OME Carol fechamento contábil forecast ARR",
+      "Trem Domínio centro de custo bug Arquivei QIVE"
+    ];
+    const dms = [["D090DRLA927","Carol"], ["D08HW9DUSNM","Maiara"]];
+    const gmailQuery = "(automação OR fechamento OR roadmap OR NFs OR invoice OR \"Log US\" OR forecast OR zapier OR Trem OR Arquivei) newer_than:7d";
+
+    const slackPromises = slackQueries.map(q => window.cowork.callMcpTool("mcp__7b3f24cf-3f10-4035-90f4-8a3c6bbd6c50__slack_search_public_and_private", { query:q, limit:10, sort:"timestamp", sort_dir:"desc", response_format:"concise" }).catch(e=>({isError:true,e})));
+    const dmPromises = dms.map(([id,n]) => window.cowork.callMcpTool("mcp__7b3f24cf-3f10-4035-90f4-8a3c6bbd6c50__slack_read_channel", { channel_id:id, limit:30 }).then(r=>({r,n})).catch(e=>({isError:true,e,n})));
+    const gmailP = window.cowork.callMcpTool("mcp__7d4dc0ab-a93c-48ec-9db7-81f021a49eab__search_threads", { query:gmailQuery, pageSize:20 }).catch(e=>({isError:true,e}));
+    const sessionsP = window.cowork.callMcpTool("mcp__session_info__list_sessions", { limit:30 }).catch(e=>({isError:true,e}));
+
+    const [sR, dmR, gR, seR] = await Promise.all([Promise.all(slackPromises), Promise.all(dmPromises), gmailP, sessionsP]);
+
+    const all = []; let sOk = false;
+    sR.forEach(r => { if (!r||r.isError) return; sOk = true; const p = ext(r); const md = (p && (p.results || (typeof p==="string"?p:""))) || ""; all.push(...parseSlackMd(md)); });
+    dmR.forEach(d => { if (!d||d.isError||!d.r) return; sOk = true; const p = ext(d.r); const md = (p && (p.messages || (typeof p==="string"?p:""))) || ""; all.push(...parseDM(md, d.n)); });
+    setSourceState("slack", sOk?"ok":"err");
+
+    let gOk = false;
+    if (gR && !gR.isError) { gOk = true; all.push(...parseGmail(ext(gR))); }
+    setSourceState("gmail", gOk?"ok":"err");
+
+    let cOk = false;
+    if (seR && !seR.isError) { cOk = true; const p = ext(seR); all.push(...parseSessions(typeof p==="string"?p:(p&&p.text)||JSON.stringify(p))); }
+    setSourceState("claude", cOk?"ok":"err");
+
+    const seen = new Set();
+    const unique = all.filter(it => { const k = it.source+"|"+(it.text||"").slice(0,60); if (seen.has(k)) return false; seen.add(k); return true; });
+
+    const byProj = {};
+    snapshot.projects.forEach(p => {
+      const ms = unique.filter(it => { const t = ((it.text||"")+" "+(it.context||"")).toLowerCase(); return p.keywords.some(k => t.includes(k.toLowerCase())); });
+      if (ms.length) byProj[p.id] = ms;
+    });
+    signals = byProj; lastFetch = new Date().toISOString();
+    store.set(KEY_CACHE, { fetched:lastFetch, items:unique.slice(0,80) });
+
+    const sigCount = Object.values(byProj).reduce((s,a)=>s+a.length,0);
+    const projCount = Object.keys(byProj).length;
+    setRefreshState("ok", `${sigCount} sinais · ${projCount} projetos · ${fmt(lastFetch)}`);
+    renderOverview();
+  }
+
+  function runSkill() {
+    const prompt = "Roda /atualizar-roadmap-controladoria agora. A skill agora deve: (1) keyword no Slack, (2) ler DMs com Carol (D090DRLA927) e Maiara (D08HW9DUSNM) diretamente, (3) Gmail newer_than:7d, (4) sessions Claude. Apresentar deltas pra confirmação e atualizar via mcp__cowork__update_artifact + window.storage.";
+    const sp = (window.cowork && window.cowork.sendPrompt) || window.sendPrompt;
+    if (typeof sp === "function") sp(prompt); else { navigator.clipboard?.writeText(prompt); alert("Prompt copiado."); }
+  }
+  window.runSkill = runSkill;
+
+  function fileBaseName() {
+    const d = new Date();
+    const dd = String(d.getDate()).padStart(2,"0");
+    const mm = String(d.getMonth()+1).padStart(2,"0");
+    const aa = String(d.getFullYear()).slice(-2);
+    return `Roadmap Controladoria ${dd}.${mm}.${aa}`;
+  }
+  function downloadHTML() {
+    try {
+      const html = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url; a.download = fileBaseName() + ".html";
+      document.body.appendChild(a); a.click();
+      setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 200);
+    } catch (e) { alert("Falha ao baixar HTML: " + e.message); }
+  }
+  function downloadPDF() {
+    const original = document.title;
+    document.title = fileBaseName();
+    try { window.print(); }
+    finally { setTimeout(() => { document.title = original; }, 1500); }
+  }
+  window.downloadHTML = downloadHTML;
+  window.downloadPDF = downloadPDF;
+
+  // ===== INIT =====
+  renderHeader();
+  renderOverview();
+  renderTimeline();
+  renderDetail();
+  renderImpact();
+  renderProjects();
+  renderHistory();
+  bindTabs();
+  fetchSignals();
+})();
+</script>
+</body>
+</html>
