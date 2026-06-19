@@ -412,8 +412,8 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v36",
-    lastUpdated: "2026-06-18",
+    version: "v37",
+    lastUpdated: "2026-06-19",
     projects: [
       { id:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
@@ -480,7 +480,7 @@
         keywords:["conciliação balanço","balanço"] },
       { id:13, name:"Base Fornecedores", wave:2, status:"done", statusLabel:"80% concluído",
         economyLabel:"-12h/mês", economyHours:12, goLive:"Jun/26", periodLabel:"Mai–Jun",
-        owner:"Martin (co: Nicc)", area:"Contabilidade", color:"green", updated:false,
+        owner:"Martin (co: Nicc)", area:"Contabilidade", color:"green", updated:true,
         tagline:"✅ 80% concluído (confirmado por Ramon 18/jun) · base Supabase como fonte da verdade · 892 fornecedores (≈320 já setados com CC+categoria) · 521 pendências do Kiv a limpar antes do próx. fechamento · estratégia 1:1 fornecedor→categoria cobre ~80% dos erros · classificação por departamento · acesso restrito a ~2 admins + revisão multi-área · libera retomar o Zapier (#6)",
         insightToday:"informações de fornecedores fragmentadas em planilhas, Pipefy, Omie e Arquivei — sem source of truth única. Construção de planilha de controle de fornecedores por CC ainda incompleta (Facilities pendente).",
         insightFuture:"nova automação derivada da reunião API Omie 15/abr — Base Fornecedores como source of truth única. Martin owner, Nicc co-owner. Início mai/26, conclusão jun/26. Alimentará #9 (Conc. e Alertas Fornecedor) e dá visibilidade transversal aos demais projetos da Onda 3. Economia mapeada: -12h/mês. Kickoff operacional 19/mai (#projeto-base-unica-de-fornecedores): Nicc valida API e integração Arquivei nesta semana, Martin extrai lista atual de fornecedores e categoriza. Cadência de update toda sexta-feira no canal (proposta Nicc, vinculada às semanais). Reunião com Ramon + Maiara agendada semana de 25/mai (antes das rotinas de fechamento começarem). Stack ampliada 21/mai (insight Ramon): além de Supabase + n8n, adiciona pgvector + Hugging Face (free) pra fazer match semântico via embeddings — resolve casos como 'AWS LLC' ≡ 'Amazon Web Services Inc' ≡ 'AWS Brasil' que hoje viram 3 fornecedores diferentes na importação. O sistema sugere merge antes de criar duplicata e vira memória persistente do agente IA (melhora com o tempo, opera sobre a base de dados em vez de skill estática). Zero custo recorrente, zero plataforma nova. Martin (21/mai): vai substituir o fuzzy matching que criou na skill de Orçado vs Realizado. Update Nicc 22/mai (#projeto-base-unica-de-fornecedores 17:11): (1) tabela principal estruturada com colunas de auditoria interna + dados cadastrais + estratégicos; (2) Martin criou base auxiliar com CC + categoria — será enriquecida na base mãe Supabase após automação 100%; (3) primeiro contato com API da Receita Federal feito (dados cadastrais/situacionais apenas); (4) XMLs sendo capturados via API Qive em Base64 — Nicc trabalhando no parsing pra NF-e e NFS-e (necessário pra ter valores de NF e datas de emissão, dando rastreabilidade completa do fornecedor). Update Martin 22/mai 17:16: nova frente derivada — Lovable Front End para o Contas (Contabilidade), conectado à base, pra facilitar busca de fornecedores e batimento (Categoria, Departamento, valor histórico) → reduz trabalho do Contas/Contabilidade. 1:1 Carol/Ramon 25/mai: Carol vai absorver a frente de 'memória de decisões' via PG Vector + N8N + Supabase — armazenar contexto das decisões (padronização de nomes de fornecedores) pra automação aprender com casos passados em vez de reprocessar. Ramon vai enviar materiais (roadmap + arquitetura NetSuite + orientações PG Vector). Reunião 'Atualizações automações fornecedores' 28/mai (Gemini notes enviadas) + reunião 'Projeto Base Única - Fornecedores - Update' 28/mai 18h50 (Gemini notes) confirmam cadência semanal de update funcionando conforme proposta Nicc (19/mai). Update 28/mai (Gemini notes 'Projeto Base Única - Fornecedores - Update'): base atingiu 712 fornecedores cadastrados com 92% das NFs extraídas (automação diária garante cobertura das informações oficiais); decisão de priorizar classificação por departamento em vez de centro de custo (maior estabilidade da estrutura de dados); foco em estruturar os dados pra implementação do NetSuite. Próximas etapas: Carol/Nicc/Martin reconciliam as bases construídas individualmente pra evitar duplicação, Nicc cruza a base do projeto × base da contabilidade, grupo envia modelo completo de cadastro pro time NetSuite, valida igualdade de CNPJ entre o sistema da equipe × automação da Carol, e integra histórico desde 2022 pra análises orçamentárias. Reunião de acompanhamento pós-fechamento agendada pra 15-16/jun (Nicc, Maiara, Martin, Carol). Reunião 'Base fornecedores' 18/jun (Nicc, Maiara, Ramon, Carol, Martin — Gemini notes): base consolidada no Supabase apresentada como produto quase pronto (falta polir layout) — 892 fornecedores no total, ≈320 já configurados com centro de custo + categoria/conta contábil; estratégia de mapeamento 1:1 (fornecedor→categoria contábil) resolve ~80% dos erros recorrentes, com fornecedores voláteis tratados como exceção. As 521 pendências vindas da importação retroativa do Kiv serão limpas manualmente por Nicc + Martin (régua por valor / ignorar emissões esporádicas) — meta: zerar antes do próximo fechamento, começando pelo Brasil. Classificação por departamento (não centro de custo). Acesso restrito a ~2 admins + mecanismo de revisão multi-área antes de alterar categorias (evita uso indevido de orçamento; controle de proliferação — 45 categorias já criadas só p/ Marketing). Próximos campos obrigatórios no Pipefy: frequência (mensal/anual) e tipo de contrato, p/ previsibilidade e diferimento. A base vira 'gabarito' que cruza com o razão/orçamento e com a automação de lançamentos da Carol (#4) — gabarito × execução. Faturas/invoices (~10-15% dos casos) e fornecedores internacionais entram numa 2ª etapa, cruzando com a base da Domínio (tentativa de fechar a frente internacional em julho). A base nova libera retomar o Zapier×Pipefy (#6), hoje desatualizado (pré-cloud) — call com o time do CCB vai decidir entre a base e o zapper, além de demonstrar o repositório. Métricas anteriores (712 fornecedores / 92% NFs) atualizadas para 892 / ≈320 setados.",
@@ -571,6 +571,15 @@
       { date: "2026-06-18", projectId: 13, field: "status", from: "Em Andamento (712 fornecedores)", to: "Verde / 80% concluído — base Supabase com 892 fornecedores (≈320 setados), 521 pendências do Kiv a limpar; estratégia 1:1 cobre ~80% dos erros; libera retomar o Zapier (#6)", evidence: "Gemini notes 'Base fornecedores' 18/jun (Nicc/Maiara/Ramon/Carol/Martin) + confirmação Ramon" }
     ]));
     store.set(seedKey_v35, true);
+    history = store.get(KEY_HIST, []);
+  }
+  const seedKey_v37 = "seed_2026-06-19-v37";
+  if (!store.get(seedKey_v37)) {
+    const prevHist37 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist37.concat([
+      { date: "2026-06-19", projectId: 0, field: "UI", from: "5 abas (Visao Geral, Cronograma, Detalhamento, Impacto, Projetos)", to: "3 abas (Visao Geral, Impacto, Projetos) - Cronograma e Detalhamento removidos", evidence: "Pedido Ramon 19/jun" }
+    ]));
+    store.set(seedKey_v37, true);
     history = store.get(KEY_HIST, []);
   }
   if (!store.get(seedKey)) {
@@ -1286,7 +1295,7 @@
     panel.innerHTML = [...history].reverse().map(h => {
       const p = snapshot.projects.find(x => x.id === h.projectId);
       return `<div class="hist-item">
-        <div class="hist-meta">${esc(h.date)} · <strong>${esc(p?p.name:"#"+h.projectId)}</strong> · ${esc(h.field)}</div>
+        <div class="hist-meta">${esc(h.date)} · <strong>${esc(p?p.name:(h.projectId?("#"+h.projectId):"Geral"))}</strong> · ${esc(h.field)}</div>
         <div class="hist-change">${esc(h.from)} → <strong>${esc(h.to)}</strong></div>
         ${h.evidence ? `<div class="hist-evidence">${esc(h.evidence)}</div>` : ""}
       </div>`;
