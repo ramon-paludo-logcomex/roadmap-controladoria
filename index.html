@@ -412,8 +412,8 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v37",
-    lastUpdated: "2026-06-19",
+    version: "v38",
+    lastUpdated: "2026-06-22",
     projects: [
       { id:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
@@ -1253,17 +1253,29 @@
       tagline:"Estruturação de conta global pra operações cross-border · Em definição",
       summary:"Nova conta global em estruturação (mai/26), substituindo movimentações via Citi US. Maiara estudando como operacionalizar — caso de uso atual: reembolsos internacionais (Carlos pediu 05/mai) e pagamentos de fornecedores externos (Baker Tilly, Moss Adams).",
       detail:"Contexto operacional: conta Citi US (Log US) parou de fazer repasses regulares pra Log BR em mai/25, hoje guarda recursos pra folha e eventos México. Reembolso internacional Carlos (05/mai) abriu discussão sobre rota: Log US Citi (escolhido), Conta Global (em estudo) ou pessoa física (descartado). Conta Global resolveria: tesouraria multi-moeda centralizada, fricção de câmbio, rastreabilidade. Owner: Maiara + Kamilla + Adriano. Pendente: definir banco/provedor (BTG Global Account? Wise Business? Citi Global?), governança de uso (quem aprova movimentações), contabilização. Decisão se sai antes ou depois da migração NetSuite." },
-    { letter:"I", name:"LCC — Locomped Consultant Program", area:"Comercial/Estratégico", color:"green",
+    { letter:"I", name:"LCC — Logcomex Certified Consultants", area:"Comercial/Estratégico", color:"green",
       tagline:"Programa de vendas indiretas via despachantes aduaneiros · Lançamento jun/26 · Ramon owner Controladoria",
       summary:"Programa de canal aprovado pelo Allan (CSO) com despachantes aduaneiros atuando como consultores certificados pra ampliar cobertura comercial. Remuneração: 30% receita recorrente mensal no 1º ano, 20% no 2º, 10% no 3º. Carga tributária do consultor (custo empresa fica em 30%). Mirando lançamento em jun/26.",
       detail:"Reunião 'Programa LCC - Finance' 14/mai com Rodrigo Mota, Allan, Daniel e Adriano. Estrutura: portal de parceiros conectado direto ao Data Lake (Damaceno) pra evitar dados inconsistentes; conflitos de venda arbitrados por tempo de inatividade dos leads. Pendências da Controladoria/Ramon: (1) estudar CPC 47 — exigências contábeis e provisionamento de comissões; (2) revisar tributação — implicações fiscais e emissão de NFs pra pagamento de comissões a terceiros; (3) revisar documento LCC e mapear riscos contábeis/fiscais/tributários; (4) validar processos fiscais com Tainara antes do lançamento. 1:1 PDI Carol/Ramon 15/mai: Carol vai apoiar a Maia no comissionamento LCC e avaliar o CPC correspondente. Owner: Rodrigo Mota (programa) + Ramon (frente contábil/fiscal) + Tainara (fiscal)." },
+    { letter:"J", name:"Lei do Bem", area:"Fiscal/Incentivo", color:"purple",
+      tagline:"Owner: Thaynara · Recuperação de créditos de P&D (ano-base 2025) · estudo até 31/ago · aprovação MCTI + Min. Fazenda",
+      summary:"Novo projeto apresentado na Mensal Controladoria 19/jun: recuperação de créditos fiscais via Lei do Bem referente a 2025, mediante envio das bases de dispêndios em P&D. Owner: Thaynara. Processo federal e moroso, com aprovação em duas instâncias (MCTI e Ministério da Fazenda).",
+      detail:"Risco central: usar os créditos antes da aprovação final — a homologação pode ser parcial ou inexistente, então o valor não pode ser tratado como certo no caixa. Conclusão do estudo prevista para 31/ago (prazo sujeito a alteração pela complexidade da documentação). Gargalos: comunicação com Produto (levantamento dos dispêndios elegíveis) e com o DP (dados sigilosos de folha). Próximos passos: Thaynara prepara material executivo (potencial de valor, recursos necessários de Produto e DP, plano de visibilidade) para reunião com Adriano e Daniel, e depois diretoria (Carlos, Helmuth, Aline). Recomendação da reunião: apresentar a recuperação como faixa (ex.: R$100 mil a R$1,8 mi) para gerir expectativa, sem garantir o teto." },
+    { letter:"K", name:"Documentação de Processos", area:"Governança/Processos", color:"purple",
+      tagline:"Owner: Maiara · Consolidação central das regras de negócio · revisor único · sustenta as automações",
+      summary:"Decisão da Mensal Controladoria 19/jun: nomear um responsável pela revisão e consolidação centralizada das regras de negócio e da documentação dos processos automatizados. Owner: Maiara. Objetivo: centralizar conhecimento, evitar falhas recorrentes e padronizar operações para sustentar automações consistentes.",
+      detail:"Driver: só o projeto de lançamentos já tem 114 regras mapeadas — sem documentação formal, o conhecimento fica em cabeças e gera erro recorrente. A escrita é conjunta (cada dono documenta suas parametrizações), com um revisor final único (Maiara) garantindo consistência. Conecta com a rotina nova de pós-mortem assíncrono pós-fechamento (mapear divergências antes da reunião) e com a preparação para o NetSuite — processo bem documentado é pré-requisito de maturidade para o ERP. Próximo passo: formalizar as regras de parametrização e definir o template/repositório único." },
+    { letter:"L", name:"Aprendizados de Automações", area:"Conhecimento/Automação", color:"purple",
+      tagline:"Owner: Carol · Consolidar lições das automações · acompanhamento 23/jul · rascunho na próxima Mensal",
+      summary:"Frente de conhecimento definida na Mensal Controladoria 19/jun: compilar as lições aprendidas sobre automações e melhorias de processos, com rascunho estruturado a ser apresentado na próxima reunião mensal. Owner: Carol.",
+      detail:"Base: Carol relatou que o sucesso da automação de lançamentos veio da colaboração próxima com o time de Contas a Pagar e que a operação exige manutenção constante — esse tipo de aprendizado precisa virar acervo reutilizável pelos demais projetos. Acompanhamento marcado para 23/jul; a discussão deve ir além de uma automação específica e cobrir competências de projeto, revisão de processos e análise de arquitetura. Saída esperada: playbook/rascunho que oriente as próximas automações da Controladoria e os times externos (ver card 1)." },
   ];
 
   function renderProjects() {
-    const cards = PROJECTS_LIST.map(p => `
-      <div class="card proj-card" data-letter="${esc(p.letter)}">
+    const cards = PROJECTS_LIST.map((p, i) => `
+      <div class="card proj-card" data-num="${i+1}">
         <div class="card-header">
-          <span class="card-num" style="background:${colorFor(p.color)}">${esc(p.letter)}</span>
+          <span class="card-num" style="background:var(--lx-purple)">${i+1}</span>
           <span class="card-title">${esc(p.name)}</span>
           <span class="card-meta">${esc(p.area)}</span>
           <span class="card-chevron">›</span>
