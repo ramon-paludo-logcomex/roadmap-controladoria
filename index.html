@@ -264,6 +264,8 @@
 
   .insight-block { margin-top: 12px; padding: 10px 12px; background: var(--lx-gray-bg); border-radius: 8px; border-left: 3px solid var(--lx-purple-light); font-size: 12.5px; color: var(--lx-dark); line-height: 1.6; }
   .insight-block strong { color: var(--lx-purple); }
+  .status-now { margin-top:8px; padding:7px 11px; background:var(--lx-purple-bg); border-radius:8px; font-size:12px; color:var(--lx-dark); line-height:1.5; }
+  .status-now strong { color:var(--lx-purple); }
 
   .blocker-block { margin-top: 10px; padding: 10px 12px; background: var(--lx-red-bg); border-radius: 8px; border-left: 3px solid var(--lx-red); font-size: 12px; color: var(--lx-dark); line-height: 1.5; }
   .blocker-block .bl-head { font-weight: 700; color: var(--lx-red); margin-bottom: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
@@ -412,86 +414,97 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v46",
-    lastUpdated: "2026-06-30",
+    version: "v48",
+    lastUpdated: "2026-07-03",
     projects: [
       { id:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
         owner:"Ramon / Martin", area:"FP&A", color:"green", updated:false,
-        tagline:"Pipeline automatizado: coleta → processamento Claude → output Board-ready",
+        tagline:"Consolida fontes e gera o cohort de Logcomex e UXCOMEX, Board-ready",
+        statusNow:"Em produção desde abr/26 — roda via skills a cada fechamento.",
         insightToday:"análise de cohort feita manualmente, consolidando dados de múltiplas fontes pra gerar visão por safra de clientes.",
-        insightFuture:"automação via skills que consolidam fontes e criam o arquivo da Logcomex e da UXCOMEX de forma automatizada.",
+        insightFuture:"Skills consolidam as fontes e geram os arquivos de cohort de Logcomex e UXCOMEX automaticamente, sem montagem manual.",
         keywords:["cohort"] },
       { id:2, name:"Fechamento Gerencial", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-16h/mês", economyHours:16, goLive:"Abr/26", periodLabel:"Abr/26",
         owner:"Martin", area:"FP&A", color:"green", updated:false,
-        tagline:"Relatório Contábil × Gerencial + Budget vs. Realizado por CC",
-        insightToday:"FP&A roda macro com base no razão contábil e atualiza arquivo Gerencial e Book através de fórmulas no Excel.",
-        insightFuture:"todos os processos via skills, com granularidade de conferências vs orçamento automatizadas. Meta D+5 atingida.",
+        tagline:"Cruza Contábil × Gerencial e Budget vs. Realizado por centro de custo",
+        statusNow:"Em produção desde abr/26; meta D+5 atingida.",
+        insightToday:"FP&A roda macro sobre o razão contábil e atualiza o Gerencial e o Book por fórmulas no Excel.",
+        insightFuture:"Todo o processo via skills, com conferências vs. orçamento automatizadas na granularidade de centro de custo.",
         keywords:["fechamento gerencial","gerencial"] },
       { id:3, name:"Log US (Internacional)", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
-        owner:"Ramon / Maiara", area:"Contabilidade", color:"green", updated:true,
-        tagline:"Conciliação Stripe + Invoice + Citibank via N8N + Claude · 3º mês em prod (mai/26 ✓) · Reunião Automações Log US - contas a receber remarcada p/ seg 29/jun 17:45 (Ramon, Eduarda, Poliana, Carol) · consultoria Allshore em encerramento (Maiara negocia nova proposta de estudo) · Reunião 'Estrutura Log US – próximos passos' agendada 8/jul (Maiara) · DF Automação Parte 2 (29/jun): incluir os dados da Log US na consolidação da DF · Reunião AR 29/jun: eficiência da automação de conciliação caiu p/ 80% em maio (exceções); padronização adiada p/ após dia 5 (prioridade fechamento); Poliana grava o processo p/ Carol automatizar; fechamento Log West rodado em conjunto",
-        insightToday:"Maiara fazia manualmente: baixa Stripe CSV, cruza com invoices, categoriza Citibank, monta planilha. 1 dia inteiro por mês.",
-        insightFuture:"DEV finalizado 16/abr (9 blocos, 14 abas, 4 skills). Jan/Fev/Mar validados 100% em comparativo histórico. Validação operacional concluída no fech. abr/26 (08/mai · 412 linhas · Faturamento $147.064,44 · Stripe Coll $76.598,41 · Saldo Citi diff $0,00 ✓). 2 meses operados em prod pela Maiara (mar+abr). Stack Supabase+Omie virou referência arquitetural compartilhada com Carol no projeto de NFs. Aderente às diretrizes Omie (15/abr): leitura, base local Supabase, janela almoço. Ponto de atenção operacional: webhook N8N falha recorrente (erro 500) — fallback Drive MCP. Mesma falha do fech. Jan/26. Fech. Mai/26 entregue por Maiara em 09/jun — 3 meses consecutivos em prod (mar+abr+mai ✓). Reunião 'Automações Log US - contas a receber' agendada 16/jun 17h (Maiara, Eduarda Leme, Poliana Mecenas, Carol) — reunião remarcada p/ 23/jun 16:30 (participantes Ramon, Eduarda Leme, Poliana Mecenas, Caroline Cys; convite atualizado por Maiara 16/jun) — início da automação de AR (contas a receber) pós go-live. Convite novamente atualizado por Maiara 22/jun: reunião remarcada de 23/jun 16:30 para 24/jun 17h (Ramon, Eduarda Leme, Poliana Mecenas, Caroline Cys). Convite novamente atualizado por Maiara 24/jun: reunião remarcada de 24/jun 17h para segunda 29/jun 17:45-18:15 (mesmos participantes). Maiara escreveu à Allshore Services (Henrique Netska) em 24/jun para encerrar a consultoria atual da Log US e negociar uma nova proposta de estudo. Reunião 'Repensar estrutura | Contratos Moss, Allshore e Intercompany LogUS' 26/jun (Gemini notes): a estrutura atual vinha assumindo custos indevidos de entidades estrangeiras (prejuízo) e operar a Log US como agência coletora eleva o risco de auditoria — decidido montar os cenários financeiros/estruturais e apresentá-los à liderança (Rafa e Daniel); a retomada da consultoria jurídica (Anne) fica condicionada à definição de custos pelo Adriano. A entidade Log US também foi consolidada no NetSuite (reunião 'Net Suite - Conta Global e Log US' 25/jun). Reunião 'Estrutura Log US – próximos passos' agendada para 8/jul 10:30 (Maiara, convite 26/jun) — continuação do desenho da reestruturação societária. Na 'DF Automação - Parte 2' (29/jun) ficou definido incluir os dados da Log US na consolidação da automação da DF (#12). Reunião 'Automações Log US - contas a receber' realizada 29/jun (Gemini notes): a eficiência da automação de conciliação (Stripe × Citibank × OME) caiu para 80% em maio por aumento de exceções e falhas na identificação de clientes — o foco passa a ser padronizar as transações para restaurar o desempenho; a colaboração de padronização de processos foi adiada para após o dia 5 (prioridade do fechamento mensal); Poliana vai gravar o processo de conciliação após o fechamento para a Carol analisar pontos de automação; o fechamento da Log West será rodado em conjunto (Ramon, Maiara, Carol) após a Poliana entregar os arquivos.",
+        owner:"Ramon / Maiara", area:"Contabilidade", color:"green", updated:false,
+        tagline:"Concilia Stripe, invoices e Citibank via N8N + Claude",
+        statusNow:"Eficiência da conciliação caiu p/ 80% em mai (exceções); padronização retomada após o dia 5. (30/jun)",
+        insightToday:"Maiara fazia à mão — baixava CSV do Stripe, cruzava invoices, categorizava Citibank e montava a planilha. 1 dia por mês.",
+        insightFuture:"Conciliação Stripe × invoice × Citibank fecha sozinha (9 blocos, 14 abas), com saldo Citi batendo em zero e exceções tratadas por padronização.",
         keywords:["log us","fechamento internacional","citibank","stripe us"] },
       { id:4, name:"Lanç. NFs/Invoices", wave:2, status:"done", statusLabel:"Concluído",
         economyLabel:"-32h/mês", economyHours:32, goLive:"Jun/26", periodLabel:"Abr–Jun",
         owner:"Carol", area:"Contabilidade", color:"green", updated:false,
-        tagline:"✅ CONCLUÍDO jun/26 — 100% das 32h/mês de automação entregues (confirmado por Ramon 17/jun) · 100% cobertura em operação assistida (1:1 Carol 25/mai) · Margem de exceção 2-3% · Dashboards em dev · Controles novos para despesas antecipadas / adiantamentos a fornecedores · Reunião automações fornecedores 11/jun: 80% automatizado na prática, meta 90% + auditoria preventiva",
-        insightToday:"Mateus lança 2 dias por semana + Nicc nos 2 primeiros dias do fechamento. Regras de rateio manuais.",
-        insightFuture:"testes oficiais com APIs em 23/abr (Report Executivo OK). Carol cobrindo Match 100% no fech. de abril (~20h economizadas). Canal de teste com Ramon em 29/abr. Maiara 29/abr: 'no caminho, ainda tem coisas pra arrumar'. 1:1 Maia/Ramon 04/mai: Maiara vai enviar arquivos de input do mês (Poli + extratos) pra Ramon testar a automação no 3º dia útil. Bloqueador NODE_FUNCTION_ALLOW_EXTERNAL=xlsx resolvido. Go-live abr→mai/26. Reunião API Omie 15/abr (Ana Lyvia + Danilo): Carol citada como executora — diretrizes obrigatórias: Web Hooks > endpoints, somente leitura, alinhar projeto com Ana Lyvia antes de prod, janela 12h-14h pra batchs. 1:1 Maia/Ramon 14/mai: Nick + Carol vão automatizar lançamento de NFs e cartões de crédito ainda em maio. Gravidez Maiara cria urgência operacional — transição de processos até setembro/26 com documentação obrigatória dos fluxos críticos. 1:1 PDI Carol/Ramon 15/mai: Carol mantida na contabilidade pra aprofundar conhecimento técnico (CPC); decisão é acelerar automações ANTES da licença da equipe — uso recomendado de IA + Claude Code pra documentar projetos. 1:1 Carol/Ramon 25/mai: automação dos lançamentos financeiros atingiu 100% de cobertura, incluindo casos complexos com rateios que antes consumiam tempo significativo. Processo segue em regime de operação assistida (equipe faz conferências manuais em paralelo pra identificar divergências e padronizar entradas) — meta é definir margem de exceção aceitável (2-3%) em vez de buscar eliminação total. Carol desenvolvendo dashboards pra equipe acompanhar volume de lançamentos e correções. Novos controles implementados para despesas antecipadas e adiantamentos a fornecedores — sistema reconhece valores automaticamente e previne erros de deferimento que ocorreram em períodos anteriores. Carol vai enviar resumo HTML da automação pro Ramon (integrar funcionalidades de memória de base de dados). Planilha de auditoria e provisão será compartilhada com time de contabilidade hoje/amanhã pra validação da estrutura. Mindset: focar no sucesso da automação, tratar falhas como pontos de melhoria pra próxima iteração. Carol vai mapear processos pra criar roadmap unificado (referência: outros projetos). Reunião 'Provisão Contábil Conta Global | Remediar risco não emissão NFs' agendada por Ramon pra 29/mai 10h (Adriano, Evandro, Kamilla, Maiara confirmaram em 28/mai) — workstream paralela pra remediar risco operacional de não emissão de NFs via provisão contábil na Conta Global, antes do início do fechamento de mai/26. Reunião 'Atualizações automações fornecedores' 28/mai (Carol, Kamilla, Thaiane) definiu padronização documental obrigatória: campo de observação no OMIE deve constar 'NF' ou 'invoice' (nunca 'Danfe'/recibo/fatura), pré-requisito pra automação identificar o documento e eliminar correções manuais; divergências centralizadas em planilha compartilhada com monitoramento semanal; OME mantido como fonte única de CC; pagamentos passam a exigir documento fiscal completo (preparação NetSuite). Carol vai implementar trava de conformidade no robô — valida nº do documento + CNPJ do pipe contra os dados da Qive antes de aceitar o lançamento. Desvio de entendimento corrigido (02/jun): Kami e Thai chegaram a recusar pipes com DANFE achando que não era documento fiscal; Maiara realinhou com o time e formalizou por e-mail (Thaynara 02/jun — 'Alinhamento - Tipo de documentos'). Pós-fechamento, Maiara desenhando com Carol uma apresentação do que o robô está capturando e onde dá pra melhorar — preparo direto pro NetSuite. Reunião 'Automação Pagamentos' 02/jun (Gemini notes): funcionalidades críticas e dashboards integrados ao fluxo; limitações API NetSuite exigem ajustes no processamento; Ramon redesenha fluxo da automação; Adriano elabora planilha de referência para auditoria comparativa (09/jun). Foco: estabilizar processos antes de expandir para outras áreas. Sinal de reestruturação de equipe por gaps de senioridade. Reunião 'Atualizações automações fornecedores' 11/jun (Carol, Kamilla, Tai — Gemini notes): a automação atingiu 80% dos lançamentos na prática, com 20% ainda manuais por falhas documentais e cadastrais; meta para os próximos fechamentos definida em 90% de automação + reduzir pela metade o volume de correções manuais, com foco em auditoria preventiva; uso obrigatório do NetSuite para garantir solicitações de compra aprovadas e eliminar gastos fora do processo. Novos rituais operacionais: Carol envia toda segunda-feira a relação de NFs pendentes no sistema pro time corrigir na mesma semana; monitoramento mensal de indicadores de assertividade por categoria de erro; Tai agenda reunião semanal de 1h pra revisar os erros da semana e alinhar procedimentos; Carol mapeia os responsáveis locais das áreas que contratam pra agilizar pendências de documentos. 1:1 Carol/Ramon 26/jun (Gemini notes): criado um inventário formal das APIs financeiras e mitigados problemas de integração entre sistemas via consultas automatizadas; nova frente de conciliação automatizada Kiv x OME (Danilo desenvolve a query do período); Carol estrutura uma governança financeira quinzenal pra documentar as bases usadas e prevenir conflito entre automações; Carol passa por procedimento cirúrgico com retorno remoto previsto em ~7 dias, sem impacto nas operações atuais. Em paralelo, as regras de emissão de NF da Conta Global foram formalizadas (Thaynara 26/jun — ISS, serviço 15.07) e foi aberto chamado no suporte Omie por inconsistência de IBS/CBS na emissão de NFS-e (26/jun, prazo crítico).",
+        tagline:"Lança NFs e invoices no Omie com rateio automático por centro de custo",
+        statusNow:"Concluído jun/26 — 32h/mês automatizadas; regime assistido com margem de exceção de 2–3%.",
+        insightToday:"Mateus lançava 2 dias por semana + Nicc nos 2 primeiros dias do fechamento, com regras de rateio manuais.",
+        insightFuture:"Robô lança NFs e invoices direto no Omie com rateio automático, trava de conformidade (nº doc + CNPJ vs. Qive) e dashboards de volume e correções.",
         keywords:["nf","nfs","invoice","invoices","ome"] },
       { id:5, name:"Fechamento Contábil", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-40h/mês", economyHours:40, goLive:"Ago/26", periodLabel:"Abr–Ago",
-        owner:"Maiara", area:"Contabilidade", color:"orange", updated:true,
+        owner:"Maiara", area:"Contabilidade", color:"orange", updated:false,
         subitems:["Bancos","Provisões","Faturamento","Folha vs Balanço","Despesas Antecipadas"],
-        tagline:"Quebrar em entregáveis menores · ECD permanece no Domínio · Arquitetura alvo NetSuite (HubSpot→fech. gerencial) desenhada · Escalonamento Oracle formalizado · Oracle: reunião semana 16/jun confirmada (09/jun) · Adriano formaliza bloqueio: sem op. assistida antes dos 4 pontos · Viabilidade NetSuite 10/jun: +13 dias go-live · +271h esforço · Folha aprovada R$32k+R$1k/mês · Reunião 11/jun 16h · Sessão NetSuite 16/jun: Adriano→Vini (Thomson) p/ API Domínio→NetSuite, demo p/ Daniel, Jean aliado CPRB · Frente Bancos iniciada (Nicc 23/jun) · Fórum Integração 24/jun: 11 lançamentos a corrigir + regras de categoria · papo NetSuite LALUR 30/jun: LALUR migra p/ NetSuite, ECD postergada p/ 2027/2028, folha via importação TXT",
-        insightToday:"controle manual por e-mail e planilha descentralizada. Time todo nos primeiros 4 dias úteis revisando e lançando. GUT 80 — maior score do projeto.",
-        insightFuture:"Estratégia: quebrar o fechamento contábil em entregáveis de automação menores pra colher os frutos antes — não tratar como uma coisa só. Foco inicial em 5 frentes paralelas: (A) Bancos — conciliação extrato vs lançamento; (B) Faturamento — integração Omie → Domínio com regras de competência; (C) Folha vs Balanço — bater INSS/FGTS/13º/férias com provisões; (D) Provisões — bônus, férias, contingências, encargos; (E) Despesas Antecipadas — cronograma de amortização e baixa automática. Cada frente roda como mini-automação independente. NetSuite cobrirá faturamento + AR; Domínio mantido pras declarações fiscais (complexidade tributária BR). Receita diferida: decisão tomada em 14/mai — Looker mantido (não desenvolver no NetSuite). Reunião Oracle Arquivei × Pipefy 14/mai consolidou premissas: OME segue ativo por +1 semestre, pedidos de compra obrigatórios para itens não recorrentes, data de corte mensal fixa. Aplica diretrizes Omie API. 1:1 PDI Carol/Ramon 15/mai: Carol vai (a) mensurar volumetria contábil pra identificar oportunidades de automação, (b) revisar arquitetura NetSuite atual × futura e mandar feedback sobre viabilidade das integrações, (c) acelerar fluxos antes da licença Maiara. Reunião Oracle Netsuite × Project Dome 15/mai (notas Gemini): Project Dome alegou incapacidade técnica para entregar obrigações fiscais (CPRB, Lalur, ECF) — decisão de escalar diretamente para Oracle (Adriano contatará via Mônica) ao invés de assumir responsabilidades técnicas do fornecedor. Adriano revisará cláusulas contratuais Project Dome pra identificar responsabilidades. Danilo solicitará aprovação da receita diferida durante a renovação contratual (reforça decisão 14/mai). Maiara incluirá Ramon nos convites das reuniões de checkpoint. Arquitetura confirmada: middleware centralizando controle contábil no NetSuite (alinhada às diretrizes Omie API 15/abr). Primeiros testes em fech. mai/jun (go-live mai→jun/26). Email Adriano 18/mai (Eliane Albano + Mônica Espindula em cc) formaliza por escrito o escalonamento Oracle Tributário — CPRB, Lalur, ECF e Receita Diferida listados como urgentes, pedido de reunião com equipe tributária Oracle 'asap'. Sem resposta da Oracle até 21/mai (Adriano em pressing). Reversão arquitetural confirmada no mesmo email: ECD permanece no Domínio (ECF depende de ECD e NetSuite não gera ECF completa) → arquitetura final fica com 3 sistemas contábeis em paralelo (Domínio + NetSuite + Looker). Reforça que Receita Diferida continua no Looker (Project Dome alegou ausência de base histórica). 1:1 Carol/Ramon 25/mai: Ramon desenhou arquitetura ALVO do NetSuite pra sanar lacunas de processos — mapeamento do fluxo conectando HubSpot → fechamento gerencial, em discussão com especialistas Oracle. Esse mapa serve como modelo de padronização e pode orientar a estruturação de outros processos da Controladoria. Ramon vai enviar pra Carol o roadmap atualizado + fluxos da arquitetura NetSuite + orientações sobre PG Vector e memória de decisões. Email Raphael (Project Dome) 28/mai 17h21 pra Filipe/Vitor (Project Dome) cc Ágata/Danilo/Maiara/Adriano: documentação formal da Receita Diferida com descritivo dos campos da tabela principal do cálculo (já com fórmulas) — formaliza entrega da frente após decisão 14/mai de manter Looker e reforço Adriano 18/mai. Reunião Oracle 'devolutiva dúvidas' agendada pra 03/jun 11h (Adriano + Maiara + Thaynara + Eduarda + Danilo + equipe Oracle/Project Dome) pra responder pontos pendentes do escalonamento tributário. Oracle Tributário respondeu ao escalonamento em 08/jun (Eliane Albano + Jean Carlos Ferreira Oracle, cc Adriano/Maiara/Thaynara/Eduarda/Danilo/Ana Rocha + Vitor/Filipe Project Dome): devolutiva urgente com 4 pontos — (1) CPRB: NetSuite não calcula nativamente; (2) LALUR/LACS: sem eles não há como apurar IRPJ/CSLL; (3) ECF: NetSuite não gera ECF completa; (4) Receita Diferida: sem base histórica, 3 sistemas em paralelo (Domínio+NetSuite+Looker) confirmados. Oracle confirmou reunião semana 16/jun (09/jun — email Eliane Albano). Adriano formalizou bloqueio: Logcomex não avança para operação assistida sem resolução dos 4 pontos tributários (CPRB, LALUR/LACS, ECF, Receita Diferida); aguarda ≥22/jun para nova data. Nicc avançou automação do razão contábil: enviou formato correto a Martin em 09/jun. Reunião 'Viabilidade Net Suite' realizada em 10/jun (Ramon, Adriano, Maiara): atrasos acumulados somam +13 dias no go-live e +271h de esforço adicional; integração da folha de pagamento aprovada — custo único R$32.000 + R$1.000/mês; módulo fiscal permanece desafio (limitações de API nativa NetSuite); Maiara vai contatar Thomson para investigar API/integração com a plataforma Domínio; criação desordenada de novas entidades societárias gera sobrecarga para o financeiro. Reunião de acompanhamento agendada para 11/jun 16h (Adriano convida participantes do projeto). Reunião de alinhamento NetSuite 16/jun (Ramon, Adriano, Maiara, Duda — Gemini notes): destaque para a necessidade de mais expertise técnica no time (sem o suporte contábil dedicado de antes), problemas de formato de relatório (americano × brasileiro), automação da geração de arquivos (processo via 'Cloud' para gerar TXT) e complexidade da receita diferida (aprender boas práticas externas para pressionar a ADONIS). Próximos passos: Adriano tenta contato com Vini (Thomson) para avaliar conectar a API da Domínio ao NetSuite; possível demonstração do NetSuite para o Daniel validar o business case; Jean reconhecido como aliado estratégico (visão técnica + de produto) para destravar a CPRB; Maiara monitora Felipe nas pendências de receita diferida e demais entregas técnicas; Adriano agenda novos alinhamentos. Mensal Controladoria 19/jun + 1:1 Maiara/Ramon 22/jun (Gemini notes): portfólio de 13 projetos revisado com foco em mapeamento/maturidade operacional ANTES de automatizar — 114 regras de negócio mapeadas; decisão de nomear responsável pela revisão e consolidação centralizada das parametrizações (qualidade do input > tecnologia; validação humana indispensável); Maiara vai consolidar as parametrizações de cada área e enviar resumo a Ramon + Martin na sexta; rituais de pós-mortem por fechamento e janelas de comunicação no período de fechamento formalizados. Frente A (Bancos) iniciada: Niccolas formalizou 23/jun o início do mapeamento da automação de importação/conferência dos saldos bancários — extratos passam a ser nomeados com o nome da respectiva conta contábil (padronização que reduz ajustes manuais). Fórum Mensal de Integração entre as áreas 24/jun (Gemini notes): revisão de pendências + correção de 11 lançamentos classificados incorretamente por falha na automação; regra de categoria única para faturas sem separação clara na origem (evita retrabalho) e regra para automatizar a classificação de fornecedores de Dados; decisão de manter categorias detalhadas no OMIE (visibilidade gerencial) e consolidar os registros no contábil; Martin ganha acesso ao Omie e ao sistema ME + treinamento; Carol compartilhou (25/jun) o template 'Análise Lançamentos Razão' onde Martin registra os casos que exigirão ajuste. Reunião 'Net Suite - Conta Global e Log US' 25/jun (Gemini notes): decisão de integrar a Conta Global ao NetSuite e consolidar também a entidade Log US no mesmo ERP, seguindo um plano por etapas — unifica a governança financeira e evita fragmentação societária. Reunião 'papo rápido NetSuite LALUR' 30/jun (Gemini notes): decisão de migrar os cálculos do LALUR (Livro de Apuração do Lucro Real) para o NetSuite, unificando tecnicamente os dados hoje fragmentados entre sistemas; será criado um documento detalhando as contas organizadas por blocos da ECF (Thaynara envia a lista de blocos a Ramon); a migração da ECD foi postergada para 2027/2028 e a importação via arquivo TXT foi definida como solução imediata para a folha de pagamento. Próximos passos: Ramon cria a planilha de fontes do LALUR por blocos da ECF e agenda revisão técnica de 30 min com Maiara e Thaynara até 3/jul.",
+        tagline:"Quebra o fechamento contábil em automações independentes por frente",
+        statusNow:"papo NetSuite LALUR 30/jun: LALUR migra p/ o NetSuite; ECD adiada p/ 2027/28; folha via TXT.",
+        insightToday:"controle manual por e-mail e planilha descentralizada; time todo nos 4 primeiros dias úteis revisando e lançando. GUT 80.",
+        insightFuture:"Cinco mini-automações independentes — Bancos, Faturamento, Folha vs. Balanço, Provisões e Despesas Antecipadas. NetSuite cobre faturamento+AR; Domínio mantém o fiscal BR.",
         keywords:["fechamento contábil","fechamento contabil"] },
       { id:6, name:"Zapier × Pipefy", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"A mapear", economyHours:0, goLive:"Set/26", periodLabel:"Abr–Set",
-        owner:"Nicc", area:"Contabilidade", color:"orange", updated:false,
-        tagline:"Robô cruza cards Pipefy CP × Budget · Categorias e CC do orçamento · Reunião Oracle 14/mai redefiniu escopo · Repriorizado para a Onda 3 (29/jun) — previsão de conclusão set/26; retomada depende da base única de fornecedores (#13) consolidada",
-        insightToday:"robô já identifica casos relevantes na abertura de cards no Pipefy. Revisão de cadastro de categorias em andamento.",
-        insightFuture:"Nicc voltou de férias 30/abr. Reunião QIVE × Pipefy 30/abr 16h. Reunião Oracle Arquivei × Pipefy 14/mai redefiniu escopo: pedidos de compra obrigatórios para itens não recorrentes, data de corte mensal fixa, custos extras do integrador rejeitados, nova reunião com Oracle (Duda, Maceno, Tai) vai validar limitações técnicas alegadas pelo integrador. Definição de fluxo pra novos fornecedores e etiquetas automáticas em discussão. Diretrizes Omie API (15/abr): janela 12h-14h pra batchs (Omie suspende API aleatoriamente quando excede), alinhar consumo com Ana Lyvia antes de prod. Repriorização 29/jun: movido da Onda 2 para a Onda 3, com previsão de conclusão em set/26 — a retomada depende da base única de fornecedores (#13) consolidada, e a call com o time do CCB vai decidir entre a base e o Zapier.",
+        owner:"Nicc", area:"Contabilidade", color:"orange", updated:true,
+        tagline:"Cruza cards do Pipefy (CP) com o Budget por categoria e centro de custo",
+        statusNow:"Pipefy em descontinuação (01/jul): empresa testa sistema interno como front e a API sai cara em USD. Definição 23/jul se o projeto segue ou é absorvido pelo assistente de abertura interno (aprovado por Adriano).",
+        insightToday:"robô já identifica casos relevantes na abertura de cards no Pipefy; revisão do cadastro de categorias em andamento.",
+        insightFuture:"Robô cruza cards do Pipefy com o orçamento e aplica categoria e CC automaticamente, com pedido de compra obrigatório e data de corte mensal fixa.",
         keywords:["zapier","pipefy"] },
       { id:8, name:"Obrigações Fiscais", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
         owner:"Tai", area:"Contabilidade", color:"orange", updated:false,
-        tagline:"Calendário fiscal com alertas · Escalonamento Oracle formalizado por email 18/mai (CPRB+Lalur+ECF) · Maiara cobra Tai status das automações fiscais até 13/jun (1:1 10/jun) · Reunião 'Automações fiscais' 25/jun (Maiara, Thaynara/Tai, Ramon): automação em nuvem de IR + ECD validada; ECF em correção p/ validação/assinatura final; Ramon vai arquitetar a automação fiscal pra sair de execuções em máquina local; reforma tributária postergada · ECD/ECF 2025 liberada p/ transmissão (Daniel aprovou CRC da Thaynara, 24/jun)",
-        insightToday:"cálculos fiscais (RCS) manuais no Excel. Erro já detectado pela auditoria. 1 dia de fechamento + 2-3 dias pós-fechamento.",
-        insightFuture:"calendário fiscal automático com alertas de vencimento, cálculos automatizados, redução do risco de erro humano. Mapeamento já iniciado pela Tai. 1:1 Maia/Ramon 04/mai: manter no Domínio — complexidade tributária brasileira não comporta NetSuite. Tai vai atualizar status e enviar bullet points pro Ramon. Diretrizes Omie API (15/abr) aplicam-se aos consumos auxiliares (Web Hooks, leitura, janela almoço). Reunião Oracle Netsuite × Project Dome 15/mai (notas Gemini): CPRB, Lalur e ECF identificados como obrigações que Project Dome alegou não conseguir entregar — Adriano vai contatar Oracle diretamente pra esclarecer lacunas, solicitar informações sobre arquitetura e funcionalidades nativas, e agendar reunião urgente com equipe tributária Oracle no início da semana via briefing da representante Mônica. Decisão estratégica: não assumir responsabilidades técnicas do fornecedor — escalar estruturalmente. Adriano também esclarecerá grupo sobre recusa do pagamento de taxas comerciais que já estavam no escopo original. Email Adriano 18/mai (Eliane Albano + Mônica em cc) formaliza por escrito o escalonamento — CPRB, Lalur, ECF e Receita Diferida listados como urgentes, pedido de reunião com equipe tributária Oracle 'asap'. Sem resposta da Oracle até 21/mai. 1:1 Maiara/Ramon 10/jun: Maiara vai cobrar Tai um resumo do status das automações fiscais até sexta-feira 13/jun — documento deve incluir: o que foi concluído, o que está em andamento, o que falta fazer, e fluxos criados. Ramon vai apoiar Tai com demandas fiscais para aliviar sobrecarga pessoal. Reunião 'Automações fiscais' 25/jun (Maiara, Thaynara, Ramon — Gemini notes): primeiro sinal concreto de avanço da frente — a equipe validou o sucesso do uso de soluções em nuvem (Cowork) para automação do Imposto de Renda e da ECD, com a integração futura ao NetSuite mirando eliminar a dependência crítica de planilhas manuais; reafirmada a necessidade de auditoria humana constante para a integridade dos dados fiscais complexos; o planejamento da reforma tributária foi postergado por incertezas na implementação do sistema. Próximos passos: Thaynara corrige os erros da ECF (ajusta o arquivo conforme o manual p/ permitir validação e assinatura final), compartilha o balancete e o output do Cowork com Ramon; Ramon vai arquitetar os processos de automação fiscal para reduzir a dependência de execuções em máquinas locais e garantir a integridade dos cálculos além das planilhas compartilhadas; Maiara vai detalhar quais valores do balancete impactam a Declaração de Ajuste Fiscal e reagendar a reunião da Logware. Em paralelo, a transmissão da ECD/ECF do ano-calendário 2025 foi liberada — Daniel autorizou (24/jun) a assinatura via CRC da Thaynara.",
+        tagline:"Calendário fiscal com alertas de vencimento e cálculos automatizados",
+        statusNow:"Automações fiscais 25/jun: IR + ECD em nuvem validados; ECF em correção p/ assinatura final.",
+        insightToday:"cálculos fiscais (RCS) manuais no Excel — erro já pego pela auditoria. 1 dia no fechamento + 2–3 dias depois.",
+        insightFuture:"Calendário fiscal automático com alertas de vencimento e cálculos em nuvem, sem depender de máquina local. Mantido no Domínio pela complexidade tributária BR.",
         keywords:["obrigações fiscais","sped","darf","cprb","lalur","ecf"] },
       { id:9, name:"Conc. e Alertas Fornecedor", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
         owner:"Nicc", area:"Contabilidade", color:"orange", updated:false,
-        tagline:"Merge de Alertas + Conc. Fornecedor · Automação Claude + arquivo .md",
-        insightToday:"Mateus faz compilado manual a cada 15 dias (~8h/semana). Limpeza manual do razão e nomes de fornecedores batidos individualmente.",
-        insightFuture:"Projetos #9 e #10 mesclados — mesma stack, mesmo owner. Arquitetura: automação Claude consumindo arquivo .md como fonte de truth. Nicc owner. Arquivei identifica fornecedores recorrentes, N8N gera alerta no Slack, cobra abertura de pipe dentro da competência. Conciliação automática com dados do ERP, apontando diferenças sem trabalho manual. Prioridade máxima da Onda 3 (1:1 Maia/Ramon 04/mai).",
+        tagline:"Concilia razão × ERP e alerta fornecedores recorrentes sem pipe aberto",
+        statusNow:"Prioridade da Onda 3; #9 e #10 mesclados (mesma stack, mesmo owner). (04/mai)",
+        insightToday:"Mateus faz compilado manual a cada 15 dias (~8h/semana); limpeza do razão e nomes de fornecedores batidos um a um.",
+        insightFuture:"Arquivei detecta fornecedores recorrentes, N8N alerta no Slack e cobra abertura de pipe na competência; conciliação com o ERP aponta diferenças sem trabalho manual.",
         keywords:["alertas fornecedor","conciliação fornecedor","conc fornecedor"] },
       { id:11, name:"Conc. Balanço", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-20h/mês", economyHours:20, goLive:"Jul/26", periodLabel:"Mai–Jul",
         owner:"A definir", area:"Contabilidade", color:"orange", updated:false,
-        tagline:"Iniciado jun/26 (confirmado por Ramon 17/jun) · Prioridade Onda 3 · -20h/mês (recalibrado 15/mai)",
-        insightToday:"1 semana do Nicc + 1 semana da Tha. Todas as contas com relatório comprovando saldo. Time não chega a 50% do que deveria conciliar.",
-        insightFuture:"1:1 Maia/Ramon 04/mai: bloco de fornecedores/balanço foi definido como prioridade da Onda 3 pra ganho de eficiência. Busca automática de informações, eliminando o gargalo manual. Recalibração de economia 15/mai: -20h/mês (revisado por Ramon — esforço operacional mensal recorrente, não só ganho anual concentrado).",
+        tagline:"Concilia contas do balanço com relatório que comprova cada saldo",
+        statusNow:"Iniciado jun/26; prioridade da Onda 3.",
+        insightToday:"1 semana do Nicc + 1 semana da Tha; nem 50% das contas que deveriam ser conciliadas são.",
+        insightFuture:"Busca automática dos relatórios que comprovam cada saldo, eliminando o gargalo manual da conciliação de contas do balanço.",
         keywords:["conciliação balanço","balanço"] },
       { id:13, name:"Base Fornecedores", wave:2, status:"done", statusLabel:"80% concluído",
         economyLabel:"-12h/mês", economyHours:12, goLive:"Jun/26", periodLabel:"Mai–Jun",
-        owner:"Martin (co: Nicc)", area:"Contabilidade", color:"green", updated:false,
-        tagline:"✅ 80% concluído (confirmado por Ramon 18/jun) · base Supabase como fonte da verdade · 892 fornecedores (≈320 já setados com CC+categoria) · 521 pendências do Kiv a limpar antes do próx. fechamento · estratégia 1:1 fornecedor→categoria cobre ~80% dos erros · classificação por departamento · acesso restrito a ~2 admins + revisão multi-área · libera retomar o Zapier (#6)",
-        insightToday:"informações de fornecedores fragmentadas em planilhas, Pipefy, Omie e Arquivei — sem source of truth única. Construção de planilha de controle de fornecedores por CC ainda incompleta (Facilities pendente).",
-        insightFuture:"nova automação derivada da reunião API Omie 15/abr — Base Fornecedores como source of truth única. Martin owner, Nicc co-owner. Início mai/26, conclusão jun/26. Alimentará #9 (Conc. e Alertas Fornecedor) e dá visibilidade transversal aos demais projetos da Onda 3. Economia mapeada: -12h/mês. Kickoff operacional 19/mai (#projeto-base-unica-de-fornecedores): Nicc valida API e integração Arquivei nesta semana, Martin extrai lista atual de fornecedores e categoriza. Cadência de update toda sexta-feira no canal (proposta Nicc, vinculada às semanais). Reunião com Ramon + Maiara agendada semana de 25/mai (antes das rotinas de fechamento começarem). Stack ampliada 21/mai (insight Ramon): além de Supabase + n8n, adiciona pgvector + Hugging Face (free) pra fazer match semântico via embeddings — resolve casos como 'AWS LLC' ≡ 'Amazon Web Services Inc' ≡ 'AWS Brasil' que hoje viram 3 fornecedores diferentes na importação. O sistema sugere merge antes de criar duplicata e vira memória persistente do agente IA (melhora com o tempo, opera sobre a base de dados em vez de skill estática). Zero custo recorrente, zero plataforma nova. Martin (21/mai): vai substituir o fuzzy matching que criou na skill de Orçado vs Realizado. Update Nicc 22/mai (#projeto-base-unica-de-fornecedores 17:11): (1) tabela principal estruturada com colunas de auditoria interna + dados cadastrais + estratégicos; (2) Martin criou base auxiliar com CC + categoria — será enriquecida na base mãe Supabase após automação 100%; (3) primeiro contato com API da Receita Federal feito (dados cadastrais/situacionais apenas); (4) XMLs sendo capturados via API Qive em Base64 — Nicc trabalhando no parsing pra NF-e e NFS-e (necessário pra ter valores de NF e datas de emissão, dando rastreabilidade completa do fornecedor). Update Martin 22/mai 17:16: nova frente derivada — Lovable Front End para o Contas (Contabilidade), conectado à base, pra facilitar busca de fornecedores e batimento (Categoria, Departamento, valor histórico) → reduz trabalho do Contas/Contabilidade. 1:1 Carol/Ramon 25/mai: Carol vai absorver a frente de 'memória de decisões' via PG Vector + N8N + Supabase — armazenar contexto das decisões (padronização de nomes de fornecedores) pra automação aprender com casos passados em vez de reprocessar. Ramon vai enviar materiais (roadmap + arquitetura NetSuite + orientações PG Vector). Reunião 'Atualizações automações fornecedores' 28/mai (Gemini notes enviadas) + reunião 'Projeto Base Única - Fornecedores - Update' 28/mai 18h50 (Gemini notes) confirmam cadência semanal de update funcionando conforme proposta Nicc (19/mai). Update 28/mai (Gemini notes 'Projeto Base Única - Fornecedores - Update'): base atingiu 712 fornecedores cadastrados com 92% das NFs extraídas (automação diária garante cobertura das informações oficiais); decisão de priorizar classificação por departamento em vez de centro de custo (maior estabilidade da estrutura de dados); foco em estruturar os dados pra implementação do NetSuite. Próximas etapas: Carol/Nicc/Martin reconciliam as bases construídas individualmente pra evitar duplicação, Nicc cruza a base do projeto × base da contabilidade, grupo envia modelo completo de cadastro pro time NetSuite, valida igualdade de CNPJ entre o sistema da equipe × automação da Carol, e integra histórico desde 2022 pra análises orçamentárias. Reunião de acompanhamento pós-fechamento agendada pra 15-16/jun (Nicc, Maiara, Martin, Carol). Reunião 'Base fornecedores' 18/jun (Nicc, Maiara, Ramon, Carol, Martin — Gemini notes): base consolidada no Supabase apresentada como produto quase pronto (falta polir layout) — 892 fornecedores no total, ≈320 já configurados com centro de custo + categoria/conta contábil; estratégia de mapeamento 1:1 (fornecedor→categoria contábil) resolve ~80% dos erros recorrentes, com fornecedores voláteis tratados como exceção. As 521 pendências vindas da importação retroativa do Kiv serão limpas manualmente por Nicc + Martin (régua por valor / ignorar emissões esporádicas) — meta: zerar antes do próximo fechamento, começando pelo Brasil. Classificação por departamento (não centro de custo). Acesso restrito a ~2 admins + mecanismo de revisão multi-área antes de alterar categorias (evita uso indevido de orçamento; controle de proliferação — 45 categorias já criadas só p/ Marketing). Próximos campos obrigatórios no Pipefy: frequência (mensal/anual) e tipo de contrato, p/ previsibilidade e diferimento. A base vira 'gabarito' que cruza com o razão/orçamento e com a automação de lançamentos da Carol (#4) — gabarito × execução. Faturas/invoices (~10-15% dos casos) e fornecedores internacionais entram numa 2ª etapa, cruzando com a base da Domínio (tentativa de fechar a frente internacional em julho). A base nova libera retomar o Zapier×Pipefy (#6), hoje desatualizado (pré-cloud) — call com o time do CCB vai decidir entre a base e o zapper, além de demonstrar o repositório. Métricas anteriores (712 fornecedores / 92% NFs) atualizadas para 892 / ≈320 setados.",
+        owner:"Martin (co: Nicc)", area:"Contabilidade", color:"green", updated:true,
+        tagline:"Base única de fornecedores no Supabase como fonte da verdade",
+        statusNow:"Retomada + apresentação p/ Daniel marcadas p/ 23/jul (Carol + Nicc); cadastro de novos fornecedores definido via Slack (Martin/Nicc). (01/jul)",
+        insightToday:"dados de fornecedores fragmentados em planilhas, Pipefy, Omie e Arquivei — sem source of truth única.",
+        insightFuture:"Base no Supabase mapeia fornecedor→categoria (cobre ~80% dos erros), alimenta a conciliação (#9) e vira gabarito que cruza razão e orçamento. Match semântico via pgvector.",
         keywords:["base fornecedores","fornecedor base"] },
       { id:12, name:"DF Auditoria (mensal)", wave:3, status:"prog", statusLabel:"MVP em construção",
         economyLabel:"~80h/ano", economyHours:7, goLive:"Ago/26", periodLabel:"Mai–Ago",
-        owner:"Maiara", area:"Contabilidade", color:"orange", updated:false,
-        tagline:"DF anual virando processo mensal · Pré-balance contínuo com KPMG · Kickoff Discovery realizado 17/jun (Maiara + Ramon): MVP até seção 12 / impostos a recuperar, validação base Dez/25; Ramon constrói a automação do zero · KPMG enviou cronograma da auditoria 2026 (15/jun): pré-balance nas 2 últimas semanas de set/26 · auditoria final nas 3 primeiras semanas de fev/27 (encarregado Thiago Cavallin) · minuta de proposta + termos comerciais a caminho · revisão contratual com Legal sinalizada · Maiara fora da auditoria final · Estudo impairment (Ágio UXCOMEX) ganhou reunião dedicada 23/jun + Maiara consulta KPMG se pode ser interno (24/jun) · KPMG enviou cronograma ajustado 23/jun acatando pré-balance 14-25/set · Impairment UXCOMEX confirmado como estudo INTERNO pela KPMG (Yuri 27/jun) — Maiara inicia internamente e envia draft à KPMG antes de set · 'DF Automação - Parte 2' 29/jun: automação já processa arquivos comparando dados oficiais × documentos de suporte; integrar leitura de notas explicativas; consolidar Log US; tratar numerários em trânsito de cartões (risco de auditoria)",
-        insightToday:"DF anual montada manualmente entre jan-fev — planilha-mãe de 42 abas + Word de 707 parágrafos / 54 tabelas, consolidando BR + Log US + UXComex. 5+ ciclos de revisão (Yuri, Almir, KPMG). Erros só aparecem na auditoria (passivos omissos, falhas de competência, divergências de PPA, dividendos no PL).",
-        insightFuture:"5 fases (mai-ago): (01) Discovery & De-Para Balancete Base; (02) MVP BP/DRE/DFC mensais via N8N + Omie API; (03) V1 com 28 notas explicativas numéricas; (04) V2 templating Word KPMG via Cowork skill; (05) V3 go-live e estabilização — DF mensal completa em <4h. Antecipa erros, pré-balance contínuo com KPMG, libera Maiara em jan-fev. Reunião 'Automação da DF' agendada por Maiara para 11/jun 15h-15:30h (Maiara + Ramon) — sinaliza início ativo da fase Discovery. Maiara propôs o encontro na 1:1 de 10/jun e formalizou convite no mesmo dia. Stack DF segue diretrizes Omie API (15/abr): leitura via Web Hooks, base local Supabase/RDS, janela 12h-14h, evolução pra NetSuite em 2027. Reunião de kickoff do Discovery remarcada em 11/jun: saiu de qui 11/jun 15h-15:30h para qua 17/jun 13h-13:30h (convite atualizado por Maiara 11/jun 16:35) — início ativo da fase Discovery adiado em 6 dias. Auditoria KPMG 2026 entrando em organização (15/jun): Maiara escreveu a Yuri Geronimo (KPMG) pedindo antecipação — definição de datas de pré-balancete, cronograma da auditoria final, composição dos times em campo e revisão/assinatura do contrato com o Legal (no ano passado houve atrasos por cláusulas contratuais); Maiara reforçou que não participará da auditoria final (licença-maternidade). KPMG (Yuri Geronimo) respondeu no mesmo dia com cronograma anexo ('Cronograma auditoria Logcomex 2027.pdf'): pré-balance puxado para as 2 últimas semanas de set/26 e etapa final nas 3 primeiras semanas de fev/27; encarregado do trabalho será Thiago Cavallin (demais profissionais a definir); minuta da proposta + termos comerciais (orçamento) a caminho; KPMG aguarda comentários da Logcomex sobre o cronograma. Reforça o driver do projeto: DF mensal automatizada para pré-balance contínuo e para cobrir a ausência da Maiara na auditoria final. Kickoff do Discovery realizado em 17/jun (1:1 Maiara/Ramon, Gemini notes): decidiu-se restringir o escopo da automação inicial até a seção 12 (impostos a recuperar) para garantir precisão validando contra dez/2025; pontos críticos mapeados — divergências contábeis, classificações de centro de custo complexas, integração das DFs, análise da PDD (provisão para devedores duvidosos) e centralização de documentos; testes comparativos manual × automático validam a viabilidade. Próximos passos: Maiara envia a base da DF + balancete (Slack + pasta de auditoria/automações) e Ramon constrói a automação da DF do zero, começando por dez/2025. Em paralelo, a KPMG (Yuri Geronimo) abriu o orçamento da auditoria data base Dez.26 (15/jun) pedindo balancete, organograma societário, composição de pessoas-chave e transações não usuais; Maiara respondeu 16/jun com o balancete fechado (mai/26) em anexo, confirmou as pessoas-chave (Contador Daniel, VP Carlos, CEO Helmuth) e sinalizou a estruturação do novo CNPJ Conta Global (previsão de rodar o processo completo este ano); Maiara propôs realizar o pré-balance entre 14-25/set. 1:1 Maiara/Ramon 22/jun (Gemini notes): Maiara vai cobrar Yuri (KPMG) por WhatsApp sobre auditoria + envio do contrato (morosidade da auditoria externa exige mais controle p/ garantir prazos); Ramon vai finalizar a análise da DF e retornar o status com as informações solicitadas para Maiara; estudo de redução ao valor recuperável (impairment) em andamento com foco técnico. Reunião dedicada 'Estudo Impairment | Ágio UXCOMEX' realizada 23/jun (Gemini notes); Maiara escreveu a Yuri Geronimo (KPMG) em 24/jun perguntando se o estudo de impairment do intangível da aquisição da UXCOMEX pode ser feito internamente ou se precisa ser conduzido pela KPMG. Auditoria 2026: a KPMG (Yuri Geronimo) enviou em 23/jun o cronograma ajustado acatando as datas de pré-balance sugeridas por Maiara (14-25/set), mantendo a etapa final nas 3 primeiras semanas de fev/27. Estudo de impairment do ágio UXCOMEX: a KPMG (Yuri Geronimo) confirmou em 27/jun que o estudo pode ser realizado internamente, sem obrigatoriedade de terceiro; Maiara respondeu 29/jun que iniciará os estudos internamente e enviará um draft finalizado à KPMG antes de setembro (quando entram em campo). Reunião 'DF Automação - Parte 2' 29/jun (Gemini notes): a automação já processa arquivos comparando dados oficiais × documentos de suporte (sai do Discovery puro para a construção do MVP); decidiu-se integrar a leitura das notas explicativas na automação; divergências em aplicações financeiras dependem da consolidação completa da Log US; numerários em trânsito de cartões de crédito (valores parcelados) geram risco junto à auditoria e exigem tratamento contábil cuidadoso. Ações (Ramon): incluir os dados da Log US na consolidação, ajustar a leitura das notas explicativas, corrigir o alinhamento de quadros na controladora, investigar a divergência do valor 1813 (Excel × boneco) e ajustar lançamentos; o grupo solicita ao Adriano a abertura detalhada dos numerários em trânsito (processo da Poli).",
+        owner:"Maiara", area:"Contabilidade", color:"orange", updated:true,
+        tagline:"Transforma a DF anual da KPMG em processo mensal automatizado",
+        statusNow:"Continuação 02/jul: validação Log US concluída (eliminação entre balancetes + equivalência patrimonial); template KPMG abandonado em favor da automação própria; pendem ajustes de IR a recuperar (nota 12) e Ágio. Próxima sessão 10/jul.",
+        insightToday:"DF anual montada à mão em jan-fev: planilha de 42 abas + Word de 707 parágrafos / 54 tabelas. Erros só aparecem na auditoria.",
+        insightFuture:"5 fases (mai-ago): Discovery, MVP BP/DRE/DFC via N8N+Omie, notas explicativas, template Word KPMG e go-live. DF mensal completa em <4h e pré-balance contínuo.",
         keywords:["df auditoria","kpmg","balancete","dre","dfc","auditoria","yuri","almir","notas explicativas"] },
     ]
   };
@@ -511,141 +524,8 @@
     snapshot = DEFAULT_SNAPSHOT;
     store.set(KEY_SNAP, snapshot);
   }
-
   let history = store.get(KEY_HIST, []);
-  const seedKey = "seed_2026-05-04";
-  const seedKey_v30 = "seed_2026-06-10-v30";
-  if (!store.get(seedKey_v30)) {
-    const prevHist = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prevHist.concat([
-      { date: "2026-06-10", projectId: 3, field: "tagline", from: "agendada 15/jun 11h", to: "agendada 16/jun 17h (também Carol)", evidence: "Email invite Maiara 20:53 UTC 10/jun" },
-      { date: "2026-06-10", projectId: 5, field: "insightFuture", from: "...", to: "Reunião Viabilidade NetSuite: +13 dias go-live, +271h, folha R$32k+R$1k/mês, módulo fiscal sem API", evidence: "Gemini notes Viabilidade Net Suite 10/jun" },
-      { date: "2026-06-10", projectId: 12, field: "statusLabel", from: "Discovery (próx.)", to: "Discovery iniciando", evidence: "Convite Automação da DF 11/jun 15h (Maiara)" },
-      { date: "2026-06-10", projectId: 8, field: "tagline", from: "...", to: "Maiara cobra Tai status automações fiscais até 13/jun", evidence: "1:1 Maiara/Ramon 10/jun Gemini notes" }
-    ]));
-    store.set(seedKey_v30, true);
-  }
-  const seedKey_v31 = "seed_2026-06-11-v31";
-  if (!store.get(seedKey_v31)) {
-    const prevHist31 = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prevHist31.concat([
-      { date: "2026-06-11", projectId: 4, field: "insightFuture", from: "100% cobertura (operação assistida)", to: "80% automatizado na prática · meta 90% + auditoria preventiva · NFs pendentes semanais (seg) · NetSuite obrigatório p/ SC", evidence: "Gemini notes 'Atualizações automações fornecedores' 11/jun (Carol, Kamilla, Tai)" },
-      { date: "2026-06-11", projectId: 12, field: "tagline", from: "Reunião Automação da DF 11/jun 15h", to: "remarcada p/ 17/jun 13h — kickoff Discovery adiado 6 dias", evidence: "Convite atualizado 'Automação da DF' (Maiara) 11/jun 16:35" }
-    ]));
-    store.set(seedKey_v31, true);
-  }
-  const seedKey_v32 = "seed_2026-06-15-v32";
-  if (!store.get(seedKey_v32)) {
-    const prevHist32 = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prevHist32.concat([
-      { date: "2026-06-15", projectId: 12, field: "insightFuture", from: "Pré-balance contínuo com KPMG (sem cronograma)", to: "KPMG enviou cronograma 2026: pré-balance 2 últimas sem. set/26 · final 3 primeiras sem. fev/27 (encarregado Thiago Cavallin) · revisão contratual c/ Legal · Maiara fora da final", evidence: "Thread Gmail 'Auditoria 2026 - KPMG/Logcomex' — Maiara 15/jun 11h + resposta Yuri Geronimo (KPMG) 15/jun com cronograma anexo" }
-    ]));
-    store.set(seedKey_v32, true);
-  }
-  const seedKey_v33 = "seed_2026-06-17-v33";
-  if (!store.get(seedKey_v33)) {
-    const prevHist33b = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prevHist33b.concat([
-      { date: "2026-06-17", projectId: 12, field: "statusLabel", from: "Discovery iniciando", to: "Discovery em curso — kickoff 17/jun: MVP até seção 12 (impostos a recuperar), validação base Dez/25, Ramon constrói a automação do zero", evidence: "Gemini notes '1:1 Maiara / Ramon' 17/jun 16:26 (Automação da DF)" },
-      { date: "2026-06-17", projectId: 12, field: "insightFuture", from: "KPMG cronograma 15/jun (sem orçamento)", to: "KPMG abriu orçamento data base Dez.26: Maiara enviou balancete fechado + organograma 16/jun, sinalizou novo CNPJ Conta Global; pré-balance proposto p/ 14-25/set", evidence: "Threads 'KPMG - Orçamento auditoria data base Dez.26' + 'Auditoria 2026 - KPMG' 15-16/jun" },
-      { date: "2026-06-17", projectId: 5, field: "insightFuture", from: "Oracle reunião sem. 16/jun confirmada", to: "Sessão NetSuite 16/jun (Ramon/Adriano/Maiara/Duda): Adriano contata Vini (Thomson) p/ conectar API Domínio→NetSuite; demo NetSuite p/ Daniel; Jean aliado p/ CPRB; gerar TXT via Cloud (formato US×BR); Maiara monitora Felipe (receita diferida)", evidence: "Email 'GEMINI anotacoes reuniao 16/06 Project Dome, Oracle e Netsuite' (Ramon 16/jun)" },
-      { date: "2026-06-17", projectId: 3, field: "tagline", from: "Reunião AR agendada 16/jun 17h", to: "Reunião AR (contas a receber) remarcada p/ 23/jun 16:30 (Ramon, Eduarda, Poliana, Carol)", evidence: "Convite atualizado Maiara 16/jun 'Automações Log US - contas a receber'" }
-    ]));
-    store.set(seedKey_v33, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey_v34 = "seed_2026-06-17-v34";
-  if (!store.get(seedKey_v34)) {
-    const prevHist34 = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prevHist34.concat([
-      { date: "2026-06-17", projectId: 4, field: "status", from: "Em Andamento (80% automatizado · meta 90%)", to: "Concluído — 100% das 32h/mês de automação entregues (go-live concluído jun/26)", evidence: "Confirmação Ramon 17/jun" },
-      { date: "2026-06-17", projectId: 11, field: "status", from: "Planejado", to: "Em Andamento — iniciado jun/26", evidence: "Confirmação Ramon 17/jun" },
-      { date: "2026-06-17", projectId: 12, field: "status", from: "Planejado (Discovery em curso)", to: "Em Andamento — Discovery iniciado", evidence: "Confirmação Ramon 17/jun" }
-    ]));
-    store.set(seedKey_v34, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey_v35 = "seed_2026-06-18-v35";
-  if (!store.get(seedKey_v35)) {
-    const prevHist35 = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prevHist35.concat([
-      { date: "2026-06-18", projectId: 13, field: "status", from: "Em Andamento (712 fornecedores)", to: "Verde / 80% concluído — base Supabase com 892 fornecedores (≈320 setados), 521 pendências do Kiv a limpar; estratégia 1:1 cobre ~80% dos erros; libera retomar o Zapier (#6)", evidence: "Gemini notes 'Base fornecedores' 18/jun (Nicc/Maiara/Ramon/Carol/Martin) + confirmação Ramon" }
-    ]));
-    store.set(seedKey_v35, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey_v37 = "seed_2026-06-19-v37";
-  if (!store.get(seedKey_v37)) {
-    const prevHist37 = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prevHist37.concat([
-      { date: "2026-06-19", projectId: 0, field: "UI", from: "5 abas (Visao Geral, Cronograma, Detalhamento, Impacto, Projetos)", to: "3 abas (Visao Geral, Impacto, Projetos) - Cronograma e Detalhamento removidos", evidence: "Pedido Ramon 19/jun" }
-    ]));
-    store.set(seedKey_v37, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey_v40 = "seed_2026-06-22-v40";
-  if (!store.get(seedKey_v40)) {
-    const prevHist40 = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prevHist40.concat([
-      { date: "2026-06-22", projectId: 3, field: "tagline", from: "Reunião AR remarcada p/ 23/jun 16:30", to: "Reunião AR remarcada p/ 24/jun 17h (Ramon, Eduarda Leme, Poliana Mecenas, Caroline Cys)", evidence: "Convite Gmail Automações Log US - contas a receber atualizado por Maiara 22/jun" },
-      { date: "2026-06-22", projectId: 5, field: "insightFuture", from: "Sessão NetSuite 16/jun", to: "Mensal Controladoria 19/jun + 1:1 22/jun: 114 regras de negócio mapeadas; nomear responsável p/ revisão e consolidação centralizada das parametrizações antes de automatizar; Maiara consolida parametrizações p/ Ramon + Martin na sexta", evidence: "Gemini notes Mensal Controladoria 19/jun + 1:1 Semanal Maiara/Ramon 22/jun" },
-      { date: "2026-06-22", projectId: 12, field: "insightFuture", from: "KPMG abriu orçamento Dez.26 (16/jun)", to: "1:1 22/jun: Maiara cobra Yuri (KPMG) por WhatsApp sobre auditoria + contrato; Ramon finaliza análise da DF e retorna status; estudo de impairment (redução ao valor recuperável) em curso", evidence: "Gemini notes 1:1 Semanal Maiara/Ramon 22/jun" }
-    ]));
-    store.set(seedKey_v40, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey_v41 = "seed_2026-06-25-v41";
-  if (!store.get(seedKey_v41)) {
-    const prevHist41 = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prevHist41.concat([
-      { date: "2026-06-25", projectId: 3, field: "tagline", from: "Reunião AR remarcada p/ 24/jun 17h", to: "Reunião AR remarcada p/ seg 29/jun 17:45 (Ramon, Eduarda, Poliana, Carol); consultoria Allshore (Log US) em encerramento — Maiara negocia nova proposta de estudo", evidence: "Convite Gmail 'Automações Log US - contas a receber' atualizado por Maiara 24/jun + e-mail Maiara -> Allshore Services 24/jun" },
-      { date: "2026-06-25", projectId: 5, field: "insightFuture", from: "Mensal Controladoria 19/jun + 1:1 22/jun", to: "Frente Bancos iniciada (Nicc 23/jun: padronização nome dos extratos = conta contábil); Fórum Integração 24/jun: corrigir 11 lançamentos classificados errado pela automação + regra de categoria única p/ faturas sem separação + classificação automática de fornecedores de Dados; Martin ganha acesso Omie/ME; Carol compartilhou planilha 'Análise Lançamentos Razão' (25/jun)", evidence: "E-mail Niccolas 'Padronização de nome dos extratos bancários' 23/jun + Gemini notes 'Fórum Mensal - Integração entre as áreas' 24/jun + e-mail Carol 25/jun" },
-      { date: "2026-06-25", projectId: 12, field: "insightFuture", from: "Estudo de impairment em curso (1:1 22/jun)", to: "Reunião dedicada 'Estudo Impairment | Ágio UXCOMEX' 23/jun; Maiara consulta Yuri (KPMG) 24/jun se o impairment do intangível UXCOMEX pode ser feito internamente; KPMG enviou cronograma ajustado 23/jun acatando pré-balance 14-25/set (final 3 primeiras sem. fev/27)", evidence: "Gemini notes 'Estudo Impairment | Agio UXCOMEX' 23/jun + e-mail Maiara -> Yuri 'Estudo Impairment - Uxcomex' 24/jun + thread 'Auditoria 2026 - KPMG/Logcomex' (Yuri 23/jun)" }
-    ]));
-    store.set(seedKey_v41, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey_v42 = "seed_2026-06-25-v42";
-  if (!store.get(seedKey_v42)) {
-    const prevHist42 = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prevHist42.concat([
-      { date: "2026-06-25", projectId: 8, field: "insightFuture", from: "Maiara cobra Tai status das automações fiscais até 13/jun (1:1 10/jun)", to: "Reunião 'Automações fiscais' 25/jun (Maiara, Thaynara, Ramon): automação em nuvem de IR + ECD validada; ECF em correção p/ validação/assinatura final; Ramon vai arquitetar a automação fiscal pra sair de execuções em máquina local; reforma tributária postergada; ECD/ECF 2025 liberada p/ transmissão (Daniel aprovou CRC da Thaynara 24/jun)", evidence: "Gemini notes 'Automações fiscais' 25/jun + thread Gmail 'Envio ECD/ECF - Ano calendário: 2025' (Thaynara -> Daniel 24/jun)" }
-    ]));
-    store.set(seedKey_v42, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey_v43 = "seed_2026-06-26-v43";
-  if (!store.get(seedKey_v43)) {
-    const prevHist43 = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prevHist43.concat([
-      { date: "2026-06-26", projectId: 5, field: "insightFuture", from: "Frente Bancos iniciada (Nicc 23/jun) + Fórum Integração 24/jun", to: "Reunião 'Net Suite - Conta Global e Log US' 25/jun: decisão de integrar a Conta Global ao NetSuite e consolidar a entidade Log US no mesmo ERP (plano por etapas), unificando a governança financeira", evidence: "Gemini notes 'Net Suite - Conta Global e Log US' 25/jun" },
-      { date: "2026-06-26", projectId: 4, field: "insightFuture", from: "Rituais operacionais 11/jun (NFs pendentes semanais)", to: "1:1 Carol/Ramon 26/jun: inventário formal das APIs financeiras; nova conciliação automatizada Kiv x OME (Danilo); governança financeira quinzenal (Carol); Carol em cirurgia com retorno remoto ~7 dias (sem impacto). Regras de emissão de NF da Conta Global formalizadas (Thaynara 26/jun, ISS 15.07); chamado Omie aberto por inconsistência IBS/CBS em NFS-e (26/jun)", evidence: "Gemini notes '1:1 Semanal Carol / Ramon' 26/jun + threads Gmail 'Definição emissão conta global' e 'Destaque IBS e CBS' 26/jun" },
-      { date: "2026-06-26", projectId: 3, field: "insightFuture", from: "Consultoria Allshore em encerramento (24/jun)", to: "Reunião 'Repensar estrutura | Contratos Moss, Allshore e Intercompany LogUS' 26/jun: estrutura assume custos indevidos de entidades estrangeiras e eleva risco de auditoria; montar cenários e apresentar à liderança (Rafa e Daniel); consultoria jurídica (Anne) condicionada a custos (Adriano). Log US consolidada no NetSuite (25/jun)", evidence: "Gemini notes 'Repensar estrutura | Contratos Moss, Allshore e Intercompany LogUS' 26/jun + 'Net Suite - Conta Global e Log US' 25/jun" }
-    ]));
-    store.set(seedKey_v43, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey_v44 = "seed_2026-06-29-v44";
-  if (!store.get(seedKey_v44)) {
-    const prevHist44 = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prevHist44.concat([
-      { date: "2026-06-29", projectId: 12, field: "statusLabel", from: "Discovery em curso", to: "MVP em construção — automação já processa arquivos comparando dados oficiais × documentos de suporte", evidence: "Gemini notes 'DF Automação - Parte 2' 29/jun" },
-      { date: "2026-06-29", projectId: 12, field: "insightFuture", from: "Maiara consulta KPMG se o impairment pode ser interno (24/jun)", to: "KPMG (Yuri) confirmou 27/jun que o impairment do intangível UXCOMEX pode ser feito internamente (sem terceiro); Maiara inicia internamente e envia draft à KPMG antes de set (29/jun). DF Automação Parte 2 (29/jun): integrar notas explicativas, consolidar Log US, tratar numerários em trânsito de cartões (risco de auditoria)", evidence: "Thread Gmail 'Estudo Impairment - Uxcomex' (Yuri 27/jun + Maiara 29/jun) + Gemini notes 'DF Automação - Parte 2' 29/jun" },
-      { date: "2026-06-29", projectId: 3, field: "insightFuture", from: "Reunião 'Repensar estrutura' 26/jun", to: "Reunião 'Estrutura Log US – próximos passos' agendada p/ 8/jul (Maiara); DF Automação Parte 2 (29/jun) define incluir os dados da Log US na consolidação da automação da DF", evidence: "Convite Gmail 'Estrutura Log US - próximos passos' (Maiara 26/jun) + Gemini notes 'DF Automação - Parte 2' 29/jun" }
-    ]));
-    store.set(seedKey_v44, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey_v45 = "seed_2026-06-29-v45";
-  if (!store.get(seedKey_v45)) {
-    const prevHist45 = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prevHist45.concat([
-      { date: "2026-06-29", projectId: 6, field: "wave", from: "Onda 2 (go-live Jun/26)", to: "Onda 3 (previsão de conclusão set/26) — repriorizado a pedido do Ramon", evidence: "Pedido Ramon 29/jun" },
-      { date: "2026-06-29", projectId: 5, field: "subitems", from: "—", to: "Decomposto em 5 frentes: Bancos, Provisões, Faturamento, Folha vs Balanço, Despesas Antecipadas", evidence: "Pedido Ramon 29/jun" }
-    ]));
-    store.set(seedKey_v45, true);
-    history = store.get(KEY_HIST, []);
-  }
+
   const seedKey_v46 = "seed_2026-06-30-v46";
   if (!store.get(seedKey_v46)) {
     const prevHist46 = store.get(KEY_HIST, []);
@@ -690,17 +570,13 @@
     const prev = store.get(KEY_HIST, []);
     store.set(KEY_HIST, prev.concat([
       { date:"2026-05-04", projectId:3, field:"status", from:"Concluído (DEV)", to:"Em Validação",
-        evidence:"Ramon 04/mai: Log US ainda não está concluído, será validado no fechamento de mai/26." },
-      { date:"2026-05-04", projectId:4, field:"blocker", from:"—", to:"Bug Trem×Domínio (movido do #6)",
-        evidence:"Ramon 04/mai: o bloqueio é no projeto de NFs/Invoices, não no Zapier×Pipefy." },
-      { date:"2026-05-04", projectId:6, field:"blocker", from:"Bug Trem×Domínio", to:"—",
-        evidence:"Ramon 04/mai: bloqueio realocado pro #4 NFs/Invoices." },
-      { date:"2026-05-04", projectId:7, field:"existência", from:"No roadmap", to:"Removido (é projeto, não automação)",
-        evidence:"Ramon 04/mai: Forecast ARR Bottoms-Up sai do roadmap de automações." },
-      { date:"2026-05-04", projectId:8, field:"status", from:"Planejado", to:"Em Andamento (mapeamento iniciado)",
-        evidence:"Ramon 04/mai: mapeamento de Obrigações Fiscais já iniciado pela Tai." },
-      { date:"2026-05-04", projectId:12, field:"existência", from:"—", to:"Adicionado ao roadmap",
-        evidence:"DF Auditoria mensal — projeto de 5 fases (mai-ago) pra transformar a DF anual KPMG num processo mensal. Conforme HTML detalhado." },
+        evidence:"Feedback Ramon 04/mai: validação operacional no fech. de mai/26." },
+      { date:"2026-05-04", projectId:8, field:"status", from:"Planejado", to:"Em Andamento",
+        evidence:"Feedback Ramon 04/mai: mapeamento iniciado pela Tai." },
+      { date:"2026-05-04", projectId:7, field:"escopo", from:"Forecast ARR no roadmap", to:"Removido — é projeto, não automação",
+        evidence:"Feedback Ramon 04/mai." },
+      { date:"2026-05-04", projectId:12, field:"projeto", from:"—", to:"DF Auditoria adicionado (5 fases mai-ago)",
+        evidence:"Feedback Ramon 04/mai: transforma DF anual KPMG em processo mensal, ~80h/ano." },
     ]));
     store.set(seedKey4, true);
     history = store.get(KEY_HIST, []);
@@ -709,22 +585,8 @@
   if (!store.get(seedKey3)) {
     const prev = store.get(KEY_HIST, []);
     store.set(KEY_HIST, prev.concat([
-      { date:"2026-05-04", projectId:5, field:"escopo", from:"Bloco único", to:"Fragmentado em projetos menores",
-        evidence:"1:1 Maia/Ramon 04/mai (notas Gemini): escopo do fechamento contábil será fragmentado pra melhor acompanhamento." },
-      { date:"2026-05-04", projectId:5, field:"arquitetura", from:"—", to:"NetSuite (faturamento + AR) + Domínio (declarações fiscais)",
-        evidence:"1:1 Maia/Ramon 04/mai: NetSuite focará apenas em faturamento + AR; Domínio mantido pras declarações fiscais (complexidade tributária BR)." },
-      { date:"2026-05-04", projectId:5, field:"decisão pendente", from:"—", to:"Receita diferida: NetSuite ou Looker (Adriano define no retorno)",
-        evidence:"1:1 Maia/Ramon 04/mai: Maia vai conversar com Adriano." },
-      { date:"2026-05-04", projectId:8, field:"plataforma", from:"A definir", to:"Domínio (manter)",
-        evidence:"1:1 Maia/Ramon 04/mai: complexidade tributária BR não comporta NetSuite." },
-      { date:"2026-05-04", projectId:9, field:"prioridade", from:"Planejado", to:"Prioridade máxima da Onda 3",
-        evidence:"1:1 Maia/Ramon 04/mai: bloco de fornecedores foi definido como prioridade máxima pra ganho de eficiência." },
-      { date:"2026-05-04", projectId:10, field:"prioridade", from:"Planejado", to:"Prioridade máxima da Onda 3",
-        evidence:"1:1 Maia/Ramon 04/mai: bloco de fornecedores foi definido como prioridade máxima pra ganho de eficiência." },
-      { date:"2026-05-04", projectId:11, field:"prioridade", from:"Planejado", to:"Prioridade máxima da Onda 3",
-        evidence:"1:1 Maia/Ramon 04/mai: bloco de fornecedores/balanço foi definido como prioridade máxima pra ganho de eficiência." },
-      { date:"2026-05-04", projectId:4, field:"validação", from:"—", to:"Maiara enviará inputs do mês (Poli + extratos) pra teste no 3º dia útil",
-        evidence:"1:1 Maia/Ramon 04/mai: validação ao vivo no 3º dia útil de mai." },
+      { date:"2026-05-04", projectId:5, field:"arquitetura", from:"—", to:"NetSuite faturamento+AR, Domínio pras declarações fiscais",
+        evidence:"1:1 Maiara/Ramon 04/mai (notas Gemini)." },
     ]));
     store.set(seedKey3, true);
     history = store.get(KEY_HIST, []);
@@ -733,12 +595,10 @@
   if (!store.get(seedKey6)) {
     const prev = store.get(KEY_HIST, []);
     store.set(KEY_HIST, prev.concat([
-      { date:"2026-05-06", projectId:9, field:"escopo", from:"Alertas Fornecedor (isolado)", to:"Conc. e Alertas Fornecedor (#9 merged com #10)",
-        evidence:"Decisão Ramon 06/mai: merge #9 e #10 — mesma stack, mesmo owner, mesma arquitetura Claude + .md." },
-      { date:"2026-05-06", projectId:10, field:"existência", from:"No roadmap", to:"Mesclado em #9",
-        evidence:"Decisão Ramon 06/mai." },
-      { date:"2026-05-06", projectId:13, field:"existência", from:"—", to:"Adicionado ao roadmap (NOVO)",
-        evidence:"Base Fornecedores como source of truth — Martin owner, Nicc co-owner. Derivada da reunião API Omie 15/abr." },
+      { date:"2026-05-06", projectId:9, field:"merge", from:"#9 Alertas + #10 Conc. Fornecedor separados", to:"Mesclados em 'Conc. e Alertas Fornecedor' (owner Nicc)",
+        evidence:"Ajustes Ramon 06/mai — bloco fornecedores reorganizado." },
+      { date:"2026-05-06", projectId:13, field:"projeto", from:"—", to:"Base Fornecedores (NOVO) — owner Martin, co Nicc",
+        evidence:"Ajustes Ramon 06/mai — source of truth única." },
     ]));
     store.set(seedKey6, true);
     history = store.get(KEY_HIST, []);
@@ -747,16 +607,8 @@
   if (!store.get(seedKey5)) {
     const prev = store.get(KEY_HIST, []);
     store.set(KEY_HIST, prev.concat([
-      { date:"2026-05-06", projectId:4, field:"diretrizes", from:"—", to:"Web Hooks, leitura, janela 12h-14h, alinhar Ana Lyvia",
-        evidence:"Reunião API Omie 15/abr (Ana Lyvia + Danilo)." },
-      { date:"2026-05-06", projectId:5, field:"diretrizes", from:"—", to:"Web Hooks, leitura, janela almoço",
-        evidence:"Reunião API Omie 15/abr." },
-      { date:"2026-05-06", projectId:6, field:"diretrizes", from:"—", to:"Web Hooks, janela 12h-14h, alinhar Ana Lyvia",
-        evidence:"Reunião API Omie 15/abr." },
-      { date:"2026-05-06", projectId:8, field:"diretrizes", from:"—", to:"Web Hooks aux, janela almoço",
-        evidence:"Reunião API Omie 15/abr." },
-      { date:"2026-05-06", projectId:12, field:"diretrizes", from:"—", to:"Leitura Web Hooks, base local Supabase/RDS, janela 12h-14h",
-        evidence:"Reunião API Omie 15/abr." },
+      { date:"2026-05-06", projectId:0, field:"diretrizes", from:"—", to:"Diretrizes Omie API (Web Hooks, leitura, janela 12h-14h, base local, migração NetSuite 2027)",
+        evidence:"Notas Gemini reunião API Omie 15/abr (Ramon + Ana Lyvia + Danilo)." },
     ]));
     store.set(seedKey5, true);
     history = store.get(KEY_HIST, []);
@@ -765,10 +617,8 @@
   if (!store.get(seedKey7)) {
     const prev = store.get(KEY_HIST, []);
     store.set(KEY_HIST, prev.concat([
-      { date:"2026-05-07", projectId:11, field:"economia", from:"-8h/mês", to:"~80h/ano (recorrência baixa)",
-        evidence:"Decisão Ramon 07/mai: Conc. Balanço tem ganho anual concentrado, não mensal recorrente." },
-      { date:"2026-05-07", projectId:12, field:"economia", from:"—", to:"~80h/ano",
-        evidence:"Decisão Ramon 07/mai: DF Auditoria mensal entrega ~80h/ano (ganho qualitativo)." },
+      { date:"2026-05-07", projectId:0, field:"economia", from:"-232h/mês", to:"-239h/mês (ago/26)",
+        evidence:"Recalibração 07/mai." },
     ]));
     store.set(seedKey7, true);
     history = store.get(KEY_HIST, []);
@@ -777,8 +627,8 @@
   if (!store.get(seedKey8)) {
     const prev = store.get(KEY_HIST, []);
     store.set(KEY_HIST, prev.concat([
-      { date:"2026-05-07", projectId:5, field:"frentes paralelas", from:"Bloco único", to:"5 frentes: Bancos · Faturamento · Folha vs Balanço · Provisões · Despesas Antecipadas",
-        evidence:"Decisão Ramon 07/mai: fragmentar pra colher frutos antes do go-live total." },
+      { date:"2026-05-07", projectId:5, field:"escopo", from:"Escopo único", to:"Fragmentado em entregáveis menores (5 frentes)",
+        evidence:"Definição 07/mai." },
     ]));
     store.set(seedKey8, true);
     history = store.get(KEY_HIST, []);
@@ -788,205 +638,31 @@
     const prev = store.get(KEY_HIST, []);
     store.set(KEY_HIST, prev.concat([
       { date:"2026-05-11", projectId:3, field:"status", from:"Em Validação", to:"Concluído",
-        evidence:"Fech. Abr/26 operado em prod pela Maiara em 08/mai (412 linhas, Faturamento $147.064,44, Stripe Coll $76.598,41, Saldo Citi diff $0,00 ✓). 2 meses operados em prod (mar+abr). Decisão Ramon 11/mai: go-live efetivo." },
-      { date:"2026-05-11", projectId:3, field:"go-live", from:"Mai/26", to:"Abr/26",
-        evidence:"Go-live efetivo aconteceu no fech. de abril/26 (operado pela Maiara em prod, validado em 08/mai)." },
-      { date:"2026-05-11", projectId:3, field:"ponto de atenção", from:"—", to:"Webhook N8N falha recorrente (erro 500) — fallback Drive MCP",
-        evidence:"Slack #cowork-log-us-automacao 08/mai 16:29: 'Webhook N8N falhou (erro 500), upload feito direto via Drive MCP'. Mesma falha do fech. Jan/26." },
+        evidence:"Fech. abr/26 operado em prod pela Maiara (08/mai, 412 linhas, Saldo Citi diff $0,00). 2 meses em prod." },
     ]));
     store.set(seedKey9, true);
     history = store.get(KEY_HIST, []);
   }
-  const seedKey10 = "seed_2026-05-14-oracle-pipefy-1on1-maiara";
-  if (!store.get(seedKey10)) {
-    const prev = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prev.concat([
-      { date:"2026-05-14", projectId:5, field:"decisão receita diferida", from:"Pendente (NetSuite ou Looker)", to:"Looker (mantido, não desenvolver no NetSuite)",
-        evidence:"Reunião Oracle Arquivei × Pipefy 14/mai (notas Gemini): Maiara comunicará decisão ao Felipe — usar API para Looker em vez de dev no NetSuite." },
-      { date:"2026-05-14", projectId:5, field:"OME", from:"—", to:"Permanece ativo por +1 semestre",
-        evidence:"Reunião Oracle Arquivei × Pipefy 14/mai: sistema OME seguirá ativo durante 1 semestre." },
-      { date:"2026-05-14", projectId:6, field:"escopo Pipefy/CP", from:"—", to:"Pedido de compra obrigatório para itens não recorrentes + data de corte mensal fixa",
-        evidence:"Reunião Oracle Arquivei × Pipefy 14/mai: implementação imediata. Adriano valida workflow com Vinicius e Vittor." },
-      { date:"2026-05-14", projectId:6, field:"integrador Oracle", from:"—", to:"Custos extras rejeitados; nova reunião com Oracle (Duda, Maceno, Tai) vai validar limitações alegadas",
-        evidence:"Reunião Oracle Arquivei × Pipefy 14/mai: grupo listará limitações apontadas pelo integrador no NetSuite." },
-      { date:"2026-05-14", projectId:4, field:"execução", from:"—", to:"Nick + Carol vão automatizar lançamento de NFs e cartões de crédito ainda em maio",
-        evidence:"1:1 Maiara/Ramon 14/mai (notas Gemini): Maiara ajustará fluxo de notas + automatização de lançamentos delegada para Nick e Carol." },
-      { date:"2026-05-14", projectId:4, field:"urgência transição", from:"—", to:"Gravidez Maiara — transição até setembro/26 com documentação obrigatória",
-        evidence:"1:1 Maiara/Ramon 14/mai: gestação confirmada — antecipar planejamento, documentar processos críticos, automação prioritária." },
+
+  const seedKey_v47 = "seed_2026-07-03-v47";
+  if (!store.get(seedKey_v47)) {
+    const prevHist47 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist47.concat([
+      { date: "2026-07-03", projectId: 0, field: "content", from: "cards em log append-only (tagline/insightFuture acumulando notas datadas de reunião)", to: "cards no contrato de conteúdo: tagline atemporal + statusNow (1 fato datado) + insights curtos; histórico material preservado no KEY_HIST", evidence: "Pedido Ramon 03/jul — limpeza dos cards + statusNow" }
     ]));
-    store.set(seedKey10, true);
+    store.set(seedKey_v47, true);
     history = store.get(KEY_HIST, []);
   }
-  const seedKey11 = "seed_2026-05-15-pdi-carol-lcc";
-  if (!store.get(seedKey11)) {
-    const prev = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prev.concat([
-      { date:"2026-05-15", projectId:4, field:"alocação Carol", from:"—", to:"Mantida na contabilidade — acelerar automações antes da licença Maiara",
-        evidence:"1:1 PDI Carol/Ramon 15/mai (notas Gemini): decisão estratégica manteve Carol alocada na contabilidade pra aprofundar conhecimento técnico (CPC); foco principal é acelerar automações." },
-      { date:"2026-05-15", projectId:5, field:"frentes Carol", from:"—", to:"(a) Mensurar volumetria contábil · (b) Revisar arquitetura NetSuite atual × futura · (c) Acelerar fluxos antes da licença Maiara",
-        evidence:"1:1 PDI Carol/Ramon 15/mai: Carol vai mensurar volumetria pra identificar oportunidades de automação + analisar viabilidade das integrações NetSuite." },
-      { date:"2026-05-15", projectId:0, field:"card J (Aprov. Pagamentos)", from:"Card temporário em Projetos", to:"Removido — Ramon: é projeto separado, não entra no roadmap",
-        evidence:"Decisão Ramon 15/mai: Automação Aprovação Pagamentos é projeto separado do roadmap de automações da Controladoria." },
-      { date:"2026-05-15", projectId:0, field:"card I (LCC)", from:"Placeholder sem contexto", to:"Locomped Consultant Program — vendas indiretas via despachantes · 30/20/10% comissão · lançamento jun/26",
-        evidence:"Reunião 'Programa LCC - Finance' 14/mai + 1:1 PDI Carol/Ramon 15/mai. Frentes Ramon: CPC 47, tributação, riscos contábeis, validação fiscal com Tainara." },
+
+  const seedKey_v48 = "seed_2026-07-03-v48";
+  if (!store.get(seedKey_v48)) {
+    const prevHist48 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist48.concat([
+      { date: "2026-07-03", projectId: 12, field: "statusNow", from: "MVP em construção (29/jun): já compara dados oficiais × suporte; falta integrar notas explicativas e Log US", to: "Continuação 02/jul: validação Log US concluída (eliminação entre balancetes + EP); template KPMG abandonado em favor da automação própria; pendem ajustes de IR a recuperar (nota 12) e Ágio; próxima sessão 10/jul", evidence: "Gemini notes 'Automação DF - Continuação' 02/jul" },
+      { date: "2026-07-03", projectId: 6, field: "statusNow", from: "Repriorizado p/ Onda 3 (29/jun); retomada depende da base de fornecedores (#13) consolidada", to: "Pipefy em descontinuação (01/jul): empresa testa sistema interno como front, API cara em USD; definição 23/jul se o projeto segue ou é absorvido pelo assistente de abertura interno (aprovado por Adriano)", evidence: "Slack #projeto-base-unica-de-fornecedores · Martin 01/jul + Ramon 01/jul" },
+      { date: "2026-07-03", projectId: 13, field: "statusNow", from: "80% concluído (18/jun): 892 fornecedores, ≈320 setados; 521 pendências do Kiv a limpar", to: "Retomada + apresentação p/ Daniel marcadas p/ 23/jul (Carol + Nicc); cadastro de novos fornecedores via Slack (Martin/Nicc) (01/jul)", evidence: "Gemini notes '1:1 Adriano/Ramon' 03/jul + Slack #projeto-base-unica-de-fornecedores 01/jul" }
     ]));
-    store.set(seedKey11, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey12 = "seed_2026-05-15-conc-balanco-economy";
-  if (!store.get(seedKey12)) {
-    const prev = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prev.concat([
-      { date:"2026-05-15", projectId:11, field:"economia", from:"~80h/ano (recorrência baixa)", to:"-20h/mês",
-        evidence:"Recalibração Ramon 15/mai: Conc. Balanço passa a contar como -20h/mês recorrente (esforço operacional mensal, não só ganho anual concentrado)." },
-    ]));
-    store.set(seedKey12, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey14 = "seed_2026-05-18-blocker-4-removido";
-  if (!store.get(seedKey14)) {
-    const prev = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prev.concat([
-      { date:"2026-05-18", projectId:4, field:"blocker", from:"Bug Trem×Domínio (CC não sobe pra Domínio)", to:"Removido — contornado pela própria automação",
-        evidence:"Decisão Ramon 18/mai: bug Trem×Domínio já está sendo contornado pela automação de lançamento de NFs (Nick + Carol), não bloqueia mais o roadmap. Status do projeto segue Em Andamento sem flag de bloqueio." },
-    ]));
-    store.set(seedKey14, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey13 = "seed_2026-05-18-oracle-netsuite-project-dome";
-  if (!store.get(seedKey13)) {
-    const prev = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prev.concat([
-      { date:"2026-05-18", projectId:8, field:"escalonamento Oracle", from:"—", to:"CPRB/Lalur/ECF — escalar diretamente para Oracle (Adriano via Mônica)",
-        evidence:"Reunião Oracle Netsuite × Project Dome 15/mai (notas Gemini): Project Dome alegou incapacidade técnica para entregar CPRB, Lalur e ECF. Adriano vai contatar Oracle, agendar reunião urgente com equipe tributária via briefing Mônica, e revisar cláusulas contratuais Project Dome." },
-      { date:"2026-05-18", projectId:5, field:"escalonamento Oracle", from:"—", to:"Project Dome questionada — middleware NetSuite confirmado",
-        evidence:"Reunião Oracle Netsuite × Project Dome 15/mai: arquitetura nova centraliza controle contábil no NetSuite com integração via middleware, evitando dependência de terceiros. Danilo solicitará aprovação da receita diferida durante a renovação contratual (reforça decisão 14/mai). Maiara incluirá Ramon nos convites das reuniões de checkpoint." },
-      { date:"2026-05-18", projectId:5, field:"contrato Project Dome", from:"—", to:"Revisar cláusulas — identificar responsabilidades de entrega + recusa de pagamento de taxas comerciais",
-        evidence:"Reunião Oracle Netsuite × Project Dome 15/mai: Adriano vai analisar cláusulas contratuais Project Dome (responsabilidades de entrega + obrigações fiscais) e esclarecer grupo sobre recusa do pagamento de taxas comerciais que já estavam no escopo original." },
-    ]));
-    store.set(seedKey13, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey15 = "seed_2026-05-21-v19";
-  if (!store.get(seedKey15)) {
-    const prev = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prev.concat([
-      { date:"2026-05-21", projectId:13, field:"kickoff", from:"—", to:"Kickoff operacional 19/mai · Nicc API Arquivei · Martin lista+categorização · weekly sexta",
-        evidence:"Slack #projeto-base-unica-de-fornecedores 19/mai (Martin Guesser): 'Ontem Nicc e eu demos start no projeto Base Fornecedor e formulamos um roadmap do projeto e próximos passos.'" },
-      { date:"2026-05-21", projectId:13, field:"stack", from:"Supabase + n8n", to:"+ pgvector + Hugging Face (match semântico, memória do agente IA)",
-        evidence:"Slack #projeto-base-unica-de-fornecedores 21/mai 10:27 (Ramon): pgvector dentro do Supabase pra match semântico via embeddings — resolve 'AWS LLC ≡ Amazon Web Services Inc ≡ AWS Brasil'. Zero custo recorrente." },
-      { date:"2026-05-21", projectId:13, field:"reunião", from:"—", to:"Ramon + Maia + Martin + Nicc agendada semana 25/mai (antes do fechamento)",
-        evidence:"Slack #projeto-base-unica-de-fornecedores 19/mai 09:46 (Ramon): 'mandem as updates aqui e já marquem comigo e Maia semana que vem. Vamos falar antes das rotinas de fechamento começarem.'" },
-      { date:"2026-05-21", projectId:5, field:"escalonamento Oracle", from:"Informal via Mônica (15/mai)", to:"Email formal 18/mai (Eliane Albano + Mônica em cc) — sem resposta",
-        evidence:"Gmail 18/mai (Adriano → Eliane Albano): CPRB, Lalur, ECF e Receita Diferida listados como urgentes, pedido de reunião com equipe tributária Oracle 'asap'." },
-      { date:"2026-05-21", projectId:5, field:"ECD", from:"Migração pendente pro NetSuite", to:"Permanece no Domínio (ECF depende de ECD; NetSuite não gera ECF completa)",
-        evidence:"Reversão arquitetural confirmada no email Adriano 18/mai. Arquitetura final = 3 sistemas em paralelo (Domínio + NetSuite + Looker)." },
-      { date:"2026-05-21", projectId:8, field:"escalonamento Oracle", from:"Briefing informal (15/mai)", to:"Email formal 18/mai (Eliane Albano + Mônica em cc) — sem resposta",
-        evidence:"Gmail 18/mai (Adriano → Eliane Albano): CPRB, Lalur, ECF listados como obrigações urgentes; pedido de reunião 'asap' com equipe tributária Oracle." },
-    ]));
-    store.set(seedKey15, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey16 = "seed_2026-05-22-v20";
-  if (!store.get(seedKey16)) {
-    const prev = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prev.concat([
-      { date:"2026-05-22", projectId:13, field:"tabela principal", from:"—", to:"Estruturada (auditoria interna + cadastrais + estratégicos)",
-        evidence:"Slack #projeto-base-unica-de-fornecedores 22/mai 17:11 (Nicc): tabela mãe formalizada esta semana com Martin; colunas voltadas pra auditoria interna + dados estratégicos e cadastrais." },
-      { date:"2026-05-22", projectId:13, field:"base auxiliar Martin", from:"—", to:"CC + Categoria por fornecedor (enriquece base mãe após automação 100%)",
-        evidence:"Slack 22/mai 17:11 (Nicc): Martin criou base auxiliar com CC + categoria; enriquecimento da mãe Supabase ocorrerá quando atualização estiver 100% automatizada." },
-      { date:"2026-05-22", projectId:13, field:"API Receita Federal", from:"—", to:"Primeiro contato feito (dados cadastrais/situacionais)",
-        evidence:"Slack 22/mai 17:11 (Nicc): captura de informações de novos fornecedores iniciada; Receita disponibiliza apenas cadastrais/situacionais." },
-      { date:"2026-05-22", projectId:13, field:"parsing XML", from:"—", to:"Em andamento via API Qive (Base64) — NF-e + NFS-e (rastreabilidade de valores e datas de emissão)",
-        evidence:"Slack 22/mai 17:11 (Nicc): XMLs vêm compactados em Base64; parsing necessário pra extrair valor da NF + data de emissão; cada fornecedor 'conta sua história'." },
-      { date:"2026-05-22", projectId:13, field:"frente Lovable Front End", from:"—", to:"Front pro Contas (Contabilidade) — busca fornecedor + batimento Categoria/Depto/valor histórico",
-        evidence:"Slack 22/mai 17:16 (Martin): vamos montar Lovable conectado à base pra reduzir trabalho do Contas/Contabilidade no batimento de informações." },
-    ]));
-    store.set(seedKey16, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey17 = "seed_2026-05-22-v21";
-  if (!store.get(seedKey17)) {
-    const prev = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prev.concat([
-      { date:"2026-05-22", projectId:9, field:"statusLabel", from:"Em Andamento (40%)", to:"Em Andamento",
-        evidence:"Correção Ramon 22/mai: remover percentual de progresso, manter apenas 'Em Andamento'." },
-    ]));
-    store.set(seedKey17, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey18 = "seed_2026-05-25-v22-1on1-carol";
-  if (!store.get(seedKey18)) {
-    const prev = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prev.concat([
-      { date:"2026-05-25", projectId:4, field:"cobertura", from:"Match 100% no fech. abr (testes)", to:"100% de cobertura em produção (operação assistida, incluindo rateios complexos)",
-        evidence:"1:1 Carol/Ramon 25/mai (notas Gemini): automação dos lançamentos atingiu 100% de cobertura, incluindo casos complexos com rateios que antes consumiam tempo significativo." },
-      { date:"2026-05-25", projectId:4, field:"meta de exceção", from:"—", to:"Margem aceitável 2-3% (em vez de buscar eliminação total)",
-        evidence:"1:1 Carol/Ramon 25/mai: validação humana é indispensável pra lidar com variáveis inéditas — meta é definir % de exceção aceitável, garantindo sistema auditável e confiável." },
-      { date:"2026-05-25", projectId:4, field:"dashboards", from:"—", to:"Em desenvolvimento (volume de lançamentos + correções)",
-        evidence:"1:1 Carol/Ramon 25/mai: Carol desenvolvendo dashboards pra equipe acompanhar indicadores." },
-      { date:"2026-05-25", projectId:4, field:"controles novos", from:"—", to:"Despesas antecipadas + adiantamentos a fornecedores — reconhecimento automático, previne erros de deferimento",
-        evidence:"1:1 Carol/Ramon 25/mai: novos controles previnem erros de deferimento que ocorreram em períodos anteriores." },
-      { date:"2026-05-25", projectId:4, field:"entregáveis Carol", from:"—", to:"(a) Resumo HTML automação pro Ramon · (b) Planilha auditoria/provisão pro time hoje/amanhã · (c) Mapear processos pra roadmap unificado",
-        evidence:"1:1 Carol/Ramon 25/mai: próximas etapas formalizadas." },
-      { date:"2026-05-25", projectId:5, field:"arquitetura alvo NetSuite", from:"Middleware genérico", to:"Fluxo completo desenhado: HubSpot → fechamento gerencial (em discussão com Oracle)",
-        evidence:"1:1 Carol/Ramon 25/mai: Ramon mapeou arquitetura alvo sanando lacunas de processos; serve como modelo de padronização pra outros processos da Controladoria." },
-      { date:"2026-05-25", projectId:13, field:"memória de decisões", from:"pgvector + Hugging Face (match semântico)", to:"Carol absorve a frente — PG Vector + N8N + Supabase como memória das decisões (padronização de nomes evolui com o uso)",
-        evidence:"1:1 Carol/Ramon 25/mai: Ramon propõe Supabase + vetores como memória da automação. Carol vai integrar funcionalidades de memória ao processo e receber materiais (roadmap + arquitetura NetSuite + orientações PG Vector)." },
-    ]));
-    store.set(seedKey18, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey19 = "seed_2026-05-28-v23";
-  if (!store.get(seedKey19)) {
-    const prev = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prev.concat([
-      { date:"2026-05-28", projectId:4, field:"workstream paralela", from:"—", to:"Provisão Contábil Conta Global — remediar risco não emissão NFs (reunião 29/mai 10h)",
-        evidence:"Gmail 28/mai: aceites confirmados por Adriano (16:51), Evandro (14:08), Kamilla (14:06) e Maiara (26/mai 14:12) pra reunião 'Provisão Contábil Conta Global | Remediar risco não emissão NFs' organizada pelo Ramon pra 29/mai 10h. Frente paralela pra mitigar risco operacional via provisão contábil antes do fechamento de mai/26." },
-      { date:"2026-05-28", projectId:5, field:"receita diferida — Project Dome", from:"Decisão 14/mai (manter no Looker)", to:"Documentação formal entregue por Raphael 28/mai (descritivo da tabela principal de cálculo com fórmulas)",
-        evidence:"Gmail 28/mai 17h21 (Raphael → Filipe/Vitor Project Dome, cc Ágata, Danilo, Maiara, Adriano): 'mandando abaixo a documentação conforme alinhamos para a receita diferida — segue o descritivo dos campos que compõe a tabela principal para o cálculo já com…' — formaliza por escrito o handoff técnico após decisão 14/mai." },
-      { date:"2026-05-28", projectId:13, field:"cadência update", from:"Proposta Nicc (19/mai) — toda sexta", to:"Em operação — 2 reuniões de update em 28/mai (Atualizações automações fornecedores + Projeto Base Única - Fornecedores - Update)",
-        evidence:"Gmail 28/mai 13h53 + 18h50: anotações Gemini de duas reuniões distintas confirmam que a cadência semanal proposta pelo Nicc no kickoff 19/mai está funcionando — Martin/Nicc/Ramon mantendo updates regulares no projeto Base Fornecedores." },
-    ]));
-    store.set(seedKey19, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey20 = "seed_2026-06-03-v24";
-  if (!store.get(seedKey20)) {
-    const prev = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prev.concat([
-      { date:"2026-06-03", projectId:13, field:"métricas", from:"Reuniões 28/mai registradas (sem números)", to:"712 fornecedores cadastrados · 92% das NFs extraídas · classificação por departamento (não CC)",
-        evidence:"Gemini notes 'Projeto Base Única - Fornecedores - Update' 28/mai: base atingiu 712 fornecedores, 92% de extração de NFs, automação diária; decisão de priorizar departamento p/ estabilidade da estrutura visando NetSuite. Ações: reconciliar bases (Carol/Nicc/Martin), cruzar base × contabilidade, integrar histórico desde 2022, reunião de acompanhamento 15-16/jun." },
-      { date:"2026-06-03", projectId:4, field:"padronização documental + trava", from:"—", to:"OMIE: campo deve ser 'NF'/'invoice' (não 'Danfe') · trava de conformidade nº doc + CNPJ × Qive (Carol)",
-        evidence:"Gemini notes 'Atualizações automações fornecedores' 28/mai (padronização NF/invoice, planilha de divergências semanal, pagamentos exigem doc fiscal completo, trava de conformidade no robô) + desvio Kami/Thai corrigido 02/jun (DM Maiara) e formalizado por e-mail (Thaynara 02/jun 'Alinhamento - Tipo de documentos')." },
-    ]));
-    store.set(seedKey20, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey21 = "seed_2026-06-09-v25";
-  if (!store.get(seedKey21)) {
-    const prev = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prev.concat([
-      { date:"2026-06-09", projectId:3, field:"prod (3º mês)", from:"2 meses em prod (mar+abr)", to:"3 meses consecutivos em prod (mar+abr+mai ✓)",
-        evidence:"Gmail 09/jun: Maiara entregou fech. mai/26 em prod. Reunião 'Automações Log US - contas a receber' agendada 15/jun 11h (Maiara, Eduarda Leme, Poliana Mecenas)." },
-      { date:"2026-06-09", projectId:4, field:"reunião Automação Pagamentos", from:"—", to:"02/jun: funcionalidades críticas + dashboards + limitações API NetSuite + Ramon redesenha fluxo + Adriano elabora planilha auditoria (09/jun)",
-        evidence:"Gmail Gemini notes 'Automação Pagamentos' 02/jun." },
-      { date:"2026-06-09", projectId:5, field:"Oracle respondeu escalonamento", from:"Reunião 03/jun 11h (devolutiva dúvidas)", to:"08/jun: 4 pontos (CPRB sem suporte nativo · LALUR/LACS sem IRPJ/CSLL · ECF incompleta · Receita Diferida 3 sistemas confirmados) · Reunião Oracle Zoom asap",
-        evidence:"Gmail 08/jun (Eliane Albano + Jean Carlos Ferreira Oracle, cc Adriano/Maiara/Thaynara/Eduarda/Danilo/Ana Rocha + Vitor/Filipe Project Dome)." },
-    ]));
-    store.set(seedKey21, true);
-    history = store.get(KEY_HIST, []);
-  }
-  const seedKey22 = "seed_2026-06-09-v28";
-  if (!store.get(seedKey22)) {
-    const prev = store.get(KEY_HIST, []);
-    store.set(KEY_HIST, prev.concat([
-      { date:"2026-06-09", projectId:5, field:"Oracle reunião confirmada", from:"Reunião Oracle Zoom agendada asap", to:"Semana 16/jun confirmada · Adriano formaliza bloqueio: sem op. assistida sem os 4 pontos tributários · aguarda ≥22/jun",
-        evidence:"Email Oracle (Eliane Albano) 09/jun confirmando reunião semana 16/jun. Email Adriano 09/jun 14:00 + 14:47: formalizou que Logcomex não avança sem resolução de CPRB, LALUR/LACS, ECF, Receita Diferida — 'agenda não antes de 22/06'. Oracle: 'Teremos a reunião na próxima semana Adriano' (14:49)." },
-      { date:"2026-06-09", projectId:5, field:"Nicc automação razão", from:"—", to:"Razão contábil com formatação correta enviado a Martin em 09/jun",
-        evidence:"Gmail Nicc→Martin 18:27 09/jun: enviou razão com formatação correta para que a automação consiga ler e processar." },
-    ]));
-    store.set(seedKey22, true);
+    store.set(seedKey_v48, true);
     history = store.get(KEY_HIST, []);
   }
 
@@ -1073,6 +749,7 @@
         </div>
         <div class="card-body">
           <p style="font-size:12px;color:var(--lx-gray);margin-top:8px;">${esc(p.tagline)}</p>
+          ${p.statusNow ? `<p class="status-now"><strong>Agora:</strong> ${esc(p.statusNow)}</p>` : ""}
           <div class="detail-grid">
             <div class="detail-item"><div class="dl">Área</div><div class="dv">${esc(p.area)}</div></div>
             <div class="detail-item"><div class="dl">Owner</div><div class="dv">${esc(p.owner)}</div></div>
