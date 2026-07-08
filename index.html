@@ -414,8 +414,8 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v48",
-    lastUpdated: "2026-07-03",
+    version: "v49",
+    lastUpdated: "2026-07-08",
     projects: [
       { id:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
@@ -435,9 +435,9 @@
         keywords:["fechamento gerencial","gerencial"] },
       { id:3, name:"Log US (Internacional)", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
-        owner:"Ramon / Maiara", area:"Contabilidade", color:"green", updated:false,
+        owner:"Ramon / Maiara", area:"Contabilidade", color:"green", updated:true,
         tagline:"Concilia Stripe, invoices e Citibank via N8N + Claude",
-        statusNow:"Eficiência da conciliação caiu p/ 80% em mai (exceções); padronização retomada após o dia 5. (30/jun)",
+        statusNow:"Log US – lançamento 06/jul: transição da automação p/ a Carol em treinamento; padronização dos dados da Poli como solução p/ exceções do Stripe; script com falhas (permissão de pasta + limite de token, Ramon corrige) e testes contínuos no mês. Fechamento jun/26 enviado 07/jul (folha BR atrasada). (07/jul)",
         insightToday:"Maiara fazia à mão — baixava CSV do Stripe, cruzava invoices, categorizava Citibank e montava a planilha. 1 dia por mês.",
         insightFuture:"Conciliação Stripe × invoice × Citibank fecha sozinha (9 blocos, 14 abas), com saldo Citi batendo em zero e exceções tratadas por padronização.",
         keywords:["log us","fechamento internacional","citibank","stripe us"] },
@@ -451,16 +451,16 @@
         keywords:["nf","nfs","invoice","invoices","ome"] },
       { id:5, name:"Fechamento Contábil", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-40h/mês", economyHours:40, goLive:"Ago/26", periodLabel:"Abr–Ago",
-        owner:"Maiara", area:"Contabilidade", color:"orange", updated:false,
+        owner:"Maiara", area:"Contabilidade", color:"orange", updated:true,
         subitems:["Bancos","Provisões","Faturamento","Folha vs Balanço","Despesas Antecipadas"],
         tagline:"Quebra o fechamento contábil em automações independentes por frente",
-        statusNow:"papo NetSuite LALUR 30/jun: LALUR migra p/ o NetSuite; ECD adiada p/ 2027/28; folha via TXT.",
+        statusNow:"1:1 07/jul: implementação do NetSuite com atrasos e incerteza de prazo; Maiara elabora mapeamento de processos/sistemas p/ o Alex, definindo responsabilidades por área na transição.",
         insightToday:"controle manual por e-mail e planilha descentralizada; time todo nos 4 primeiros dias úteis revisando e lançando. GUT 80.",
         insightFuture:"Cinco mini-automações independentes — Bancos, Faturamento, Folha vs. Balanço, Provisões e Despesas Antecipadas. NetSuite cobre faturamento+AR; Domínio mantém o fiscal BR.",
         keywords:["fechamento contábil","fechamento contabil"] },
       { id:6, name:"Zapier × Pipefy", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"A mapear", economyHours:0, goLive:"Set/26", periodLabel:"Abr–Set",
-        owner:"Nicc", area:"Contabilidade", color:"orange", updated:true,
+        owner:"Nicc", area:"Contabilidade", color:"orange", updated:false,
         tagline:"Cruza cards do Pipefy (CP) com o Budget por categoria e centro de custo",
         statusNow:"Pipefy em descontinuação (01/jul): empresa testa sistema interno como front e a API sai cara em USD. Definição 23/jul se o projeto segue ou é absorvido pelo assistente de abertura interno (aprovado por Adriano).",
         insightToday:"robô já identifica casos relevantes na abertura de cards no Pipefy; revisão do cadastro de categorias em andamento.",
@@ -476,9 +476,9 @@
         keywords:["obrigações fiscais","sped","darf","cprb","lalur","ecf"] },
       { id:9, name:"Conc. e Alertas Fornecedor", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
-        owner:"Nicc", area:"Contabilidade", color:"orange", updated:false,
+        owner:"Nicc", area:"Contabilidade", color:"orange", updated:true,
         tagline:"Concilia razão × ERP e alerta fornecedores recorrentes sem pipe aberto",
-        statusNow:"Prioridade da Onda 3; #9 e #10 mesclados (mesma stack, mesmo owner). (04/mai)",
+        statusNow:"1:1 07/jul: conciliação de fornecedores vira prioridade crítica do mês (meta ≥70% de conclusão); Carol desenvolve controle automatizado p/ flagar fornecedores com documentos pendentes por período prolongado.",
         insightToday:"Mateus faz compilado manual a cada 15 dias (~8h/semana); limpeza do razão e nomes de fornecedores batidos um a um.",
         insightFuture:"Arquivei detecta fornecedores recorrentes, N8N alerta no Slack e cobra abertura de pipe na competência; conciliação com o ERP aponta diferenças sem trabalho manual.",
         keywords:["alertas fornecedor","conciliação fornecedor","conc fornecedor"] },
@@ -492,7 +492,7 @@
         keywords:["conciliação balanço","balanço"] },
       { id:13, name:"Base Fornecedores", wave:2, status:"done", statusLabel:"80% concluído",
         economyLabel:"-12h/mês", economyHours:12, goLive:"Jun/26", periodLabel:"Mai–Jun",
-        owner:"Martin (co: Nicc)", area:"Contabilidade", color:"green", updated:true,
+        owner:"Martin (co: Nicc)", area:"Contabilidade", color:"green", updated:false,
         tagline:"Base única de fornecedores no Supabase como fonte da verdade",
         statusNow:"Retomada + apresentação p/ Daniel marcadas p/ 23/jul (Carol + Nicc); cadastro de novos fornecedores definido via Slack (Martin/Nicc). (01/jul)",
         insightToday:"dados de fornecedores fragmentados em planilhas, Pipefy, Omie e Arquivei — sem source of truth única.",
@@ -502,7 +502,7 @@
         economyLabel:"~80h/ano", economyHours:7, goLive:"Ago/26", periodLabel:"Mai–Ago",
         owner:"Maiara", area:"Contabilidade", color:"orange", updated:true,
         tagline:"Transforma a DF anual da KPMG em processo mensal automatizado",
-        statusNow:"Continuação 02/jul: validação Log US concluída (eliminação entre balancetes + equivalência patrimonial); template KPMG abandonado em favor da automação própria; pendem ajustes de IR a recuperar (nota 12) e Ágio. Próxima sessão 10/jul.",
+        statusNow:"Próxima sessão 10/jul; validação Log US concluída (eliminação entre balancetes + EP), pendem IR a recuperar (nota 12) e Ágio. KPMG concedeu 4% de desconto no orçamento (1:1 07/jul).",
         insightToday:"DF anual montada à mão em jan-fev: planilha de 42 abas + Word de 707 parágrafos / 54 tabelas. Erros só aparecem na auditoria.",
         insightFuture:"5 fases (mai-ago): Discovery, MVP BP/DRE/DFC via N8N+Omie, notas explicativas, template Word KPMG e go-live. DF mensal completa em <4h e pré-balance contínuo.",
         keywords:["df auditoria","kpmg","balancete","dre","dfc","auditoria","yuri","almir","notas explicativas"] },
@@ -663,6 +663,19 @@
       { date: "2026-07-03", projectId: 13, field: "statusNow", from: "80% concluído (18/jun): 892 fornecedores, ≈320 setados; 521 pendências do Kiv a limpar", to: "Retomada + apresentação p/ Daniel marcadas p/ 23/jul (Carol + Nicc); cadastro de novos fornecedores via Slack (Martin/Nicc) (01/jul)", evidence: "Gemini notes '1:1 Adriano/Ramon' 03/jul + Slack #projeto-base-unica-de-fornecedores 01/jul" }
     ]));
     store.set(seedKey_v48, true);
+    history = store.get(KEY_HIST, []);
+  }
+
+  const seedKey_v49 = "seed_2026-07-08-v49";
+  if (!store.get(seedKey_v49)) {
+    const prevHist49 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist49.concat([
+      { date: "2026-07-08", projectId: 3, field: "statusNow", from: "Eficiência da conciliação caiu p/ 80% em mai (exceções); padronização retomada após o dia 5 (30/jun)", to: "Log US – lançamento 06/jul: transição da automação p/ a Carol em treinamento; padronização dos dados da Poli p/ exceções do Stripe; script com falhas (permissão de pasta + limite de token, Ramon corrige) e testes contínuos no mês; fechamento jun/26 enviado 07/jul (folha BR atrasada)", evidence: "Gemini notes 'Log US - lançamento' 06/jul + email Fechamento Log US Jun/26 (Maiara) 07/jul" },
+      { date: "2026-07-08", projectId: 5, field: "statusNow", from: "papo NetSuite LALUR 30/jun: LALUR migra p/ o NetSuite; ECD adiada p/ 2027/28; folha via TXT", to: "1:1 07/jul: implementação do NetSuite com atrasos e incerteza de prazo; Maiara elabora mapeamento de processos/sistemas p/ o Alex, definindo responsabilidades por área na transição", evidence: "Gemini notes '1:1 Semanal Maiara / Ramon' 07/jul" },
+      { date: "2026-07-08", projectId: 9, field: "statusNow", from: "Prioridade da Onda 3; #9 e #10 mesclados (04/mai)", to: "1:1 07/jul: conciliação de fornecedores vira prioridade crítica do mês (meta ≥70% de conclusão); Carol desenvolve controle automatizado p/ flagar fornecedores com documentos pendentes por período prolongado", evidence: "Gemini notes '1:1 Semanal Maiara / Ramon' 07/jul" },
+      { date: "2026-07-08", projectId: 12, field: "statusNow", from: "Continuação 02/jul: validação Log US concluída; template KPMG abandonado; pendem IR a recuperar e Ágio; próxima sessão 10/jul", to: "Próxima sessão 10/jul; validação Log US concluída (eliminação entre balancetes + EP), pendem IR a recuperar (nota 12) e Ágio; KPMG concedeu 4% de desconto no orçamento (1:1 07/jul)", evidence: "Gemini notes '1:1 Semanal Maiara / Ramon' 07/jul" }
+    ]));
+    store.set(seedKey_v49, true);
     history = store.get(KEY_HIST, []);
   }
 
