@@ -536,6 +536,7 @@
     store.set(seedKey_v46, true);
     history = store.get(KEY_HIST, []);
   }
+  const seedKey = "seed_2026-05-04-initial";
   if (!store.get(seedKey)) {
     const prev = store.get(KEY_HIST, []);
     store.set(KEY_HIST, prev.concat([
