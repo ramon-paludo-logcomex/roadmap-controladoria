@@ -414,8 +414,8 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v51",
-    lastUpdated: "2026-07-13",
+    version: "v52",
+    lastUpdated: "2026-07-14",
     projects: [
       { id:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
@@ -451,21 +451,13 @@
         keywords:["nf","nfs","invoice","invoices","ome"] },
       { id:5, name:"Fechamento Contábil", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-40h/mês", economyHours:40, goLive:"Ago/26", periodLabel:"Abr–Ago",
-        owner:"Maiara", area:"Contabilidade", color:"orange", updated:true,
+        owner:"Maiara", area:"Contabilidade", color:"orange", updated:false,
         subitems:["Bancos","Provisões","Faturamento","Folha vs Balanço","Despesas Antecipadas"],
         tagline:"Quebra o fechamento contábil em automações independentes por frente",
         statusNow:"Inputs de LALUR/LACS consolidados (10/jul) e sendo enviados ao time de desenvolvimento do NetSuite (Jean + PMs, via Adriano→Alex), fechando ponto aberto da reunião de 30/06 — um dos arquivos traz o comparativo NetSuite × Domínio e os blocos da ECF que faltam, com call de explicação a agendar. Validação do gap ECD/ECF do NetSuite retomada no início de ago, após o envio da ECF 2025 (prazo 31/07; ECD 2025 já pronta). Data de corte 25/26 definida em 09/jul. (13/jul)",
         insightToday:"controle manual por e-mail e planilha descentralizada; time todo nos 4 primeiros dias úteis revisando e lançando. GUT 80.",
         insightFuture:"Cinco mini-automações independentes — Bancos, Faturamento, Folha vs. Balanço, Provisões e Despesas Antecipadas. NetSuite cobre faturamento+AR; Domínio mantém o fiscal BR.",
         keywords:["fechamento contábil","fechamento contabil"] },
-      { id:6, name:"Zapier × Pipefy", wave:3, status:"prog", statusLabel:"Em Andamento",
-        economyLabel:"A mapear", economyHours:0, goLive:"Set/26", periodLabel:"Abr–Set",
-        owner:"Nicc", area:"Contabilidade", color:"orange", updated:false,
-        tagline:"Cruza cards do Pipefy (CP) com o Budget por categoria e centro de custo",
-        statusNow:"Pipefy em descontinuação (01/jul): empresa testa sistema interno como front e a API sai cara em USD. Definição 23/jul se o projeto segue ou é absorvido pelo assistente de abertura interno (aprovado por Adriano).",
-        insightToday:"robô já identifica casos relevantes na abertura de cards no Pipefy; revisão do cadastro de categorias em andamento.",
-        insightFuture:"Robô cruza cards do Pipefy com o orçamento e aplica categoria e CC automaticamente, com pedido de compra obrigatório e data de corte mensal fixa.",
-        keywords:["zapier","pipefy"] },
       { id:8, name:"Obrigações Fiscais", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
         owner:"Tai", area:"Contabilidade", color:"orange", updated:false,
@@ -699,6 +691,16 @@
       { date: "2026-07-13", projectId: 5, field: "statusNow", from: "Reunião 09/jul: definida data de corte no dia 25/26 dentro do NetSuite p/ organizar o fechamento contábil mensal", to: "Inputs de LALUR/LACS consolidados (10/jul) e enviados ao time de desenvolvimento do NetSuite (Jean + PMs, via Adriano→Alex), fechando ponto aberto da reunião de 30/06; validação do gap ECD/ECF do NetSuite retomada no início de ago, após envio da ECF 2025 (prazo 31/07)", evidence: "Slack DM Ramon×Adriano + Ramon×Thaynara 10/jul" }
     ]));
     store.set(seedKey_v51, true);
+    history = store.get(KEY_HIST, []);
+  }
+
+  const seedKey_v52 = "seed_2026-07-14-v52";
+  if (!store.get(seedKey_v52)) {
+    const prevHist52 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist52.concat([
+      { date: "2026-07-14", projectId: 6, field: "escopo", from: "Zapier × Pipefy (#6) — Em Andamento na Onda 3", to: "Removido do roadmap (Pipefy em descontinuação; frente absorvida pelo assistente de abertura interno aprovado por Adriano)", evidence: "Decisão Ramon 14/jul" }
+    ]));
+    store.set(seedKey_v52, true);
     history = store.get(KEY_HIST, []);
   }
 
