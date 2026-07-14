@@ -414,8 +414,8 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v50",
-    lastUpdated: "2026-07-09",
+    version: "v51",
+    lastUpdated: "2026-07-13",
     projects: [
       { id:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
@@ -443,7 +443,7 @@
         keywords:["log us","fechamento internacional","citibank","stripe us"] },
       { id:4, name:"Lanç. NFs/Invoices", wave:2, status:"done", statusLabel:"Concluído",
         economyLabel:"-32h/mês", economyHours:32, goLive:"Jun/26", periodLabel:"Abr–Jun",
-        owner:"Carol", area:"Contabilidade", color:"green", updated:true,
+        owner:"Carol", area:"Contabilidade", color:"green", updated:false,
         tagline:"Lança NFs e invoices no Omie com rateio automático por centro de custo",
         statusNow:"Reunião 'Atualizações automações fornecedores' 09/jul: falhas de integração (KIV×Pipefy×OME) elevaram a conferência manual das notas; ações — triagem por IA em teste (Adriano/Kamilla) p/ implementação plena em jul e Ramon ajusta o N8n p/ leitura automatizada de documentos fiscais. Carol valida o novo fluxo do Ronaldo em 10/jul. (09/jul)",
         insightToday:"Mateus lançava 2 dias por semana + Nicc nos 2 primeiros dias do fechamento, com regras de rateio manuais.",
@@ -454,7 +454,7 @@
         owner:"Maiara", area:"Contabilidade", color:"orange", updated:true,
         subitems:["Bancos","Provisões","Faturamento","Folha vs Balanço","Despesas Antecipadas"],
         tagline:"Quebra o fechamento contábil em automações independentes por frente",
-        statusNow:"Reunião 09/jul: definida data de corte no dia 25/26 dentro do NetSuite p/ organizar o fechamento contábil mensal. NetSuite segue com atrasos e incerteza de prazo; Maiara mapeia processos/sistemas p/ o Alex, definindo responsabilidades por área na transição (1:1 07/jul). (09/jul)",
+        statusNow:"Inputs de LALUR/LACS consolidados (10/jul) e sendo enviados ao time de desenvolvimento do NetSuite (Jean + PMs, via Adriano→Alex), fechando ponto aberto da reunião de 30/06 — um dos arquivos traz o comparativo NetSuite × Domínio e os blocos da ECF que faltam, com call de explicação a agendar. Validação do gap ECD/ECF do NetSuite retomada no início de ago, após o envio da ECF 2025 (prazo 31/07; ECD 2025 já pronta). Data de corte 25/26 definida em 09/jul. (13/jul)",
         insightToday:"controle manual por e-mail e planilha descentralizada; time todo nos 4 primeiros dias úteis revisando e lançando. GUT 80.",
         insightFuture:"Cinco mini-automações independentes — Bancos, Faturamento, Folha vs. Balanço, Provisões e Despesas Antecipadas. NetSuite cobre faturamento+AR; Domínio mantém o fiscal BR.",
         keywords:["fechamento contábil","fechamento contabil"] },
@@ -476,7 +476,7 @@
         keywords:["obrigações fiscais","sped","darf","cprb","lalur","ecf"] },
       { id:9, name:"Conc. e Alertas Fornecedor", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
-        owner:"Nicc", area:"Contabilidade", color:"orange", updated:true,
+        owner:"Nicc", area:"Contabilidade", color:"orange", updated:false,
         tagline:"Concilia razão × ERP e alerta fornecedores recorrentes sem pipe aberto",
         statusNow:"Reunião 09/jul: definida rotina automatizada de cruzamento KIV × OME (Adriano/Kamilla) p/ detectar divergências cedo, inclusão do KIV na triagem e validação de NFs emitidas sem pedido de compra. Conciliação segue prioridade crítica do mês (meta ≥70%); Carol desenvolve controle p/ flagar fornecedores com docs pendentes (07/jul). (09/jul)",
         insightToday:"Mateus faz compilado manual a cada 15 dias (~8h/semana); limpeza do razão e nomes de fornecedores batidos um a um.",
@@ -688,6 +688,16 @@
       { date: "2026-07-09", projectId: 5, field: "statusNow", from: "1:1 07/jul: NetSuite com atrasos e incerteza de prazo; Maiara mapeia processos/sistemas p/ o Alex", to: "Reunião 09/jul: definida data de corte no dia 25/26 dentro do NetSuite p/ organizar o fechamento contábil mensal", evidence: "Gemini notes 'Atualizações automações fornecedores' 09/jul" }
     ]));
     store.set(seedKey_v50, true);
+    history = store.get(KEY_HIST, []);
+  }
+
+  const seedKey_v51 = "seed_2026-07-13-v51";
+  if (!store.get(seedKey_v51)) {
+    const prevHist51 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist51.concat([
+      { date: "2026-07-13", projectId: 5, field: "statusNow", from: "Reunião 09/jul: definida data de corte no dia 25/26 dentro do NetSuite p/ organizar o fechamento contábil mensal", to: "Inputs de LALUR/LACS consolidados (10/jul) e enviados ao time de desenvolvimento do NetSuite (Jean + PMs, via Adriano→Alex), fechando ponto aberto da reunião de 30/06; validação do gap ECD/ECF do NetSuite retomada no início de ago, após envio da ECF 2025 (prazo 31/07)", evidence: "Slack DM Ramon×Adriano + Ramon×Thaynara 10/jul" }
+    ]));
+    store.set(seedKey_v51, true);
     history = store.get(KEY_HIST, []);
   }
 
