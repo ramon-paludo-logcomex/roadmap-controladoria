@@ -414,8 +414,8 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v52",
-    lastUpdated: "2026-07-14",
+    version: "v53",
+    lastUpdated: "2026-07-20",
     projects: [
       { id:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
@@ -451,10 +451,10 @@
         keywords:["nf","nfs","invoice","invoices","ome"] },
       { id:5, name:"Fechamento Contábil", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-40h/mês", economyHours:40, goLive:"Ago/26", periodLabel:"Abr–Ago",
-        owner:"Maiara", area:"Contabilidade", color:"orange", updated:false,
+        owner:"Maiara", area:"Contabilidade", color:"orange", updated:true,
         subitems:["Bancos","Provisões","Faturamento","Folha vs Balanço","Despesas Antecipadas"],
         tagline:"Quebra o fechamento contábil em automações independentes por frente",
-        statusNow:"Inputs de LALUR/LACS consolidados (10/jul) e sendo enviados ao time de desenvolvimento do NetSuite (Jean + PMs, via Adriano→Alex), fechando ponto aberto da reunião de 30/06 — um dos arquivos traz o comparativo NetSuite × Domínio e os blocos da ECF que faltam, com call de explicação a agendar. Validação do gap ECD/ECF do NetSuite retomada no início de ago, após o envio da ECF 2025 (prazo 31/07; ECD 2025 já pronta). Data de corte 25/26 definida em 09/jul. (13/jul)",
+        statusNow:"Reunião 'Pipefy × NetSuite' 17/jul: decidido separar o fluxo de solicitação de compra do contas a pagar (automação como suporte + triagem humana), com melhoria do fluxo priorizada após o fechamento; Adriano reescreve o desenho do processo e conduz reunião/treinamento com Alex e Rock p/ a integração NetSuite; entregas do projeto BGE a partir do início de ago. Antes: inputs de LALUR/LACS consolidados (10/jul) e enviados ao time de desenvolvimento do NetSuite (Jean + PMs, via Adriano→Alex); validação do gap ECD/ECF do NetSuite retomada no início de ago, após o envio da ECF 2025 (prazo 31/07; ECD 2025 pronta); data de corte 25/26 definida em 09/jul. Revisão do fechamento jun/26 marcada p/ 21/jul. (17/jul)",
         insightToday:"controle manual por e-mail e planilha descentralizada; time todo nos 4 primeiros dias úteis revisando e lançando. GUT 80.",
         insightFuture:"Cinco mini-automações independentes — Bancos, Faturamento, Folha vs. Balanço, Provisões e Despesas Antecipadas. NetSuite cobre faturamento+AR; Domínio mantém o fiscal BR.",
         keywords:["fechamento contábil","fechamento contabil"] },
@@ -468,9 +468,9 @@
         keywords:["obrigações fiscais","sped","darf","cprb","lalur","ecf"] },
       { id:9, name:"Conc. e Alertas Fornecedor", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
-        owner:"Nicc", area:"Contabilidade", color:"orange", updated:false,
+        owner:"Nicc", area:"Contabilidade", color:"orange", updated:true,
         tagline:"Concilia razão × ERP e alerta fornecedores recorrentes sem pipe aberto",
-        statusNow:"Reunião 09/jul: definida rotina automatizada de cruzamento KIV × OME (Adriano/Kamilla) p/ detectar divergências cedo, inclusão do KIV na triagem e validação de NFs emitidas sem pedido de compra. Conciliação segue prioridade crítica do mês (meta ≥70%); Carol desenvolve controle p/ flagar fornecedores com docs pendentes (07/jul). (09/jul)",
+        statusNow:"Follow-up base de fornecedores 15/jul: Nicc desenvolve alertas automáticos p/ divergências de departamento × centro de custo (regras específicas p/ Financeiro, People e Legal) e integra a base à automação de triagem/abertura de solicitações (alinhamento com Adriano, Tha e Contas a Pagar); mapeamento passa a priorizar o histórico real de lançamentos sobre o orçado. Antes (09/jul): rotina automatizada de cruzamento KIV × OME (Adriano/Kamilla), inclusão do KIV na triagem e validação de NFs emitidas sem pedido de compra; conciliação segue prioridade crítica do mês (meta ≥70%); Carol desenvolve controle p/ flagar fornecedores com docs pendentes. (15/jul)",
         insightToday:"Mateus faz compilado manual a cada 15 dias (~8h/semana); limpeza do razão e nomes de fornecedores batidos um a um.",
         insightFuture:"Arquivei detecta fornecedores recorrentes, N8N alerta no Slack e cobra abertura de pipe na competência; conciliação com o ERP aponta diferenças sem trabalho manual.",
         keywords:["alertas fornecedor","conciliação fornecedor","conc fornecedor"] },
@@ -484,17 +484,17 @@
         keywords:["conciliação balanço","balanço"] },
       { id:13, name:"Base Fornecedores", wave:2, status:"done", statusLabel:"80% concluído",
         economyLabel:"-12h/mês", economyHours:12, goLive:"Jun/26", periodLabel:"Mai–Jun",
-        owner:"Martin (co: Nicc)", area:"Contabilidade", color:"green", updated:false,
+        owner:"Martin (co: Nicc)", area:"Contabilidade", color:"green", updated:true,
         tagline:"Base única de fornecedores no Supabase como fonte da verdade",
-        statusNow:"Retomada + apresentação p/ Daniel marcadas p/ 23/jul (Carol + Nicc); cadastro de novos fornecedores definido via Slack (Martin/Nicc). (01/jul)",
+        statusNow:"Follow-up base de fornecedores 15/jul: cadastro de fornecedores nacionais finalizado; internacionais passam a ser geridos via automações internas (integração à automação de lançamentos da Carol), mitigando risco das APIs; hierarquia de acessos administrativos e regras de manutenção manual definidas; Nicc exporta a base completa p/ Martin validar as contas contábeis. Apresentação de resultados p/ Adriano e Daniel confirmada 23/jul (Nicc + Martin, material revisado com Maiara); Carol prepara compilado bimestral de erros/acertos. (15/jul)",
         insightToday:"dados de fornecedores fragmentados em planilhas, Pipefy, Omie e Arquivei — sem source of truth única.",
         insightFuture:"Base no Supabase mapeia fornecedor→categoria (cobre ~80% dos erros), alimenta a conciliação (#9) e vira gabarito que cruza razão e orçamento. Match semântico via pgvector.",
         keywords:["base fornecedores","fornecedor base"] },
       { id:12, name:"DF Auditoria (mensal)", wave:3, status:"prog", statusLabel:"MVP em construção",
         economyLabel:"~80h/ano", economyHours:7, goLive:"Ago/26", periodLabel:"Mai–Ago",
-        owner:"Maiara", area:"Contabilidade", color:"orange", updated:false,
+        owner:"Maiara", area:"Contabilidade", color:"orange", updated:true,
         tagline:"Transforma a DF anual da KPMG em processo mensal automatizado",
-        statusNow:"Próxima sessão 10/jul; validação Log US concluída (eliminação entre balancetes + EP), pendem IR a recuperar (nota 12) e Ágio. KPMG concedeu 4% de desconto no orçamento (1:1 07/jul).",
+        statusNow:"Reunião 'DF Automação' 17/jul: definidas estruturas de relatórios e reconciliação de ativos p/ auditoria — imobilizado/intangível extraídos direto do razão (baixas de ativo separadas das de depreciação), DFC finalizada após a reconciliação dos balanços; Maiara automatiza o mapa de movimentação p/ o próximo fechamento e Ramon organiza o balancete consolidado (colunas OX + Conta Global), migra a nota 14C e ajusta nomes de contas vs. Word. Proposta/contrato KPMG (com 4% de desconto) enviado em minuta 20/jul; Maiara encaminhou ao jurídico da Logcomex p/ revisão. Antes: validação Log US concluída (eliminação entre balancetes + EP), pendem IR a recuperar (nota 12) e Ágio. (20/jul)",
         insightToday:"DF anual montada à mão em jan-fev: planilha de 42 abas + Word de 707 parágrafos / 54 tabelas. Erros só aparecem na auditoria.",
         insightFuture:"5 fases (mai-ago): Discovery, MVP BP/DRE/DFC via N8N+Omie, notas explicativas, template Word KPMG e go-live. DF mensal completa em <4h e pré-balance contínuo.",
         keywords:["df auditoria","kpmg","balancete","dre","dfc","auditoria","yuri","almir","notas explicativas"] },
@@ -701,6 +701,19 @@
       { date: "2026-07-14", projectId: 6, field: "escopo", from: "Zapier × Pipefy (#6) — Em Andamento na Onda 3", to: "Removido do roadmap (Pipefy em descontinuação; frente absorvida pelo assistente de abertura interno aprovado por Adriano)", evidence: "Decisão Ramon 14/jul" }
     ]));
     store.set(seedKey_v52, true);
+    history = store.get(KEY_HIST, []);
+  }
+
+  const seedKey_v53 = "seed_2026-07-20-v53";
+  if (!store.get(seedKey_v53)) {
+    const prevHist53 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist53.concat([
+      { date: "2026-07-20", projectId: 12, field: "statusNow", from: "Próxima sessão 10/jul; validação Log US concluída (eliminação entre balancetes + EP), pendem IR a recuperar (nota 12) e Ágio; KPMG concedeu 4% de desconto no orçamento (1:1 07/jul)", to: "Reunião 'DF Automação' 17/jul: estruturas de relatórios + reconciliação de ativos definidas (imobilizado/intangível direto do razão, baixas de ativo × depreciação separadas, DFC após reconciliação dos balanços); Maiara automatiza o mapa de movimentação e Ramon organiza balancete consolidado (OX + Conta Global), migra nota 14C e ajusta contas vs. Word. Proposta/contrato KPMG (4% desconto) em minuta 20/jul, encaminhada ao jurídico", evidence: "Gemini notes 'DF Automação' 17/jul + thread Gmail '[KPMG] Orçamento/termos proposta auditoria Grupo Logcomex 2026' 20/jul" },
+      { date: "2026-07-20", projectId: 5, field: "statusNow", from: "Inputs de LALUR/LACS consolidados (10/jul) enviados ao time NetSuite (Jean + PMs via Adriano→Alex); validação do gap ECD/ECF retomada no início de ago após envio da ECF 2025 (prazo 31/07); data de corte 25/26 definida em 09/jul", to: "Reunião 'Pipefy × NetSuite' 17/jul: separação do fluxo de solicitação de compra do contas a pagar (automação como suporte + triagem humana), melhoria do fluxo de compras priorizada após o fechamento; Adriano reescreve o desenho e conduz treinamento Alex/Rock p/ a integração NetSuite; entregas do projeto BGE a partir de ago. Revisão do fechamento jun/26 marcada p/ 21/jul", evidence: "Gemini notes 'Pipefy Net Suite' 17/jul + convite 'Revisão Fechamento Junho' 21/jul" },
+      { date: "2026-07-20", projectId: 13, field: "statusNow", from: "Retomada + apresentação p/ Daniel marcadas p/ 23/jul (Carol + Nicc); cadastro de novos fornecedores via Slack (Martin/Nicc) (01/jul)", to: "Follow-up 15/jul: cadastro nacional finalizado; internacionais via automações internas (integração à automação da Carol); hierarquia de acessos + regras de manutenção manual definidas; Nicc exporta base p/ Martin validar contas contábeis; apresentação p/ Adriano e Daniel confirmada 23/jul (material revisado com Maiara)", evidence: "Gemini notes 'Follow-up base de fornecedores' 15/jul" },
+      { date: "2026-07-20", projectId: 9, field: "statusNow", from: "Reunião 09/jul: definida rotina automatizada de cruzamento KIV × OME (Adriano/Kamilla) p/ detectar divergências cedo, inclusão do KIV na triagem e validação de NFs emitidas sem pedido de compra", to: "Follow-up 15/jul: Nicc desenvolve alertas automáticos p/ divergências departamento × centro de custo (Financeiro, People, Legal) e integra a base à triagem/abertura de solicitações; mapeamento prioriza histórico real de lançamentos sobre o orçado", evidence: "Gemini notes 'Follow-up base de fornecedores' 15/jul" }
+    ]));
+    store.set(seedKey_v53, true);
     history = store.get(KEY_HIST, []);
   }
 
