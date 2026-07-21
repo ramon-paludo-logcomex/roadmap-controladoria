@@ -414,7 +414,7 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v54",
+    version: "v55",
     lastUpdated: "2026-07-21",
     projects: [
       { id:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
@@ -458,7 +458,7 @@
         insightToday:"controle manual por e-mail e planilha descentralizada; time todo nos 4 primeiros dias úteis revisando e lançando. GUT 80.",
         insightFuture:"Cinco mini-automações independentes — Bancos, Faturamento, Folha vs. Balanço, Provisões e Despesas Antecipadas. NetSuite cobre faturamento+AR; Domínio mantém o fiscal BR.",
         keywords:["fechamento contábil","fechamento contabil"] },
-      { id:8, name:"Obrigações Fiscais", wave:3, status:"prog", statusLabel:"Em Andamento",
+      { id:8, name:"Obrigações Fiscais", wave:3, status:"prog", statusLabel:"75% concluído",
         economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
         owner:"Thay", area:"Contabilidade", color:"orange", updated:true,
         tagline:"Calendário fiscal com alertas de vencimento e cálculos automatizados",
@@ -725,6 +725,16 @@
       { date: "2026-07-21", projectId: 8, field: "statusNow", from: "Automações fiscais 25/jun: IR + ECD em nuvem validados; ECF em correção p/ assinatura final", to: "ECD 2025 e ECF 2025 entregues (jul/26); IRPJ/CSLL mensal rodando com validação assistida; ~18 das 24h/mês já capturadas; resta re-tuning anual da ECF (layout muda mar–jun), os 2 pontos de decisão humana do IRPJ/CSLL (por design) e hardening pós-2025", evidence: "Ramon 21/jul + docs 'Roadmap de Automação Fiscal' (jun/26) e 'Fluxo das Automações Fiscais' — ECD/ECF/IRPJ-CSLL. Régua blended (mensal recorrente + anual amortizado)" }
     ]));
     store.set(seedKey_v54, true);
+    history = store.get(KEY_HIST, []);
+  }
+
+  const seedKey_v55 = "seed_2026-07-21-v55";
+  if (!store.get(seedKey_v55)) {
+    const prevHist55 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist55.concat([
+      { date: "2026-07-21", projectId: 8, field: "statusLabel", from: "Em Andamento", to: "75% concluído (18/24h)", evidence: "Ramon 21/jul — refletir progresso 18 de 24h no badge do card" }
+    ]));
+    store.set(seedKey_v55, true);
     history = store.get(KEY_HIST, []);
   }
 
