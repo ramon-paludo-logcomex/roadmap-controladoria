@@ -2,7 +2,7 @@
 {
   "name": "Roadmap Controladoria",
   "schemaVersion": 1,
-  "description": "Roadmap de automações da Controladoria Logcomex — 11 processos, 3 ondas, -178h/mês projetado. Atualizado automaticamente via skill atualizar-roadmap-controladoria.",
+  "description": "Roadmap de automações da Controladoria Logcomex — 10 processos, 3 ondas, -178h/mês projetado. Atualizado automaticamente via skill atualizar-roadmap-controladoria.",
   "mcpTools": [
     "mcp__7b3f24cf-3f10-4035-90f4-8a3c6bbd6c50__slack_search_public_and_private",
     "mcp__7d4dc0ab-a93c-48ec-9db7-81f021a49eab__search_threads",
@@ -414,10 +414,10 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v56",
+    version: "v57",
     lastUpdated: "2026-07-21",
     projects: [
-      { id:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
+      { id:1, num:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
         owner:"Ramon / Martin", area:"FP&A", color:"green", updated:false,
         tagline:"Consolida fontes e gera o cohort de Logcomex e UXCOMEX, Board-ready",
@@ -425,7 +425,7 @@
         insightToday:"análise de cohort feita manualmente, consolidando dados de múltiplas fontes pra gerar visão por safra de clientes.",
         insightFuture:"Skills consolidam as fontes e geram os arquivos de cohort de Logcomex e UXCOMEX automaticamente, sem montagem manual.",
         keywords:["cohort"] },
-      { id:2, name:"Fechamento Gerencial", wave:1, status:"done", statusLabel:"Concluído",
+      { id:2, num:2, name:"Fechamento Gerencial", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-16h/mês", economyHours:16, goLive:"Abr/26", periodLabel:"Abr/26",
         owner:"Martin", area:"FP&A", color:"green", updated:false,
         tagline:"Cruza Contábil × Gerencial e Budget vs. Realizado por centro de custo",
@@ -433,7 +433,7 @@
         insightToday:"FP&A roda macro sobre o razão contábil e atualiza o Gerencial e o Book por fórmulas no Excel.",
         insightFuture:"Todo o processo via skills, com conferências vs. orçamento automatizadas na granularidade de centro de custo.",
         keywords:["fechamento gerencial","gerencial"] },
-      { id:3, name:"Log US (Internacional)", wave:1, status:"done", statusLabel:"Concluído",
+      { id:3, num:3, name:"Log US (Internacional)", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
         owner:"Ramon / Maiara", area:"Contabilidade", color:"green", updated:false,
         tagline:"Concilia Stripe, invoices e Citibank via N8N + Claude",
@@ -441,7 +441,7 @@
         insightToday:"Maiara fazia à mão — baixava CSV do Stripe, cruzava invoices, categorizava Citibank e montava a planilha. 1 dia por mês.",
         insightFuture:"Conciliação Stripe × invoice × Citibank fecha sozinha (9 blocos, 14 abas), com saldo Citi batendo em zero e exceções tratadas por padronização.",
         keywords:["log us","fechamento internacional","citibank","stripe us"] },
-      { id:4, name:"Lanç. NFs/Invoices", wave:2, status:"done", statusLabel:"Concluído",
+      { id:4, num:4, name:"Lanç. NFs/Invoices", wave:2, status:"done", statusLabel:"Concluído",
         economyLabel:"-32h/mês", economyHours:32, goLive:"Jun/26", periodLabel:"Abr–Jun",
         owner:"Carol", area:"Contabilidade", color:"green", updated:false,
         tagline:"Lança NFs e invoices no Omie com rateio automático por centro de custo",
@@ -449,7 +449,7 @@
         insightToday:"Mateus lançava 2 dias por semana + Nicc nos 2 primeiros dias do fechamento, com regras de rateio manuais.",
         insightFuture:"Robô lança NFs e invoices direto no Omie com rateio automático, trava de conformidade (nº doc + CNPJ vs. Qive) e dashboards de volume e correções.",
         keywords:["nf","nfs","invoice","invoices","ome"] },
-      { id:5, name:"Fechamento Contábil", wave:3, status:"prog", statusLabel:"Em Andamento",
+      { id:5, num:6, name:"Fechamento Contábil", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-40h/mês", economyHours:40, goLive:"Ago/26", periodLabel:"Abr–Ago",
         owner:"Maiara", area:"Contabilidade", color:"orange", updated:false,
         subitems:["Bancos","Provisões","Faturamento","Folha vs Balanço","Despesas Antecipadas"],
@@ -458,7 +458,7 @@
         insightToday:"controle manual por e-mail e planilha descentralizada; time todo nos 4 primeiros dias úteis revisando e lançando. GUT 80.",
         insightFuture:"Cinco mini-automações independentes — Bancos, Faturamento, Folha vs. Balanço, Provisões e Despesas Antecipadas. NetSuite cobre faturamento+AR; Domínio mantém o fiscal BR.",
         keywords:["fechamento contábil","fechamento contabil"] },
-      { id:8, name:"Obrigações Fiscais", wave:3, status:"done", statusLabel:"75% concluído",
+      { id:8, num:5, name:"Obrigações Fiscais", wave:3, status:"done", statusLabel:"75% concluído",
         economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
         owner:"Thay", area:"Contabilidade", color:"green", updated:true,
         tagline:"Calendário fiscal com alertas de vencimento e cálculos automatizados",
@@ -466,7 +466,7 @@
         insightToday:"cálculos fiscais (RCS) manuais no Excel — erro já pego pela auditoria. 1 dia no fechamento + 2–3 dias depois.",
         insightFuture:"Calendário fiscal automático com alertas de vencimento e cálculos em nuvem, sem depender de máquina local. Mantido no Domínio pela complexidade tributária BR.",
         keywords:["obrigações fiscais","sped","darf","cprb","lalur","ecf"] },
-      { id:9, name:"Conc. e Alertas Fornecedor", wave:3, status:"prog", statusLabel:"Em Andamento",
+      { id:9, num:7, name:"Conc. e Alertas Fornecedor", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
         owner:"Nicc", area:"Contabilidade", color:"orange", updated:false,
         tagline:"Concilia razão × ERP e alerta fornecedores recorrentes sem pipe aberto",
@@ -474,7 +474,7 @@
         insightToday:"Mateus faz compilado manual a cada 15 dias (~8h/semana); limpeza do razão e nomes de fornecedores batidos um a um.",
         insightFuture:"Arquivei detecta fornecedores recorrentes, N8N alerta no Slack e cobra abertura de pipe na competência; conciliação com o ERP aponta diferenças sem trabalho manual.",
         keywords:["alertas fornecedor","conciliação fornecedor","conc fornecedor"] },
-      { id:11, name:"Conc. Balanço", wave:3, status:"prog", statusLabel:"Em Andamento",
+      { id:11, num:8, name:"Conc. Balanço", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-20h/mês", economyHours:20, goLive:"Jul/26", periodLabel:"Mai–Jul",
         owner:"A definir", area:"Contabilidade", color:"orange", updated:false,
         tagline:"Concilia contas do balanço com relatório que comprova cada saldo",
@@ -482,7 +482,7 @@
         insightToday:"1 semana do Nicc + 1 semana da Tha; nem 50% das contas que deveriam ser conciliadas são.",
         insightFuture:"Busca automática dos relatórios que comprovam cada saldo, eliminando o gargalo manual da conciliação de contas do balanço.",
         keywords:["conciliação balanço","balanço"] },
-      { id:13, name:"Base Fornecedores", wave:2, status:"done", statusLabel:"80% concluído",
+      { id:13, num:10, name:"Base Fornecedores", wave:2, status:"done", statusLabel:"80% concluído",
         economyLabel:"-12h/mês", economyHours:12, goLive:"Jun/26", periodLabel:"Mai–Jun",
         owner:"Martin (co: Nicc)", area:"Contabilidade", color:"green", updated:false,
         tagline:"Base única de fornecedores no Supabase como fonte da verdade",
@@ -490,7 +490,7 @@
         insightToday:"dados de fornecedores fragmentados em planilhas, Pipefy, Omie e Arquivei — sem source of truth única.",
         insightFuture:"Base no Supabase mapeia fornecedor→categoria (cobre ~80% dos erros), alimenta a conciliação (#9) e vira gabarito que cruza razão e orçamento. Match semântico via pgvector.",
         keywords:["base fornecedores","fornecedor base"] },
-      { id:12, name:"DF Auditoria (mensal)", wave:3, status:"prog", statusLabel:"MVP em construção",
+      { id:12, num:9, name:"DF Auditoria (mensal)", wave:3, status:"prog", statusLabel:"MVP em construção",
         economyLabel:"~80h/ano", economyHours:7, goLive:"Ago/26", periodLabel:"Mai–Ago",
         owner:"Maiara", area:"Contabilidade", color:"orange", updated:false,
         tagline:"Transforma a DF anual da KPMG em processo mensal automatizado",
@@ -748,6 +748,16 @@
     history = store.get(KEY_HIST, []);
   }
 
+  const seedKey_v57 = "seed_2026-07-21-v57";
+  if (!store.get(seedKey_v57)) {
+    const prevHist57 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist57.concat([
+      { date: "2026-07-21", projectId: 0, field: "numeração", from: "IDs com buracos (5,8,9,11,12,13)", to: "Numeração de exibição contígua 1–10: Onda 3 = 5 Obrigações Fiscais · 6 Fechamento Contábil · 7 Conc. Fornecedor · 8 Conc. Balanço · 9 DF Auditoria; Base Fornecedores = 10. IDs internos preservados p/ manter histórico e sinais íntegros", evidence: "Ramon 21/jul" }
+    ]));
+    store.set(seedKey_v57, true);
+    history = store.get(KEY_HIST, []);
+  }
+
   let signals = {}; let lastFetch = null; let chartsReady = false;
 
   const colorFor = k => ({ green:"var(--lx-green)", orange:"var(--lx-orange)", purple:"var(--lx-purple)", teal:"var(--lx-teal)", gray:"var(--lx-gray-light)" })[k] || "var(--lx-gray-light)";
@@ -778,6 +788,7 @@
     const waves = { 1:"Onda 1 — Concluída / Pronta para Go-live", 2:"Onda 2 — Em Execução", 3:"Onda 3 — Planejado" };
     const byWave = { 1:[], 2:[], 3:[] };
     snapshot.projects.forEach(p => byWave[p.wave].push(p));
+    [1,2,3].forEach(w => byWave[w].sort((a,b) => (a.num||a.id) - (b.num||b.id)));
     const filterChips = `
       <div class="filter-bar">
         <span class="filter-label">Filtrar:</span>
@@ -822,7 +833,7 @@
     return `
       <div class="${cls.join(" ")}" data-pid="${p.id}" data-group="${grp}">
         <div class="card-header">
-          <span class="card-num" style="background:${colorFor(p.color)}">${p.id}</span>
+          <span class="card-num" style="background:${colorFor(p.color)}">${p.num||p.id}</span>
           <span class="card-title">${esc(p.name)}</span>
           <span class="status status-${p.status}">${esc(p.statusLabel)}</span>
           ${blockerBadge}${updBadge}${sigBadge}
