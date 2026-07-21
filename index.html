@@ -414,7 +414,7 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v57",
+    version: "v58",
     lastUpdated: "2026-07-21",
     projects: [
       { id:1, num:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
@@ -758,6 +758,16 @@
     history = store.get(KEY_HIST, []);
   }
 
+  const seedKey_v58 = "seed_2026-07-21-v58";
+  if (!store.get(seedKey_v58)) {
+    const prevHist58 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist58.concat([
+      { date: "2026-07-21", projectId: 5, field: "impacto", from: "Onda 3 entregando 67h em jul no gráfico de impacto", to: "40h do Fechamento Contábil movidas de jul→ago (go-live Ago/26); Onda 3 no gráfico: jul 27h, ago 74h", evidence: "Ramon 21/jul — alinhar entrega das horas ao prazo de agosto" }
+    ]));
+    store.set(seedKey_v58, true);
+    history = store.get(KEY_HIST, []);
+  }
+
   let signals = {}; let lastFetch = null; let chartsReady = false;
 
   const colorFor = k => ({ green:"var(--lx-green)", orange:"var(--lx-orange)", purple:"var(--lx-purple)", teal:"var(--lx-teal)", gray:"var(--lx-gray-light)" })[k] || "var(--lx-gray-light)";
@@ -1051,7 +1061,7 @@
         datasets:[
           { label:"Onda 1", data:[32,32,32,32,32], backgroundColor:"rgba(254,143,28,0.85)", borderRadius:4 },
           { label:"Onda 2", data:[0,32,72,72,72], backgroundColor:"rgba(102,19,208,0.85)", borderRadius:4 },
-          { label:"Onda 3", data:[0,0,0,67,74], backgroundColor:"rgba(39,215,128,0.85)", borderRadius:4 }
+          { label:"Onda 3", data:[0,0,0,27,74], backgroundColor:"rgba(39,215,128,0.85)", borderRadius:4 }
         ] },
       options:{ responsive:true, maintainAspectRatio:false,
         plugins:{ legend:{ position:"bottom", labels:{ boxWidth:10, padding:12, font:{ size:11 } } } },
