@@ -414,8 +414,8 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v53",
-    lastUpdated: "2026-07-20",
+    version: "v54",
+    lastUpdated: "2026-07-21",
     projects: [
       { id:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
@@ -451,7 +451,7 @@
         keywords:["nf","nfs","invoice","invoices","ome"] },
       { id:5, name:"Fechamento Contábil", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-40h/mês", economyHours:40, goLive:"Ago/26", periodLabel:"Abr–Ago",
-        owner:"Maiara", area:"Contabilidade", color:"orange", updated:true,
+        owner:"Maiara", area:"Contabilidade", color:"orange", updated:false,
         subitems:["Bancos","Provisões","Faturamento","Folha vs Balanço","Despesas Antecipadas"],
         tagline:"Quebra o fechamento contábil em automações independentes por frente",
         statusNow:"Reunião 'Pipefy × NetSuite' 17/jul: decidido separar o fluxo de solicitação de compra do contas a pagar (automação como suporte + triagem humana), com melhoria do fluxo priorizada após o fechamento; Adriano reescreve o desenho do processo e conduz reunião/treinamento com Alex e Rock p/ a integração NetSuite; entregas do projeto BGE a partir do início de ago. Antes: inputs de LALUR/LACS consolidados (10/jul) e enviados ao time de desenvolvimento do NetSuite (Jean + PMs, via Adriano→Alex); validação do gap ECD/ECF do NetSuite retomada no início de ago, após o envio da ECF 2025 (prazo 31/07; ECD 2025 pronta); data de corte 25/26 definida em 09/jul. Revisão do fechamento jun/26 marcada p/ 21/jul. (17/jul)",
@@ -460,15 +460,15 @@
         keywords:["fechamento contábil","fechamento contabil"] },
       { id:8, name:"Obrigações Fiscais", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
-        owner:"Tai", area:"Contabilidade", color:"orange", updated:false,
+        owner:"Thay", area:"Contabilidade", color:"orange", updated:true,
         tagline:"Calendário fiscal com alertas de vencimento e cálculos automatizados",
-        statusNow:"Automações fiscais 25/jun: IR + ECD em nuvem validados; ECF em correção p/ assinatura final.",
+        statusNow:"ECD 2025 e ECF 2025 entregues (jul/26); IRPJ/CSLL mensal rodando com validação assistida (memória de cálculo + controle de diferidos). ~18 das 24h/mês já capturadas. Resta: re-tuning anual da ECF (layout muda todo ano, mar–jun), os 2 pontos de decisão humana do IRPJ/CSLL (entrada do balancete + valor final no Domínio — por design, não gap) e o hardening pós-ciclo 2025. Escopo = 3 automações: ECD (anual), ECF (anual, a mais complexa, depende da ECD) e IRPJ/CSLL (única mensal). Reforma Tributária IBS/CBS corre à parte. (21/jul)",
         insightToday:"cálculos fiscais (RCS) manuais no Excel — erro já pego pela auditoria. 1 dia no fechamento + 2–3 dias depois.",
         insightFuture:"Calendário fiscal automático com alertas de vencimento e cálculos em nuvem, sem depender de máquina local. Mantido no Domínio pela complexidade tributária BR.",
         keywords:["obrigações fiscais","sped","darf","cprb","lalur","ecf"] },
       { id:9, name:"Conc. e Alertas Fornecedor", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
-        owner:"Nicc", area:"Contabilidade", color:"orange", updated:true,
+        owner:"Nicc", area:"Contabilidade", color:"orange", updated:false,
         tagline:"Concilia razão × ERP e alerta fornecedores recorrentes sem pipe aberto",
         statusNow:"Follow-up base de fornecedores 15/jul: Nicc desenvolve alertas automáticos p/ divergências de departamento × centro de custo (regras específicas p/ Financeiro, People e Legal) e integra a base à automação de triagem/abertura de solicitações (alinhamento com Adriano, Tha e Contas a Pagar); mapeamento passa a priorizar o histórico real de lançamentos sobre o orçado. Antes (09/jul): rotina automatizada de cruzamento KIV × OME (Adriano/Kamilla), inclusão do KIV na triagem e validação de NFs emitidas sem pedido de compra; conciliação segue prioridade crítica do mês (meta ≥70%); Carol desenvolve controle p/ flagar fornecedores com docs pendentes. (15/jul)",
         insightToday:"Mateus faz compilado manual a cada 15 dias (~8h/semana); limpeza do razão e nomes de fornecedores batidos um a um.",
@@ -484,7 +484,7 @@
         keywords:["conciliação balanço","balanço"] },
       { id:13, name:"Base Fornecedores", wave:2, status:"done", statusLabel:"80% concluído",
         economyLabel:"-12h/mês", economyHours:12, goLive:"Jun/26", periodLabel:"Mai–Jun",
-        owner:"Martin (co: Nicc)", area:"Contabilidade", color:"green", updated:true,
+        owner:"Martin (co: Nicc)", area:"Contabilidade", color:"green", updated:false,
         tagline:"Base única de fornecedores no Supabase como fonte da verdade",
         statusNow:"Follow-up base de fornecedores 15/jul: cadastro de fornecedores nacionais finalizado; internacionais passam a ser geridos via automações internas (integração à automação de lançamentos da Carol), mitigando risco das APIs; hierarquia de acessos administrativos e regras de manutenção manual definidas; Nicc exporta a base completa p/ Martin validar as contas contábeis. Apresentação de resultados p/ Adriano e Daniel confirmada 23/jul (Nicc + Martin, material revisado com Maiara); Carol prepara compilado bimestral de erros/acertos. (15/jul)",
         insightToday:"dados de fornecedores fragmentados em planilhas, Pipefy, Omie e Arquivei — sem source of truth única.",
@@ -492,7 +492,7 @@
         keywords:["base fornecedores","fornecedor base"] },
       { id:12, name:"DF Auditoria (mensal)", wave:3, status:"prog", statusLabel:"MVP em construção",
         economyLabel:"~80h/ano", economyHours:7, goLive:"Ago/26", periodLabel:"Mai–Ago",
-        owner:"Maiara", area:"Contabilidade", color:"orange", updated:true,
+        owner:"Maiara", area:"Contabilidade", color:"orange", updated:false,
         tagline:"Transforma a DF anual da KPMG em processo mensal automatizado",
         statusNow:"Reunião 'DF Automação' 17/jul: definidas estruturas de relatórios e reconciliação de ativos p/ auditoria — imobilizado/intangível extraídos direto do razão (baixas de ativo separadas das de depreciação), DFC finalizada após a reconciliação dos balanços; Maiara automatiza o mapa de movimentação p/ o próximo fechamento e Ramon organiza o balancete consolidado (colunas OX + Conta Global), migra a nota 14C e ajusta nomes de contas vs. Word. Proposta/contrato KPMG (com 4% de desconto) enviado em minuta 20/jul; Maiara encaminhou ao jurídico da Logcomex p/ revisão. Antes: validação Log US concluída (eliminação entre balancetes + EP), pendem IR a recuperar (nota 12) e Ágio. (20/jul)",
         insightToday:"DF anual montada à mão em jan-fev: planilha de 42 abas + Word de 707 parágrafos / 54 tabelas. Erros só aparecem na auditoria.",
@@ -714,6 +714,17 @@
       { date: "2026-07-20", projectId: 9, field: "statusNow", from: "Reunião 09/jul: definida rotina automatizada de cruzamento KIV × OME (Adriano/Kamilla) p/ detectar divergências cedo, inclusão do KIV na triagem e validação de NFs emitidas sem pedido de compra", to: "Follow-up 15/jul: Nicc desenvolve alertas automáticos p/ divergências departamento × centro de custo (Financeiro, People, Legal) e integra a base à triagem/abertura de solicitações; mapeamento prioriza histórico real de lançamentos sobre o orçado", evidence: "Gemini notes 'Follow-up base de fornecedores' 15/jul" }
     ]));
     store.set(seedKey_v53, true);
+    history = store.get(KEY_HIST, []);
+  }
+
+  const seedKey_v54 = "seed_2026-07-21-v54";
+  if (!store.get(seedKey_v54)) {
+    const prevHist54 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist54.concat([
+      { date: "2026-07-21", projectId: 8, field: "owner", from: "Tai", to: "Thay", evidence: "Correção Ramon 21/jul" },
+      { date: "2026-07-21", projectId: 8, field: "statusNow", from: "Automações fiscais 25/jun: IR + ECD em nuvem validados; ECF em correção p/ assinatura final", to: "ECD 2025 e ECF 2025 entregues (jul/26); IRPJ/CSLL mensal rodando com validação assistida; ~18 das 24h/mês já capturadas; resta re-tuning anual da ECF (layout muda mar–jun), os 2 pontos de decisão humana do IRPJ/CSLL (por design) e hardening pós-2025", evidence: "Ramon 21/jul + docs 'Roadmap de Automação Fiscal' (jun/26) e 'Fluxo das Automações Fiscais' — ECD/ECF/IRPJ-CSLL. Régua blended (mensal recorrente + anual amortizado)" }
+    ]));
+    store.set(seedKey_v54, true);
     history = store.get(KEY_HIST, []);
   }
 
