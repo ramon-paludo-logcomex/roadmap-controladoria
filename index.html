@@ -414,7 +414,7 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v55",
+    version: "v56",
     lastUpdated: "2026-07-21",
     projects: [
       { id:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
@@ -458,9 +458,9 @@
         insightToday:"controle manual por e-mail e planilha descentralizada; time todo nos 4 primeiros dias úteis revisando e lançando. GUT 80.",
         insightFuture:"Cinco mini-automações independentes — Bancos, Faturamento, Folha vs. Balanço, Provisões e Despesas Antecipadas. NetSuite cobre faturamento+AR; Domínio mantém o fiscal BR.",
         keywords:["fechamento contábil","fechamento contabil"] },
-      { id:8, name:"Obrigações Fiscais", wave:3, status:"prog", statusLabel:"75% concluído",
+      { id:8, name:"Obrigações Fiscais", wave:3, status:"done", statusLabel:"75% concluído",
         economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
-        owner:"Thay", area:"Contabilidade", color:"orange", updated:true,
+        owner:"Thay", area:"Contabilidade", color:"green", updated:true,
         tagline:"Calendário fiscal com alertas de vencimento e cálculos automatizados",
         statusNow:"ECD 2025 e ECF 2025 entregues (jul/26); IRPJ/CSLL mensal rodando com validação assistida (memória de cálculo + controle de diferidos). ~18 das 24h/mês já capturadas. Resta: re-tuning anual da ECF (layout muda todo ano, mar–jun), os 2 pontos de decisão humana do IRPJ/CSLL (entrada do balancete + valor final no Domínio — por design, não gap) e o hardening pós-ciclo 2025. Escopo = 3 automações: ECD (anual), ECF (anual, a mais complexa, depende da ECD) e IRPJ/CSLL (única mensal). Reforma Tributária IBS/CBS corre à parte. (21/jul)",
         insightToday:"cálculos fiscais (RCS) manuais no Excel — erro já pego pela auditoria. 1 dia no fechamento + 2–3 dias depois.",
@@ -735,6 +735,16 @@
       { date: "2026-07-21", projectId: 8, field: "statusLabel", from: "Em Andamento", to: "75% concluído (18/24h)", evidence: "Ramon 21/jul — refletir progresso 18 de 24h no badge do card" }
     ]));
     store.set(seedKey_v55, true);
+    history = store.get(KEY_HIST, []);
+  }
+
+  const seedKey_v56 = "seed_2026-07-21-v56";
+  if (!store.get(seedKey_v56)) {
+    const prevHist56 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist56.concat([
+      { date: "2026-07-21", projectId: 8, field: "status", from: "Em Andamento (laranja)", to: "Verde / 75% concluído — passa a contar em 'concluídos' e na economia entregue (24h), mesmo tratamento do #13", evidence: "Ramon 21/jul" }
+    ]));
+    store.set(seedKey_v56, true);
     history = store.get(KEY_HIST, []);
   }
 
