@@ -414,7 +414,7 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v58",
+    version: "v59",
     lastUpdated: "2026-07-21",
     projects: [
       { id:1, num:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
@@ -452,11 +452,11 @@
       { id:5, num:6, name:"Fechamento Contábil", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-40h/mês", economyHours:40, goLive:"Ago/26", periodLabel:"Abr–Ago",
         owner:"Maiara", area:"Contabilidade", color:"orange", updated:false,
-        subitems:["Bancos","Provisões","Faturamento","Folha vs Balanço","Despesas Antecipadas"],
+        subitems:["Bancos","Provisões","Faturamento","Folha vs Razão Contábil","Despesas Antecipadas"],
         tagline:"Quebra o fechamento contábil em automações independentes por frente",
         statusNow:"Reunião 'Pipefy × NetSuite' 17/jul: decidido separar o fluxo de solicitação de compra do contas a pagar (automação como suporte + triagem humana), com melhoria do fluxo priorizada após o fechamento; Adriano reescreve o desenho do processo e conduz reunião/treinamento com Alex e Rock p/ a integração NetSuite; entregas do projeto BGE a partir do início de ago. Antes: inputs de LALUR/LACS consolidados (10/jul) e enviados ao time de desenvolvimento do NetSuite (Jean + PMs, via Adriano→Alex); validação do gap ECD/ECF do NetSuite retomada no início de ago, após o envio da ECF 2025 (prazo 31/07; ECD 2025 pronta); data de corte 25/26 definida em 09/jul. Revisão do fechamento jun/26 marcada p/ 21/jul. (17/jul)",
         insightToday:"controle manual por e-mail e planilha descentralizada; time todo nos 4 primeiros dias úteis revisando e lançando. GUT 80.",
-        insightFuture:"Cinco mini-automações independentes — Bancos, Faturamento, Folha vs. Balanço, Provisões e Despesas Antecipadas. NetSuite cobre faturamento+AR; Domínio mantém o fiscal BR.",
+        insightFuture:"Cinco mini-automações independentes — Bancos, Faturamento, Folha vs. Razão Contábil, Provisões e Despesas Antecipadas. NetSuite cobre faturamento+AR; Domínio mantém o fiscal BR.",
         keywords:["fechamento contábil","fechamento contabil"] },
       { id:8, num:5, name:"Obrigações Fiscais", wave:3, status:"done", statusLabel:"75% concluído",
         economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
@@ -765,6 +765,16 @@
       { date: "2026-07-21", projectId: 5, field: "impacto", from: "Onda 3 entregando 67h em jul no gráfico de impacto", to: "40h do Fechamento Contábil movidas de jul→ago (go-live Ago/26); Onda 3 no gráfico: jul 27h, ago 74h", evidence: "Ramon 21/jul — alinhar entrega das horas ao prazo de agosto" }
     ]));
     store.set(seedKey_v58, true);
+    history = store.get(KEY_HIST, []);
+  }
+
+  const seedKey_v59 = "seed_2026-07-21-v59";
+  if (!store.get(seedKey_v59)) {
+    const prevHist59 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist59.concat([
+      { date: "2026-07-21", projectId: 5, field: "subitem", from: "Folha vs Balanço", to: "Folha vs Razão Contábil", evidence: "Correção de nomenclatura Ramon 21/jul — frente confronta a folha com o razão contábil, não com o balanço" }
+    ]));
+    store.set(seedKey_v59, true);
     history = store.get(KEY_HIST, []);
   }
 
