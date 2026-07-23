@@ -414,7 +414,7 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v59",
+    version: "v60",
     lastUpdated: "2026-07-21",
     projects: [
       { id:1, num:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
@@ -483,7 +483,7 @@
         insightFuture:"Busca automática dos relatórios que comprovam cada saldo, eliminando o gargalo manual da conciliação de contas do balanço.",
         keywords:["conciliação balanço","balanço"] },
       { id:13, num:10, name:"Base Fornecedores", wave:2, status:"done", statusLabel:"80% concluído",
-        economyLabel:"-12h/mês", economyHours:12, goLive:"Jun/26", periodLabel:"Mai–Jun",
+        economyLabel:"-29h/mês", economyHours:29, goLive:"Jun/26", periodLabel:"Mai–Jun",
         owner:"Martin (co: Nicc)", area:"Contabilidade", color:"green", updated:false,
         tagline:"Base única de fornecedores no Supabase como fonte da verdade",
         statusNow:"Follow-up base de fornecedores 15/jul: cadastro de fornecedores nacionais finalizado; internacionais passam a ser geridos via automações internas (integração à automação de lançamentos da Carol), mitigando risco das APIs; hierarquia de acessos administrativos e regras de manutenção manual definidas; Nicc exporta a base completa p/ Martin validar as contas contábeis. Apresentação de resultados p/ Adriano e Daniel confirmada 23/jul (Nicc + Martin, material revisado com Maiara); Carol prepara compilado bimestral de erros/acertos. (15/jul)",
@@ -778,6 +778,17 @@
     history = store.get(KEY_HIST, []);
   }
 
+  const seedKey_v60 = "seed_2026-07-21-v60";
+  if (!store.get(seedKey_v60)) {
+    const prevHist60 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist60.concat([
+      { date: "2026-07-21", projectId: 13, field: "economia", from: "-12h/mês", to: "-29h/mês", evidence: "Ajuste Ramon 21/jul — economia real da automação da base de fornecedores" },
+      { date: "2026-07-21", projectId: 0, field: "impacto", from: "Onda 2 = 44h/mês (gráfico 'por onda' ainda em 72h, resíduo do Zapier removido)", to: "Onda 2 = 61h/mês (NFs 32 + Base 29); série do gráfico 'por onda' corrigida p/ [0,32,61,61,61]", evidence: "Reharmonização decorrente do ajuste da Base Fornecedores (21/jul)" }
+    ]));
+    store.set(seedKey_v60, true);
+    history = store.get(KEY_HIST, []);
+  }
+
   let signals = {}; let lastFetch = null; let chartsReady = false;
 
   const colorFor = k => ({ green:"var(--lx-green)", orange:"var(--lx-orange)", purple:"var(--lx-purple)", teal:"var(--lx-teal)", gray:"var(--lx-gray-light)" })[k] || "var(--lx-gray-light)";
@@ -969,7 +980,7 @@
         ],
         metrics:[ { v:"-32h/mês", l:"Economia total da onda" }, { v:"3/3", l:"Concluídos" }, { v:"4 skills", l:"Cowork (Log US)" }, { v:"~22s", l:"Tempo execução" } ],
         insight:'A Onda 1 validou a arquitetura "N8N magro + Claude gordo" e entregou os 3 processos. O Log US definiu o padrão técnico replicado pela Carol no projeto de NFs. <strong>Validação operacional concluída em 08/mai</strong> com o fech. de abril/26 (Maiara em prod, 412 linhas, Saldo Citi diff $0,00). 2 meses operados em prod (mar+abr). Stack Supabase+Omie firmou-se como referência arquitetural. Atenção contínua ao webhook N8N (falha recorrente erro 500 — fallback Drive MCP).' },
-      2: { title:"Onda 2 — NFs + Zapier + Base Fornecedores", sub:"Abr–Jun 2026 · 3 processos · -44h/mês · Bug Trem×Domínio contornado pela automação · Escalonamento Oracle pós reunião Project Dome 15/mai", cls:"w2",
+      2: { title:"Onda 2 — NFs + Zapier + Base Fornecedores", sub:"Abr–Jun 2026 · 3 processos · -61h/mês · Bug Trem×Domínio contornado pela automação · Escalonamento Oracle pós reunião Project Dome 15/mai", cls:"w2",
         steps:[
           { num:"01 · Abr", title:"Mapeamento e início",
             items:["NFs: testes oficiais APIs 23/abr (Match 100% no fech. abr)","Zapier: robô já identifica casos no Pipefy CP"] },
@@ -978,7 +989,7 @@
           { num:"03 · Jun", title:"Go-live",
             items:["NFs/Invoices: go-live (push de abr→mai/26)","Base Fornecedores: concluída jun/26","Reunião Oracle Arquivei × Pipefy 14/mai redefiniu escopo: PO obrigatório non-recurring, data corte mensal, Looker mantido p/ receita diferida, OME +1 semestre"] },
         ],
-        metrics:[ { v:"-44h/mês", l:"Economia da onda" }, { v:"3 frentes", l:"Processos" }, { v:"0 bloqueios", l:"Trem×Domínio contornado" }, { v:"OMIE + Zapier", l:"Integrações" } ],
+        metrics:[ { v:"-61h/mês", l:"Economia da onda" }, { v:"3 frentes", l:"Processos" }, { v:"0 bloqueios", l:"Trem×Domínio contornado" }, { v:"OMIE + Zapier", l:"Integrações" } ],
         insight:'NFs/Invoices teve testes 100% e Carol já cobre Match 100% no fech. de abril (~20h economizadas), mas o full go-live empurrou pra mai. <strong>Bug Trem×Domínio</strong> (CC não subindo pra Domínio): contornado pela própria automação (Nick + Carol) — sem bloqueio ativo no roadmap. <strong>1:1 Maia/Ramon 14/mai</strong>: gestação Maiara confirmada — Nick + Carol assumem automação de NFs e cartões em maio; transição de processos críticos até set/26 com documentação obrigatória. <strong>Reunião Oracle Arquivei × Pipefy 14/mai</strong> redefiniu escopo: Looker mantido para receita diferida (não desenvolver no NetSuite), OME ativo +1 semestre, pedidos de compra obrigatórios para itens não recorrentes, data de corte mensal fixa, custos extras integrador rejeitados. <strong>Reunião Oracle Netsuite × Project Dome 15/mai (sexta)</strong>: Project Dome alegou incapacidade técnica para entregar obrigações fiscais (CPRB, Lalur, ECF) — decisão de escalar diretamente para Oracle (Adriano via Mônica), revisar cláusulas contratuais Project Dome, e arquitetar middleware centralizando controle contábil no NetSuite pra evitar dependência de terceiros. Danilo solicitará aprovação da receita diferida durante a renovação contratual. <strong>Diretrizes Omie API (15/abr)</strong>: Web Hooks, leitura, janela almoço — aplicáveis a NFs, Fech. Contábil e Zapier.' },
       3: { title:"Onda 3 — Fech. Contábil + Fiscal + Fornecedores + Conc. Balanço + DF Auditoria", sub:"Mai–Ago 2026 · 5 processos · -102h/mês recorrente + ~160h/ano (Conc. Balanço + DF Auditoria) · Recalibrado em 07/mai", cls:"w3",
         steps:[
@@ -1058,7 +1069,7 @@
           <div class="impact-total-card"><div class="iv" style="color:var(--lx-purple);">-${econ}h/mês</div><div class="il">Total projetado</div></div>
         </div>
         <div class="impact-note">
-          <strong>Visão estratégica:</strong> Onda 1 entregou 32h/mês (Cohort 8h + Gerencial 16h + Log US 8h — 3/3 concluídos, Log US validado em prod no fech. abr/26). Onda 2 adiciona 44h/mês até junho — NFs/Invoices empurrado pra mai pelos ajustes pós-teste; bug Trem×Domínio agora contornado pela própria automação (Nick + Carol). Fech. Contábil com fluxo CP desenhado em 29/abr; <strong>reunião Oracle 14/mai</strong> consolidou premissas (Looker mantido p/ receita diferida, OME +1 semestre, PO obrigatório non-recurring). <strong>Reunião Oracle Netsuite × Project Dome 15/mai (sexta)</strong>: Project Dome alegou incapacidade técnica para CPRB/Lalur/ECF — decisão de escalar diretamente p/ Oracle (Adriano via Mônica), revisar contrato, arquitetar middleware NetSuite. Onda 3 completa com ~74h/mês recorrente até ago — Obrig. Fiscais e Conc. Fornecedor 24h cada, <strong>Conc. Balanço + DF Auditoria entregam ~80h/ano cada</strong> (recorrência baixa, ganho qualitativo). <strong>Conc. e Alertas Fornecedor (#9 merged) já está a 40%</strong> sob owner Nicc, com automação Claude + arquivo .md. <strong>Base Fornecedores (#13 NOVO)</strong> entra como source of truth única (Martin owner, Nicc co-owner, mai→jun/26). DF Auditoria mensal começa em mai com Discovery e go-live em ago. <strong>Diretrizes Omie API (15/abr)</strong> agora obrigatórias em todos os projetos que tocam Omie: Web Hooks, leitura, janela 12h-14h, base local — preparando migração pra NetSuite em 2027. Ao final de Ago/26: <strong>~${econ}h/mês</strong> de trabalho manual recorrente eliminado + ~160h/ano (Conc. Balanço + DF Auditoria).
+          <strong>Visão estratégica:</strong> Onda 1 entregou 32h/mês (Cohort 8h + Gerencial 16h + Log US 8h — 3/3 concluídos, Log US validado em prod no fech. abr/26). Onda 2 adiciona 61h/mês até junho — NFs/Invoices empurrado pra mai pelos ajustes pós-teste; bug Trem×Domínio agora contornado pela própria automação (Nick + Carol). Fech. Contábil com fluxo CP desenhado em 29/abr; <strong>reunião Oracle 14/mai</strong> consolidou premissas (Looker mantido p/ receita diferida, OME +1 semestre, PO obrigatório non-recurring). <strong>Reunião Oracle Netsuite × Project Dome 15/mai (sexta)</strong>: Project Dome alegou incapacidade técnica para CPRB/Lalur/ECF — decisão de escalar diretamente p/ Oracle (Adriano via Mônica), revisar contrato, arquitetar middleware NetSuite. Onda 3 completa com ~74h/mês recorrente até ago — Obrig. Fiscais e Conc. Fornecedor 24h cada, <strong>Conc. Balanço + DF Auditoria entregam ~80h/ano cada</strong> (recorrência baixa, ganho qualitativo). <strong>Conc. e Alertas Fornecedor (#9 merged) já está a 40%</strong> sob owner Nicc, com automação Claude + arquivo .md. <strong>Base Fornecedores (#13 NOVO)</strong> entra como source of truth única (Martin owner, Nicc co-owner, mai→jun/26). DF Auditoria mensal começa em mai com Discovery e go-live em ago. <strong>Diretrizes Omie API (15/abr)</strong> agora obrigatórias em todos os projetos que tocam Omie: Web Hooks, leitura, janela 12h-14h, base local — preparando migração pra NetSuite em 2027. Ao final de Ago/26: <strong>~${econ}h/mês</strong> de trabalho manual recorrente eliminado + ~160h/ano (Conc. Balanço + DF Auditoria).
         </div>
       </div>`;
   }
@@ -1070,7 +1081,7 @@
       data:{ labels:["Abr","Mai","Jun","Jul","Ago"],
         datasets:[
           { label:"Onda 1", data:[32,32,32,32,32], backgroundColor:"rgba(254,143,28,0.85)", borderRadius:4 },
-          { label:"Onda 2", data:[0,32,72,72,72], backgroundColor:"rgba(102,19,208,0.85)", borderRadius:4 },
+          { label:"Onda 2", data:[0,32,61,61,61], backgroundColor:"rgba(102,19,208,0.85)", borderRadius:4 },
           { label:"Onda 3", data:[0,0,0,27,74], backgroundColor:"rgba(39,215,128,0.85)", borderRadius:4 }
         ] },
       options:{ responsive:true, maintainAspectRatio:false,
