@@ -414,7 +414,7 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v63",
+    version: "v64",
     lastUpdated: "2026-07-24",
     projects: [
       { id:1, num:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
@@ -449,24 +449,7 @@
         insightToday:"Mateus lançava 2 dias por semana + Nicc nos 2 primeiros dias do fechamento, com regras de rateio manuais.",
         insightFuture:"Robô lança NFs e invoices direto no Omie com rateio automático, trava de conformidade (nº doc + CNPJ vs. Qive) e dashboards de volume e correções.",
         keywords:["nf","nfs","invoice","invoices","ome"] },
-      { id:5, num:6, name:"Fechamento Contábil", wave:3, status:"prog", statusLabel:"Em Andamento",
-        economyLabel:"-50h/mês", economyHours:50, goLive:"Ago/26", periodLabel:"Abr–Ago",
-        owner:"Maiara", area:"Contabilidade", color:"orange", updated:true,
-        subitems:[
-          { name:"Bancos", h:3, owner:"Nicc" },
-          { name:"Provisões", h:8, owner:"Thay" },
-          { name:"Clientes e adiantamentos de Clientes", h:10, owner:"Carol" },
-          { name:"Faturamento", h:6, owner:"Thay" },
-          { name:"Folha vs Razão Contábil", h:15, owner:"Thay", note:"Automação simples inicial feita para validar rubricas" },
-          { name:"Despesas Antecipadas", h:4, owner:"Nicc" },
-          { name:"Numerários em Trânsito (Cartão de Crédito)", h:4, owner:"Thay" }
-        ],
-        tagline:"Quebra o fechamento contábil em automações independentes por frente",
-        statusNow:"Revisão do Fechamento jun/26 realizada 21/jul: plano anual de ferramenta de IA cancelado após migração de processos; conta de benefícios a colaboradores mantida zerada (validação mensal no fechamento); base de fornecedores integrada ao sistema de automação p/ rastrear despesas e responsáveis; lista mestre de fornecedores p/ padronizar classificações junto à assessoria externa + novas regras de fechamento p/ discrepâncias nas conciliações externas; Nicc ajusta o campo de vigência de contrato no Pipefy e apresenta o processo de cartão na próxima mensal. Antes: Reunião 'Pipefy × NetSuite' 17/jul — separação do fluxo de solicitação de compra do contas a pagar (automação como suporte + triagem humana); Adriano reescreve o desenho e conduz treinamento com Alex e Rock p/ a integração NetSuite; entregas do projeto BGE a partir de ago; inputs de LALUR/LACS consolidados (10/jul) enviados ao time NetSuite; validação do gap ECD/ECF retomada no início de ago após envio da ECF 2025 (prazo 31/07; ECD 2025 pronta); data de corte 25/26 definida em 09/jul. (21/jul)",
-        insightToday:"controle manual por e-mail e planilha descentralizada; time todo nos 4 primeiros dias úteis revisando e lançando. GUT 80.",
-        insightFuture:"Sete mini-automações independentes — Bancos, Provisões, Clientes e adiantamentos de Clientes, Faturamento, Folha vs. Razão Contábil, Despesas Antecipadas e Numerários em Trânsito (Cartão de Crédito). NetSuite cobre faturamento+AR; Domínio mantém o fiscal BR.",
-        keywords:["fechamento contábil","fechamento contabil"] },
-      { id:8, num:5, name:"Obrigações Fiscais", wave:3, status:"done", statusLabel:"75% concluído",
+      { id:8, num:6, name:"Obrigações Fiscais", wave:3, status:"done", statusLabel:"75% concluído",
         economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
         owner:"Thay", area:"Contabilidade", color:"green", updated:false,
         tagline:"Calendário fiscal com alertas de vencimento e cálculos automatizados",
@@ -474,15 +457,15 @@
         insightToday:"cálculos fiscais (RCS) manuais no Excel — erro já pego pela auditoria. 1 dia no fechamento + 2–3 dias depois.",
         insightFuture:"Calendário fiscal automático com alertas de vencimento e cálculos em nuvem, sem depender de máquina local. Mantido no Domínio pela complexidade tributária BR.",
         keywords:["obrigações fiscais","sped","darf","cprb","lalur","ecf"] },
-      { id:9, num:7, name:"Conciliação Fornecedores e Adiantamento Fornecedor", wave:3, status:"prog", statusLabel:"Em Andamento",
+      { id:9, num:14, name:"Conciliação Fornecedores e Adiantamento Fornecedor", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-20h/mês", economyHours:20, goLive:"Jul/26", periodLabel:"Mai–Jul",
-        owner:"Carol", area:"Contabilidade", color:"orange", updated:true,
+        owner:"Carol", area:"Contabilidade", color:"orange", updated:false,
         tagline:"Concilia razão × ERP, alerta fornecedores sem pipe aberto e concilia adiantamentos a fornecedores",
         statusNow:"Avançado; será testado no fechamento de jul/26 — passa a cobrir também a conciliação de adiantamentos a fornecedores (owner Carol). Antes (follow-up 15/jul): alertas automáticos p/ divergências de departamento × centro de custo (Financeiro, People, Legal) e integração da base à automação de triagem/abertura de solicitações; mapeamento prioriza o histórico real de lançamentos sobre o orçado; conciliação segue prioridade crítica do mês (meta ≥70%). (24/jul)",
         insightToday:"Mateus faz compilado manual a cada 15 dias (~8h/semana); limpeza do razão e nomes de fornecedores batidos um a um.",
         insightFuture:"Arquivei detecta fornecedores recorrentes, N8N alerta no Slack e cobra abertura de pipe na competência; conciliação com o ERP aponta diferenças sem trabalho manual, incluindo os adiantamentos a fornecedores.",
         keywords:["alertas fornecedor","conciliação fornecedor","conc fornecedor","adiantamento fornecedor","adiantamento fornecedores"] },
-      { id:11, num:8, name:"Conc. Balanço", wave:3, status:"prog", statusLabel:"Em Andamento",
+      { id:11, num:15, name:"Conc. Balanço", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-20h/mês", economyHours:20, goLive:"Jul/26", periodLabel:"Mai–Jul",
         owner:"A definir", area:"Contabilidade", color:"orange", updated:false,
         tagline:"Concilia contas do balanço com relatório que comprova cada saldo",
@@ -490,7 +473,7 @@
         insightToday:"1 semana do Nicc + 1 semana da Tha; nem 50% das contas que deveriam ser conciliadas são.",
         insightFuture:"Busca automática dos relatórios que comprovam cada saldo, eliminando o gargalo manual da conciliação de contas do balanço.",
         keywords:["conciliação balanço","balanço"] },
-      { id:13, num:10, name:"Base Fornecedores", wave:2, status:"done", statusLabel:"80% concluído",
+      { id:13, num:5, name:"Base Fornecedores", wave:2, status:"done", statusLabel:"80% concluído",
         economyLabel:"-29h/mês", economyHours:29, goLive:"Jun/26", periodLabel:"Mai–Jun",
         owner:"Martin (co: Nicc)", area:"Contabilidade", color:"green", updated:false,
         tagline:"Base única de fornecedores no Supabase como fonte da verdade",
@@ -498,7 +481,7 @@
         insightToday:"dados de fornecedores fragmentados em planilhas, Pipefy, Omie e Arquivei — sem source of truth única.",
         insightFuture:"Base no Supabase mapeia fornecedor→categoria (cobre ~80% dos erros), alimenta a conciliação (#9) e vira gabarito que cruza razão e orçamento. Match semântico via pgvector.",
         keywords:["base fornecedores","fornecedor base"] },
-      { id:12, num:9, name:"DF Auditoria (mensal)", wave:3, status:"prog", statusLabel:"MVP em construção",
+      { id:12, num:16, name:"DF Auditoria (mensal)", wave:3, status:"prog", statusLabel:"MVP em construção",
         economyLabel:"~80h/ano", economyHours:7, goLive:"Ago/26", periodLabel:"Mai–Ago",
         owner:"Maiara", area:"Contabilidade", color:"orange", updated:false,
         tagline:"Transforma a DF anual da KPMG em processo mensal automatizado",
@@ -506,6 +489,62 @@
         insightToday:"DF anual montada à mão em jan-fev: planilha de 42 abas + Word de 707 parágrafos / 54 tabelas. Erros só aparecem na auditoria.",
         insightFuture:"5 fases (mai-ago): Discovery, MVP BP/DRE/DFC via N8N+Omie, notas explicativas, template Word KPMG e go-live. DF mensal completa em <4h e pré-balance contínuo.",
         keywords:["df auditoria","kpmg","balancete","dre","dfc","auditoria","yuri","almir","notas explicativas"] },
+      { id:21, num:7, name:"Bancos", wave:3, status:"prog", statusLabel:"Em Andamento",
+        economyLabel:"-3h/mês", economyHours:3, goLive:"Ago/26", periodLabel:"Jun–Ago",
+        owner:"Nicc", area:"Contabilidade", color:"orange", updated:true,
+        tagline:"Concilia extratos bancários com o razão contábil no fechamento",
+        statusNow:"Nova automação desdobrada do antigo Fechamento Contábil; extratos padronizados pelo nome da conta contábil, em teste no fechamento de jul/26. (24/jul)",
+        insightToday:"conciliação bancária feita manualmente, conta a conta, nos primeiros dias úteis do fechamento.",
+        insightFuture:"Extratos conciliados automaticamente contra o razão, sinalizando apenas as divergências.",
+        keywords:["bancos","conciliação bancária","extrato"] },
+      { id:22, num:8, name:"Provisões", wave:3, status:"prog", statusLabel:"Em Andamento",
+        economyLabel:"-8h/mês", economyHours:8, goLive:"Ago/26", periodLabel:"Jun–Ago",
+        owner:"Thay", area:"Contabilidade", color:"orange", updated:true,
+        tagline:"Calcula e confere as provisões mensais a partir do razão",
+        statusNow:"Nova automação desdobrada do antigo Fechamento Contábil; em teste no fechamento de jul/26. (24/jul)",
+        insightToday:"provisões calculadas e lançadas manualmente no Excel a cada fechamento.",
+        insightFuture:"Provisões mensais calculadas e conferidas automaticamente com base no razão.",
+        keywords:["provisões","provisao","provisoes"] },
+      { id:23, num:9, name:"Clientes e adiantamentos de Clientes", wave:3, status:"prog", statusLabel:"Em Andamento",
+        economyLabel:"-10h/mês", economyHours:10, goLive:"Ago/26", periodLabel:"Jun–Ago",
+        owner:"Carol", area:"Contabilidade", color:"orange", updated:true,
+        tagline:"Concilia contas a receber e adiantamentos de clientes",
+        statusNow:"Nova automação desdobrada do antigo Fechamento Contábil (owner Carol); em teste no fechamento de jul/26. (24/jul)",
+        insightToday:"conferência manual de recebíveis e adiantamentos de clientes contra o razão.",
+        insightFuture:"Recebíveis e adiantamentos de clientes conciliados automaticamente, apontando as diferenças.",
+        keywords:["clientes","adiantamento de clientes","contas a receber","recebíveis"] },
+      { id:24, num:10, name:"Faturamento", wave:3, status:"prog", statusLabel:"Em Andamento",
+        economyLabel:"-6h/mês", economyHours:6, goLive:"Ago/26", periodLabel:"Jun–Ago",
+        owner:"Thay", area:"Contabilidade", color:"orange", updated:true,
+        tagline:"Confere o faturamento contra a receita contabilizada",
+        statusNow:"Nova automação desdobrada do antigo Fechamento Contábil; em teste no fechamento de jul/26. (24/jul)",
+        insightToday:"faturamento conferido manualmente contra a receita registrada no razão.",
+        insightFuture:"Faturamento × receita contabilizada batidos automaticamente, sinalizando divergências.",
+        keywords:["faturamento"] },
+      { id:25, num:11, name:"Folha vs Razão Contábil", wave:3, status:"prog", statusLabel:"Em Andamento",
+        economyLabel:"-15h/mês", economyHours:15, goLive:"Ago/26", periodLabel:"Jun–Ago",
+        owner:"Thay", area:"Contabilidade", color:"orange", updated:true,
+        tagline:"Confronta a folha de pagamento com o razão contábil",
+        statusNow:"Automação simples inicial feita para validar rubricas; desdobrada do antigo Fechamento Contábil, em teste no fechamento de jul/26. (24/jul)",
+        insightToday:"folha confrontada manualmente com o razão, rubrica a rubrica.",
+        insightFuture:"Folha × razão conciliados automaticamente por rubrica, apontando as diferenças.",
+        keywords:["folha","folha vs razão","folha vs razao","rubricas"] },
+      { id:26, num:12, name:"Despesas Antecipadas", wave:3, status:"prog", statusLabel:"Em Andamento",
+        economyLabel:"-4h/mês", economyHours:4, goLive:"Ago/26", periodLabel:"Jun–Ago",
+        owner:"Nicc", area:"Contabilidade", color:"orange", updated:true,
+        tagline:"Controla e apropria as despesas antecipadas por competência",
+        statusNow:"Nova automação desdobrada do antigo Fechamento Contábil; em teste no fechamento de jul/26. (24/jul)",
+        insightToday:"controle manual das despesas antecipadas e da sua apropriação mensal.",
+        insightFuture:"Apropriação de despesas antecipadas calculada e lançada automaticamente por competência.",
+        keywords:["despesas antecipadas","antecipadas"] },
+      { id:27, num:13, name:"Numerários em Trânsito (Cartão de Crédito)", wave:3, status:"prog", statusLabel:"Em Andamento",
+        economyLabel:"-4h/mês", economyHours:4, goLive:"Ago/26", periodLabel:"Jun–Ago",
+        owner:"Thay", area:"Contabilidade", color:"orange", updated:true,
+        tagline:"Concilia numerários em trânsito de cartão de crédito",
+        statusNow:"Nova automação desdobrada do antigo Fechamento Contábil; em teste no fechamento de jul/26. (24/jul)",
+        insightToday:"valores de cartão em trânsito conferidos manualmente até a compensação.",
+        insightFuture:"Numerários em trânsito de cartão conciliados automaticamente entre operadora e razão.",
+        keywords:["numerários em trânsito","numerarios em transito","cartão de crédito","cartao de credito"] },
     ]
   };
 
@@ -556,6 +595,16 @@
       { date:"2026-07-24", projectId:9, field:"nome/owner/economia", from:"'Conc. e Alertas Fornecedor' · Nicc · 24h/mês", to:"'Conciliação Fornecedores e Adiantamento Fornecedor' · Carol · 20h/mês; avançado, será testado no fechamento de jul/26", evidence:"Pedido Ramon 24/jul" }
     ]));
     store.set(seedKey_v63, true);
+    history = store.get(KEY_HIST, []);
+  }
+
+  const seedKey_v64 = "seed_2026-07-24-v64";
+  if (!store.get(seedKey_v64)) {
+    const prevHist64 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist64.concat([
+      { date:"2026-07-24", projectId:5, field:"estrutura", from:"Card único 'Fechamento Contábil' (50h/mês) com 7 subitens", to:"Card removido; as 7 frentes viram automações numeradas próprias na Onda 3 — Bancos 3h (Nicc), Provisões 8h (Thay), Clientes e adiantamentos de Clientes 10h (Carol), Faturamento 6h (Thay), Folha vs Razão Contábil 15h (Thay), Despesas Antecipadas 4h (Nicc), Numerários em Trânsito Cartão 4h (Thay)", evidence:"Pedido Ramon 24/jul" }
+    ]));
+    store.set(seedKey_v64, true);
     history = store.get(KEY_HIST, []);
   }
 
@@ -1111,7 +1160,7 @@
         <div class="section-title">Projeção de Impacto</div>
         <div class="charts-grid">
           <div class="chart-card"><h3>Economia acumulada por onda (h/mês)</h3><div class="chart-box"><canvas id="chartStack"></canvas></div></div>
-          <div class="chart-card"><h3>Economia por processo (h/mês)</h3><div class="chart-box"><canvas id="chartBar"></canvas></div></div>
+          <div class="chart-card"><h3>Economia por processo (h/mês)</h3><div class="chart-box" style="height:440px;"><canvas id="chartBar"></canvas></div></div>
         </div>
         <div class="impact-totals">
           <div class="impact-total-card"><div class="iv" style="color:var(--lx-green-dark);">-${done}h/mês</div><div class="il">Já capturada</div></div>
