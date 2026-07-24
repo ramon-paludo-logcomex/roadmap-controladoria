@@ -391,7 +391,7 @@
   </div>
 
   <div class="tabs">
-    <button class="tab-btn active" data-tab="overview">Visão Geral</button>
+    <button class="tab-btn active" data-tab="overview">Automações</button>
     <button class="tab-btn" data-tab="impact">Impacto</button>
     <button class="tab-btn" data-tab="projects">Projetos</button>
   </div>
@@ -414,7 +414,7 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v61",
+    version: "v62",
     lastUpdated: "2026-07-24",
     projects: [
       { id:1, num:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
@@ -527,6 +527,16 @@
       { date: "2026-07-24", projectId: 4, field: "statusNow", from: "Automações fornecedores 09/jul (KIV×Pipefy×OME)", to: "Reunião 'Logcomex × Bloquo | Emissão NFs' 21/jul: avaliação da Bloquo (henrik.walvag@bloquo.io) como parceiro/ferramenta p/ emissão de NFs; Ramon encaminhou as notas à Maiara", evidence: "Gemini notes 'Reunião Logcomex X Bloquo | Emissão NFs' 21/jul + convite Adriano" }
     ]));
     store.set(seedKey_v61, true);
+    history = store.get(KEY_HIST, []);
+  }
+
+  const seedKey_v62 = "seed_2026-07-24-v62";
+  if (!store.get(seedKey_v62)) {
+    const prevHist62 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist62.concat([
+      { date: "2026-07-24", projectId: 0, field: "UI", from: "aba 'Visão Geral'; 'Visão estratégica' fixa; tooltip dos gráficos só com o total da onda", to: "aba renomeada p/ 'Automações'; 'Resumo atualizações' colapsável (clique p/ ler); tooltip dos gráficos passa a mostrar a composição por automação (h/mês)", evidence: "Pedido Ramon 24/jul" }
+    ]));
+    store.set(seedKey_v62, true);
     history = store.get(KEY_HIST, []);
   }
 
@@ -1080,14 +1090,37 @@
           <div class="impact-total-card"><div class="iv" style="color:var(--lx-green-dark);">-${done}h/mês</div><div class="il">Já capturada</div></div>
           <div class="impact-total-card"><div class="iv" style="color:var(--lx-purple);">-${econ}h/mês</div><div class="il">Total projetado</div></div>
         </div>
-        <div class="impact-note">
-          <strong>Visão estratégica:</strong> Onda 1 entregou 32h/mês (Cohort 8h + Gerencial 16h + Log US 8h — 3/3 concluídos, Log US validado em prod no fech. abr/26). Onda 2 adiciona 61h/mês até junho — NFs/Invoices empurrado pra mai pelos ajustes pós-teste; bug Trem×Domínio agora contornado pela própria automação (Nick + Carol). Fech. Contábil com fluxo CP desenhado em 29/abr; <strong>reunião Oracle 14/mai</strong> consolidou premissas (Looker mantido p/ receita diferida, OME +1 semestre, PO obrigatório non-recurring). <strong>Reunião Oracle Netsuite × Project Dome 15/mai (sexta)</strong>: Project Dome alegou incapacidade técnica para CPRB/Lalur/ECF — decisão de escalar diretamente p/ Oracle (Adriano via Mônica), revisar contrato, arquitetar middleware NetSuite. Onda 3 completa com ~74h/mês recorrente até ago — Obrig. Fiscais e Conc. Fornecedor 24h cada, <strong>Conc. Balanço + DF Auditoria entregam ~80h/ano cada</strong> (recorrência baixa, ganho qualitativo). <strong>Conc. e Alertas Fornecedor (#9 merged) já está a 40%</strong> sob owner Nicc, com automação Claude + arquivo .md. <strong>Base Fornecedores (#13 NOVO)</strong> entra como source of truth única (Martin owner, Nicc co-owner, mai→jun/26). DF Auditoria mensal começa em mai com Discovery e go-live em ago. <strong>Diretrizes Omie API (15/abr)</strong> agora obrigatórias em todos os projetos que tocam Omie: Web Hooks, leitura, janela 12h-14h, base local — preparando migração pra NetSuite em 2027. Ao final de Ago/26: <strong>~${econ}h/mês</strong> de trabalho manual recorrente eliminado + ~160h/ano (Conc. Balanço + DF Auditoria).
+        <div class="history-toggle" id="impact-toggle" style="margin-top:14px;">
+          <span>Resumo atualizações</span>
+          <span class="chev">›</span>
+        </div>
+        <div class="history-panel" id="impact-panel">
+        <div class="impact-note" style="margin-top:8px;">
+          Onda 1 entregou 32h/mês (Cohort 8h + Gerencial 16h + Log US 8h — 3/3 concluídos, Log US validado em prod no fech. abr/26). Onda 2 adiciona 61h/mês até junho — NFs/Invoices empurrado pra mai pelos ajustes pós-teste; bug Trem×Domínio agora contornado pela própria automação (Nick + Carol). Fech. Contábil com fluxo CP desenhado em 29/abr; <strong>reunião Oracle 14/mai</strong> consolidou premissas (Looker mantido p/ receita diferida, OME +1 semestre, PO obrigatório non-recurring). <strong>Reunião Oracle Netsuite × Project Dome 15/mai (sexta)</strong>: Project Dome alegou incapacidade técnica para CPRB/Lalur/ECF — decisão de escalar diretamente p/ Oracle (Adriano via Mônica), revisar contrato, arquitetar middleware NetSuite. Onda 3 completa com ~74h/mês recorrente até ago — Obrig. Fiscais e Conc. Fornecedor 24h cada, <strong>Conc. Balanço + DF Auditoria entregam ~80h/ano cada</strong> (recorrência baixa, ganho qualitativo). <strong>Conc. e Alertas Fornecedor (#9 merged) já está a 40%</strong> sob owner Nicc, com automação Claude + arquivo .md. <strong>Base Fornecedores (#13 NOVO)</strong> entra como source of truth única (Martin owner, Nicc co-owner, mai→jun/26). DF Auditoria mensal começa em mai com Discovery e go-live em ago. <strong>Diretrizes Omie API (15/abr)</strong> agora obrigatórias em todos os projetos que tocam Omie: Web Hooks, leitura, janela 12h-14h, base local — preparando migração pra NetSuite em 2027. Ao final de Ago/26: <strong>~${econ}h/mês</strong> de trabalho manual recorrente eliminado + ~160h/ano (Conc. Balanço + DF Auditoria).
+        </div>
         </div>
       </div>`;
+    const impactToggle = document.getElementById("impact-toggle");
+    if (impactToggle) impactToggle.onclick = function(){ this.classList.toggle("open"); document.getElementById("impact-panel").classList.toggle("open"); };
   }
 
   function initCharts() {
     if (typeof Chart === "undefined") return;
+    // Composição por onda: quais automações somam as horas de cada barra empilhada
+    const waveComp = { 1:[], 2:[], 3:[] };
+    snapshot.projects.forEach(p => { if (p.economyHours) waveComp[p.wave].push({ name:p.name, h:p.economyHours }); });
+    [1,2,3].forEach(w => waveComp[w].sort((a,b)=>b.h-a.h));
+    const waveAfterBody = (items) => {
+      if (!items || !items.length) return "";
+      const lbl = items[0].dataset.label || "";
+      const w = parseInt(lbl.replace(/[^0-9]/g,""),10);
+      const comp = waveComp[w] || [];
+      if (!comp.length) return "";
+      const total = comp.reduce((s,c)=>s+c.h,0);
+      return ["", "Automações (h/mês):"]
+        .concat(comp.map(c => "• " + c.name + ": " + c.h + "h"))
+        .concat(["Onda completa: " + total + "h/mês"]);
+    };
     new Chart(document.getElementById("chartStack").getContext("2d"), {
       type:"bar",
       data:{ labels:["Abr","Mai","Jun","Jul","Ago"],
@@ -1097,17 +1130,23 @@
           { label:"Onda 3", data:[0,0,0,27,74], backgroundColor:"rgba(39,215,128,0.85)", borderRadius:4 }
         ] },
       options:{ responsive:true, maintainAspectRatio:false,
-        plugins:{ legend:{ position:"bottom", labels:{ boxWidth:10, padding:12, font:{ size:11 } } } },
+        plugins:{ legend:{ position:"bottom", labels:{ boxWidth:10, padding:12, font:{ size:11 } } },
+          tooltip:{ callbacks:{ label:c => (c.dataset.label||"") + " (acum.): " + c.parsed.y + "h", afterBody: waveAfterBody } } },
         scales:{ x:{ stacked:true, grid:{ display:false } }, y:{ stacked:true, grid:{ color:"#f0eef5" }, ticks:{ callback:v=>v+"h" } } } }
     });
     const sorted = [...snapshot.projects].filter(p=>p.economyHours).sort((a,b)=>b.economyHours-a.economyHours);
+    const waveName = { 1:"Onda 1", 2:"Onda 2", 3:"Onda 3" };
     const colors = sorted.map(p => p.wave===1 ? "rgba(254,143,28,0.85)" : p.wave===2 ? "rgba(102,19,208,0.85)" : "rgba(39,215,128,0.85)");
     new Chart(document.getElementById("chartBar").getContext("2d"), {
       type:"bar",
       data:{ labels:sorted.map(p => p.name.length>22 ? p.name.slice(0,22)+"…" : p.name),
         datasets:[{ data:sorted.map(p=>p.economyHours), backgroundColor:colors, borderRadius:6 }] },
       options:{ indexAxis:"y", responsive:true, maintainAspectRatio:false,
-        plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label:c => c.parsed.x + "h/mês" } } },
+        plugins:{ legend:{ display:false }, tooltip:{ callbacks:{
+          title:items => items.length ? (sorted[items[0].dataIndex]?.name || "") : "",
+          label:c => (sorted[c.dataIndex]?.economyHours ?? c.parsed.x) + "h/mês",
+          afterLabel:c => { const p = sorted[c.dataIndex]; return p ? (waveName[p.wave] + " · " + (p.statusLabel||"")) : ""; }
+        } } },
         scales:{ x:{ grid:{ color:"#f0eef5" }, ticks:{ callback:v=>v+"h" } }, y:{ grid:{ display:false } } } }
     });
   }
