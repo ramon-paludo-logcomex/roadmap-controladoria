@@ -2,7 +2,7 @@
 {
   "name": "Roadmap Controladoria",
   "schemaVersion": 1,
-  "description": "Roadmap de automações da Controladoria Logcomex — 10 processos, 3 ondas, -178h/mês projetado. Atualizado automaticamente via skill atualizar-roadmap-controladoria.",
+  "description": "Roadmap de automações da Controladoria Logcomex — 11 processos, 3 ondas, -178h/mês projetado. Atualizado automaticamente via skill atualizar-roadmap-controladoria.",
   "mcpTools": [
     "mcp__7b3f24cf-3f10-4035-90f4-8a3c6bbd6c50__slack_search_public_and_private",
     "mcp__7d4dc0ab-a93c-48ec-9db7-81f021a49eab__search_threads",
@@ -414,8 +414,8 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v60",
-    lastUpdated: "2026-07-21",
+    version: "v61",
+    lastUpdated: "2026-07-24",
     projects: [
       { id:1, num:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
@@ -443,24 +443,24 @@
         keywords:["log us","fechamento internacional","citibank","stripe us"] },
       { id:4, num:4, name:"Lanç. NFs/Invoices", wave:2, status:"done", statusLabel:"Concluído",
         economyLabel:"-32h/mês", economyHours:32, goLive:"Jun/26", periodLabel:"Abr–Jun",
-        owner:"Carol", area:"Contabilidade", color:"green", updated:false,
+        owner:"Carol", area:"Contabilidade", color:"green", updated:true,
         tagline:"Lança NFs e invoices no Omie com rateio automático por centro de custo",
-        statusNow:"Reunião 'Atualizações automações fornecedores' 09/jul: falhas de integração (KIV×Pipefy×OME) elevaram a conferência manual das notas; ações — triagem por IA em teste (Adriano/Kamilla) p/ implementação plena em jul e Ramon ajusta o N8n p/ leitura automatizada de documentos fiscais. Carol valida o novo fluxo do Ronaldo em 10/jul. (09/jul)",
+        statusNow:"Reunião 'Logcomex × Bloquo | Emissão NFs' 21/jul: avaliação da Bloquo (henrik.walvag@bloquo.io) como parceiro/ferramenta p/ a emissão de NFs; Ramon encaminhou as notas à Maiara p/ desdobramento. Antes: Reunião 'Atualizações automações fornecedores' 09/jul — falhas de integração (KIV×Pipefy×OME) elevaram a conferência manual das notas; triagem por IA em teste (Adriano/Kamilla) e Ramon ajusta o N8n p/ leitura automatizada de documentos fiscais; Carol valida o novo fluxo do Ronaldo em 10/jul. (21/jul)",
         insightToday:"Mateus lançava 2 dias por semana + Nicc nos 2 primeiros dias do fechamento, com regras de rateio manuais.",
         insightFuture:"Robô lança NFs e invoices direto no Omie com rateio automático, trava de conformidade (nº doc + CNPJ vs. Qive) e dashboards de volume e correções.",
         keywords:["nf","nfs","invoice","invoices","ome"] },
       { id:5, num:6, name:"Fechamento Contábil", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-40h/mês", economyHours:40, goLive:"Ago/26", periodLabel:"Abr–Ago",
-        owner:"Maiara", area:"Contabilidade", color:"orange", updated:false,
+        owner:"Maiara", area:"Contabilidade", color:"orange", updated:true,
         subitems:["Bancos","Provisões","Faturamento","Folha vs Razão Contábil","Despesas Antecipadas"],
         tagline:"Quebra o fechamento contábil em automações independentes por frente",
-        statusNow:"Reunião 'Pipefy × NetSuite' 17/jul: decidido separar o fluxo de solicitação de compra do contas a pagar (automação como suporte + triagem humana), com melhoria do fluxo priorizada após o fechamento; Adriano reescreve o desenho do processo e conduz reunião/treinamento com Alex e Rock p/ a integração NetSuite; entregas do projeto BGE a partir do início de ago. Antes: inputs de LALUR/LACS consolidados (10/jul) e enviados ao time de desenvolvimento do NetSuite (Jean + PMs, via Adriano→Alex); validação do gap ECD/ECF do NetSuite retomada no início de ago, após o envio da ECF 2025 (prazo 31/07; ECD 2025 pronta); data de corte 25/26 definida em 09/jul. Revisão do fechamento jun/26 marcada p/ 21/jul. (17/jul)",
+        statusNow:"Revisão do Fechamento jun/26 realizada 21/jul: plano anual de ferramenta de IA cancelado após migração de processos; conta de benefícios a colaboradores mantida zerada (validação mensal no fechamento); base de fornecedores integrada ao sistema de automação p/ rastrear despesas e responsáveis; lista mestre de fornecedores p/ padronizar classificações junto à assessoria externa + novas regras de fechamento p/ discrepâncias nas conciliações externas; Nicc ajusta o campo de vigência de contrato no Pipefy e apresenta o processo de cartão na próxima mensal. Antes: Reunião 'Pipefy × NetSuite' 17/jul — separação do fluxo de solicitação de compra do contas a pagar (automação como suporte + triagem humana); Adriano reescreve o desenho e conduz treinamento com Alex e Rock p/ a integração NetSuite; entregas do projeto BGE a partir de ago; inputs de LALUR/LACS consolidados (10/jul) enviados ao time NetSuite; validação do gap ECD/ECF retomada no início de ago após envio da ECF 2025 (prazo 31/07; ECD 2025 pronta); data de corte 25/26 definida em 09/jul. (21/jul)",
         insightToday:"controle manual por e-mail e planilha descentralizada; time todo nos 4 primeiros dias úteis revisando e lançando. GUT 80.",
         insightFuture:"Cinco mini-automações independentes — Bancos, Faturamento, Folha vs. Razão Contábil, Provisões e Despesas Antecipadas. NetSuite cobre faturamento+AR; Domínio mantém o fiscal BR.",
         keywords:["fechamento contábil","fechamento contabil"] },
       { id:8, num:5, name:"Obrigações Fiscais", wave:3, status:"done", statusLabel:"75% concluído",
         economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
-        owner:"Thay", area:"Contabilidade", color:"green", updated:true,
+        owner:"Thay", area:"Contabilidade", color:"green", updated:false,
         tagline:"Calendário fiscal com alertas de vencimento e cálculos automatizados",
         statusNow:"ECD 2025 e ECF 2025 entregues (jul/26); IRPJ/CSLL mensal rodando com validação assistida (memória de cálculo + controle de diferidos). ~18 das 24h/mês já capturadas. Resta: re-tuning anual da ECF (layout muda todo ano, mar–jun), os 2 pontos de decisão humana do IRPJ/CSLL (entrada do balancete + valor final no Domínio — por design, não gap) e o hardening pós-ciclo 2025. Escopo = 3 automações: ECD (anual), ECF (anual, a mais complexa, depende da ECD) e IRPJ/CSLL (única mensal). Reforma Tributária IBS/CBS corre à parte. (21/jul)",
         insightToday:"cálculos fiscais (RCS) manuais no Excel — erro já pego pela auditoria. 1 dia no fechamento + 2–3 dias depois.",
@@ -492,9 +492,9 @@
         keywords:["base fornecedores","fornecedor base"] },
       { id:12, num:9, name:"DF Auditoria (mensal)", wave:3, status:"prog", statusLabel:"MVP em construção",
         economyLabel:"~80h/ano", economyHours:7, goLive:"Ago/26", periodLabel:"Mai–Ago",
-        owner:"Maiara", area:"Contabilidade", color:"orange", updated:false,
+        owner:"Maiara", area:"Contabilidade", color:"orange", updated:true,
         tagline:"Transforma a DF anual da KPMG em processo mensal automatizado",
-        statusNow:"Reunião 'DF Automação' 17/jul: definidas estruturas de relatórios e reconciliação de ativos p/ auditoria — imobilizado/intangível extraídos direto do razão (baixas de ativo separadas das de depreciação), DFC finalizada após a reconciliação dos balanços; Maiara automatiza o mapa de movimentação p/ o próximo fechamento e Ramon organiza o balancete consolidado (colunas OX + Conta Global), migra a nota 14C e ajusta nomes de contas vs. Word. Proposta/contrato KPMG (com 4% de desconto) enviado em minuta 20/jul; Maiara encaminhou ao jurídico da Logcomex p/ revisão. Antes: validação Log US concluída (eliminação entre balancetes + EP), pendem IR a recuperar (nota 12) e Ágio. (20/jul)",
+        statusNow:"Reunião 'DF Automação' 22/jul: reclassificações no balanço corrigiram dividendos e patrimônio; automação da PDD (Provisão p/ Devedores Duvidosos) definida com base no razão contábil; contingências judiciais e obrigações sociais validadas, itens de arrendamento mercantil adiados; equipe optou por rotinas de conferência eficientes em vez da automação completa do balancete mensal (mitiga risco de erro nos impostos). Próximos passos: Maiara envia suporte de PDD e de contingências/IR-CS diferidos e valida o balancete mensal; Ramon apoia a validação mensal e linka a receita diferida (conta 313010). Antes: 'DF Automação' 17/jul — estruturas de relatórios + reconciliação de ativos (imobilizado/intangível direto do razão, DFC após reconciliação dos balanços); proposta/contrato KPMG (4% de desconto) em minuta 20/jul, encaminhada ao jurídico. (22/jul)",
         insightToday:"DF anual montada à mão em jan-fev: planilha de 42 abas + Word de 707 parágrafos / 54 tabelas. Erros só aparecem na auditoria.",
         insightFuture:"5 fases (mai-ago): Discovery, MVP BP/DRE/DFC via N8N+Omie, notas explicativas, template Word KPMG e go-live. DF mensal completa em <4h e pré-balance contínuo.",
         keywords:["df auditoria","kpmg","balancete","dre","dfc","auditoria","yuri","almir","notas explicativas"] },
@@ -517,6 +517,18 @@
     store.set(KEY_SNAP, snapshot);
   }
   let history = store.get(KEY_HIST, []);
+
+  const seedKey_v61 = "seed_2026-07-24-v61";
+  if (!store.get(seedKey_v61)) {
+    const prevHist61 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist61.concat([
+      { date: "2026-07-24", projectId: 12, field: "statusNow", from: "DF Automação 17/jul + minuta KPMG 20/jul → jurídico", to: "Reunião 'DF Automação' 22/jul: reclassificações de dividendos/patrimônio no balanço; automação da PDD definida com base no razão; contingências/obrigações sociais validadas; arrendamento mercantil adiado; opção por rotinas de conferência eficientes em vez da automação completa do balancete mensal (mitiga risco em impostos); Ramon linka receita diferida (conta 313010) e apoia validação mensal", evidence: "Gemini notes 'DF Automação' 22/jul" },
+      { date: "2026-07-24", projectId: 5, field: "statusNow", from: "Revisão do fechamento jun/26 marcada p/ 21/jul (Pipefy × NetSuite 17/jul)", to: "Revisão Fechamento jun/26 realizada 21/jul: plano anual de ferramenta de IA cancelado; conta de benefícios mantida zerada; base de fornecedores integrada à automação; lista mestre de fornecedores + novas regras de fechamento p/ discrepâncias nas conciliações externas; Nicc ajusta vigência de contrato no Pipefy e apresenta processo de cartão na mensal", evidence: "Gemini notes 'Revisão Fechamento - Mês de Referência Junho' 21/jul" },
+      { date: "2026-07-24", projectId: 4, field: "statusNow", from: "Automações fornecedores 09/jul (KIV×Pipefy×OME)", to: "Reunião 'Logcomex × Bloquo | Emissão NFs' 21/jul: avaliação da Bloquo (henrik.walvag@bloquo.io) como parceiro/ferramenta p/ emissão de NFs; Ramon encaminhou as notas à Maiara", evidence: "Gemini notes 'Reunião Logcomex X Bloquo | Emissão NFs' 21/jul + convite Adriano" }
+    ]));
+    store.set(seedKey_v61, true);
+    history = store.get(KEY_HIST, []);
+  }
 
   const seedKey_v46 = "seed_2026-06-30-v46";
   if (!store.get(seedKey_v46)) {
