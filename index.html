@@ -414,7 +414,7 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v62",
+    version: "v63",
     lastUpdated: "2026-07-24",
     projects: [
       { id:1, num:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
@@ -443,20 +443,28 @@
         keywords:["log us","fechamento internacional","citibank","stripe us"] },
       { id:4, num:4, name:"Lanç. NFs/Invoices", wave:2, status:"done", statusLabel:"Concluído",
         economyLabel:"-32h/mês", economyHours:32, goLive:"Jun/26", periodLabel:"Abr–Jun",
-        owner:"Carol", area:"Contabilidade", color:"green", updated:true,
+        owner:"Carol", area:"Contabilidade", color:"green", updated:false,
         tagline:"Lança NFs e invoices no Omie com rateio automático por centro de custo",
         statusNow:"Reunião 'Logcomex × Bloquo | Emissão NFs' 21/jul: avaliação da Bloquo (henrik.walvag@bloquo.io) como parceiro/ferramenta p/ a emissão de NFs; Ramon encaminhou as notas à Maiara p/ desdobramento. Antes: Reunião 'Atualizações automações fornecedores' 09/jul — falhas de integração (KIV×Pipefy×OME) elevaram a conferência manual das notas; triagem por IA em teste (Adriano/Kamilla) e Ramon ajusta o N8n p/ leitura automatizada de documentos fiscais; Carol valida o novo fluxo do Ronaldo em 10/jul. (21/jul)",
         insightToday:"Mateus lançava 2 dias por semana + Nicc nos 2 primeiros dias do fechamento, com regras de rateio manuais.",
         insightFuture:"Robô lança NFs e invoices direto no Omie com rateio automático, trava de conformidade (nº doc + CNPJ vs. Qive) e dashboards de volume e correções.",
         keywords:["nf","nfs","invoice","invoices","ome"] },
       { id:5, num:6, name:"Fechamento Contábil", wave:3, status:"prog", statusLabel:"Em Andamento",
-        economyLabel:"-40h/mês", economyHours:40, goLive:"Ago/26", periodLabel:"Abr–Ago",
+        economyLabel:"-50h/mês", economyHours:50, goLive:"Ago/26", periodLabel:"Abr–Ago",
         owner:"Maiara", area:"Contabilidade", color:"orange", updated:true,
-        subitems:["Bancos","Provisões","Faturamento","Folha vs Razão Contábil","Despesas Antecipadas"],
+        subitems:[
+          { name:"Bancos", h:3, owner:"Nicc" },
+          { name:"Provisões", h:8, owner:"Thay" },
+          { name:"Clientes e adiantamentos de Clientes", h:10, owner:"Carol" },
+          { name:"Faturamento", h:6, owner:"Thay" },
+          { name:"Folha vs Razão Contábil", h:15, owner:"Thay", note:"Automação simples inicial feita para validar rubricas" },
+          { name:"Despesas Antecipadas", h:4, owner:"Nicc" },
+          { name:"Numerários em Trânsito (Cartão de Crédito)", h:4, owner:"Thay" }
+        ],
         tagline:"Quebra o fechamento contábil em automações independentes por frente",
         statusNow:"Revisão do Fechamento jun/26 realizada 21/jul: plano anual de ferramenta de IA cancelado após migração de processos; conta de benefícios a colaboradores mantida zerada (validação mensal no fechamento); base de fornecedores integrada ao sistema de automação p/ rastrear despesas e responsáveis; lista mestre de fornecedores p/ padronizar classificações junto à assessoria externa + novas regras de fechamento p/ discrepâncias nas conciliações externas; Nicc ajusta o campo de vigência de contrato no Pipefy e apresenta o processo de cartão na próxima mensal. Antes: Reunião 'Pipefy × NetSuite' 17/jul — separação do fluxo de solicitação de compra do contas a pagar (automação como suporte + triagem humana); Adriano reescreve o desenho e conduz treinamento com Alex e Rock p/ a integração NetSuite; entregas do projeto BGE a partir de ago; inputs de LALUR/LACS consolidados (10/jul) enviados ao time NetSuite; validação do gap ECD/ECF retomada no início de ago após envio da ECF 2025 (prazo 31/07; ECD 2025 pronta); data de corte 25/26 definida em 09/jul. (21/jul)",
         insightToday:"controle manual por e-mail e planilha descentralizada; time todo nos 4 primeiros dias úteis revisando e lançando. GUT 80.",
-        insightFuture:"Cinco mini-automações independentes — Bancos, Faturamento, Folha vs. Razão Contábil, Provisões e Despesas Antecipadas. NetSuite cobre faturamento+AR; Domínio mantém o fiscal BR.",
+        insightFuture:"Sete mini-automações independentes — Bancos, Provisões, Clientes e adiantamentos de Clientes, Faturamento, Folha vs. Razão Contábil, Despesas Antecipadas e Numerários em Trânsito (Cartão de Crédito). NetSuite cobre faturamento+AR; Domínio mantém o fiscal BR.",
         keywords:["fechamento contábil","fechamento contabil"] },
       { id:8, num:5, name:"Obrigações Fiscais", wave:3, status:"done", statusLabel:"75% concluído",
         economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
@@ -466,14 +474,14 @@
         insightToday:"cálculos fiscais (RCS) manuais no Excel — erro já pego pela auditoria. 1 dia no fechamento + 2–3 dias depois.",
         insightFuture:"Calendário fiscal automático com alertas de vencimento e cálculos em nuvem, sem depender de máquina local. Mantido no Domínio pela complexidade tributária BR.",
         keywords:["obrigações fiscais","sped","darf","cprb","lalur","ecf"] },
-      { id:9, num:7, name:"Conc. e Alertas Fornecedor", wave:3, status:"prog", statusLabel:"Em Andamento",
-        economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
-        owner:"Nicc", area:"Contabilidade", color:"orange", updated:false,
-        tagline:"Concilia razão × ERP e alerta fornecedores recorrentes sem pipe aberto",
-        statusNow:"Follow-up base de fornecedores 15/jul: Nicc desenvolve alertas automáticos p/ divergências de departamento × centro de custo (regras específicas p/ Financeiro, People e Legal) e integra a base à automação de triagem/abertura de solicitações (alinhamento com Adriano, Tha e Contas a Pagar); mapeamento passa a priorizar o histórico real de lançamentos sobre o orçado. Antes (09/jul): rotina automatizada de cruzamento KIV × OME (Adriano/Kamilla), inclusão do KIV na triagem e validação de NFs emitidas sem pedido de compra; conciliação segue prioridade crítica do mês (meta ≥70%); Carol desenvolve controle p/ flagar fornecedores com docs pendentes. (15/jul)",
+      { id:9, num:7, name:"Conciliação Fornecedores e Adiantamento Fornecedor", wave:3, status:"prog", statusLabel:"Em Andamento",
+        economyLabel:"-20h/mês", economyHours:20, goLive:"Jul/26", periodLabel:"Mai–Jul",
+        owner:"Carol", area:"Contabilidade", color:"orange", updated:true,
+        tagline:"Concilia razão × ERP, alerta fornecedores sem pipe aberto e concilia adiantamentos a fornecedores",
+        statusNow:"Avançado; será testado no fechamento de jul/26 — passa a cobrir também a conciliação de adiantamentos a fornecedores (owner Carol). Antes (follow-up 15/jul): alertas automáticos p/ divergências de departamento × centro de custo (Financeiro, People, Legal) e integração da base à automação de triagem/abertura de solicitações; mapeamento prioriza o histórico real de lançamentos sobre o orçado; conciliação segue prioridade crítica do mês (meta ≥70%). (24/jul)",
         insightToday:"Mateus faz compilado manual a cada 15 dias (~8h/semana); limpeza do razão e nomes de fornecedores batidos um a um.",
-        insightFuture:"Arquivei detecta fornecedores recorrentes, N8N alerta no Slack e cobra abertura de pipe na competência; conciliação com o ERP aponta diferenças sem trabalho manual.",
-        keywords:["alertas fornecedor","conciliação fornecedor","conc fornecedor"] },
+        insightFuture:"Arquivei detecta fornecedores recorrentes, N8N alerta no Slack e cobra abertura de pipe na competência; conciliação com o ERP aponta diferenças sem trabalho manual, incluindo os adiantamentos a fornecedores.",
+        keywords:["alertas fornecedor","conciliação fornecedor","conc fornecedor","adiantamento fornecedor","adiantamento fornecedores"] },
       { id:11, num:8, name:"Conc. Balanço", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-20h/mês", economyHours:20, goLive:"Jul/26", periodLabel:"Mai–Jul",
         owner:"A definir", area:"Contabilidade", color:"orange", updated:false,
@@ -492,7 +500,7 @@
         keywords:["base fornecedores","fornecedor base"] },
       { id:12, num:9, name:"DF Auditoria (mensal)", wave:3, status:"prog", statusLabel:"MVP em construção",
         economyLabel:"~80h/ano", economyHours:7, goLive:"Ago/26", periodLabel:"Mai–Ago",
-        owner:"Maiara", area:"Contabilidade", color:"orange", updated:true,
+        owner:"Maiara", area:"Contabilidade", color:"orange", updated:false,
         tagline:"Transforma a DF anual da KPMG em processo mensal automatizado",
         statusNow:"Reunião 'DF Automação' 22/jul: reclassificações no balanço corrigiram dividendos e patrimônio; automação da PDD (Provisão p/ Devedores Duvidosos) definida com base no razão contábil; contingências judiciais e obrigações sociais validadas, itens de arrendamento mercantil adiados; equipe optou por rotinas de conferência eficientes em vez da automação completa do balancete mensal (mitiga risco de erro nos impostos). Próximos passos: Maiara envia suporte de PDD e de contingências/IR-CS diferidos e valida o balancete mensal; Ramon apoia a validação mensal e linka a receita diferida (conta 313010). Antes: 'DF Automação' 17/jul — estruturas de relatórios + reconciliação de ativos (imobilizado/intangível direto do razão, DFC após reconciliação dos balanços); proposta/contrato KPMG (4% de desconto) em minuta 20/jul, encaminhada ao jurídico. (22/jul)",
         insightToday:"DF anual montada à mão em jan-fev: planilha de 42 abas + Word de 707 parágrafos / 54 tabelas. Erros só aparecem na auditoria.",
@@ -537,6 +545,17 @@
       { date: "2026-07-24", projectId: 0, field: "UI", from: "aba 'Visão Geral'; 'Visão estratégica' fixa; tooltip dos gráficos só com o total da onda", to: "aba renomeada p/ 'Automações'; 'Resumo atualizações' colapsável (clique p/ ler); tooltip dos gráficos passa a mostrar a composição por automação (h/mês)", evidence: "Pedido Ramon 24/jul" }
     ]));
     store.set(seedKey_v62, true);
+    history = store.get(KEY_HIST, []);
+  }
+
+  const seedKey_v63 = "seed_2026-07-24-v63";
+  if (!store.get(seedKey_v63)) {
+    const prevHist63 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist63.concat([
+      { date:"2026-07-24", projectId:5, field:"subitens/economia", from:"5 frentes sem horas/owner · 40h/mês", to:"7 frentes com horas e responsáveis — Bancos 3h (Nicc), Provisões 8h (Thay), Clientes e adiantamentos de Clientes 10h (Carol), Faturamento 6h (Thay), Folha vs Razão Contábil 15h (Thay, automação simples inicial p/ validar rubricas), Despesas Antecipadas 4h (Nicc), Numerários em Trânsito Cartão de Crédito 4h (Thay) · total 50h/mês", evidence:"Pedido Ramon 24/jul" },
+      { date:"2026-07-24", projectId:9, field:"nome/owner/economia", from:"'Conc. e Alertas Fornecedor' · Nicc · 24h/mês", to:"'Conciliação Fornecedores e Adiantamento Fornecedor' · Carol · 20h/mês; avançado, será testado no fechamento de jul/26", evidence:"Pedido Ramon 24/jul" }
+    ]));
+    store.set(seedKey_v63, true);
     history = store.get(KEY_HIST, []);
   }
 
@@ -876,11 +895,19 @@
         ${sig.slice(0,4).map(s => `<div class="sig-item"><div>${esc(s.text)}</div><div class="sig-meta"><span class="sig-src ${s.source}">${s.source}</span><span>${esc(s.context||"")}</span></div></div>`).join("")}
       </div>` : "";
     const blockerBlock = p.blocker ? `<div class="blocker-block"><div class="bl-head">⚠ Bloqueio ativo</div><div>${esc(p.blocker)}</div></div>` : "";
-    const subBlock = (p.subitems && p.subitems.length) ? `
+    let subBlock = "";
+    if (p.subitems && p.subitems.length) {
+      const objItems = p.subitems.map(s => typeof s === "string" ? { name:s } : s);
+      const subTotal = objItems.reduce((t,s) => t + (typeof s.h === "number" ? s.h : 0), 0);
+      subBlock = `
       <div style="margin-top:12px;padding:10px 12px;background:var(--lx-purple-bg);border-radius:8px;">
-        <div style="font-size:10px;font-weight:700;color:var(--lx-purple);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;">Subitens — frentes paralelas</div>
-        <ol style="margin:0;padding-left:18px;font-size:12.5px;color:var(--lx-dark);line-height:1.7;">${p.subitems.map(s => `<li>${esc(s)}</li>`).join("")}</ol>
-      </div>` : "";
+        <div style="font-size:10px;font-weight:700;color:var(--lx-purple);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;">Subitens — frentes paralelas${subTotal ? " · " + subTotal + "h/mês" : ""}</div>
+        <ol style="margin:0;padding-left:18px;font-size:12.5px;color:var(--lx-dark);line-height:1.7;">${objItems.map(s => {
+          const meta = [ (typeof s.h === "number") ? s.h + "h/mês" : null, s.owner ? esc(s.owner) : null ].filter(Boolean).join(" · ");
+          return `<li><strong>${esc(s.name)}</strong>${meta ? ` — <span style="color:var(--lx-gray);">${esc(meta)}</span>` : ""}${s.note ? `<br><span style="font-size:11.5px;color:var(--lx-gray);font-style:italic;">${esc(s.note)}</span>` : ""}</li>`;
+        }).join("")}</ol>
+      </div>`;
+    }
     const cls = ["card"]; if (p.updated) cls.push("updated"); if (p.blocker) cls.push("blocked");
     const grp = `w${p.wave} ${p.status}${p.updated?" updated":""}${p.blocker?" blocked":""}`;
     return `
