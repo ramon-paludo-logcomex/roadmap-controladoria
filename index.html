@@ -394,8 +394,8 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v66",
-    lastUpdated: "2026-07-27",
+    version: "v67",
+    lastUpdated: "2026-07-28",
     projects: [
       { id:1, num:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
@@ -415,31 +415,31 @@
         keywords:["fechamento gerencial","gerencial"] },
       { id:3, num:3, name:"Log US (Internacional)", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
-        owner:"Ramon / Maiara", area:"Contabilidade", color:"green", updated:false,
+        owner:"Ramon / Maiara", area:"Contabilidade", color:"green", updated:true,
         tagline:"Concilia Stripe, invoices e Citibank via N8N + Claude",
-        statusNow:"Log US – lançamento 06/jul: transição da automação p/ a Carol em treinamento; padronização dos dados da Poli como solução p/ exceções do Stripe; script com falhas (permissão de pasta + limite de token, Ramon corrige) e testes contínuos no mês. Fechamento jun/26 enviado 07/jul (folha BR atrasada). (07/jul)",
+        statusNow:"Reunião 'Dúvidas fiscais investimento Log US – Citibank' 28/jul: decisão de repatriar ~US$411k (de ~US$960k parados na conta Log US sem remuneração) p/ a Limitada no Brasil — fechamento de câmbio + aplicação após o fechamento de julho (Kamilla), NF do valor transferido + contrato de câmbio vinculados; Maiara consolida o Intercompany jan-jun e envia ao grupo após o fechamento. Antes — Log US lançamento 06/jul: transição da automação p/ a Carol em treinamento; padronização dos dados da Poli como solução p/ exceções do Stripe; script com falhas (permissão de pasta + limite de token, Ramon corrige) e testes contínuos no mês. Fechamento jun/26 enviado 07/jul (folha BR atrasada). (28/jul)",
         insightToday:"Maiara fazia à mão — baixava CSV do Stripe, cruzava invoices, categorizava Citibank e montava a planilha. 1 dia por mês.",
         insightFuture:"Conciliação Stripe × invoice × Citibank fecha sozinha (9 blocos, 14 abas), com saldo Citi batendo em zero e exceções tratadas por padronização.",
         keywords:["log us","fechamento internacional","citibank","stripe us"] },
       { id:4, num:4, name:"Lanç. NFs/Invoices", wave:2, status:"done", statusLabel:"Concluído",
         economyLabel:"-32h/mês", economyHours:32, goLive:"Jun/26", periodLabel:"Abr–Jun",
-        owner:"Carol", area:"Contabilidade", color:"green", updated:false,
+        owner:"Carol", area:"Contabilidade", color:"green", updated:true,
         tagline:"Lança NFs e invoices no Omie com rateio automático por centro de custo",
-        statusNow:"Reunião 'Logcomex × Bloquo | Emissão NFs' 21/jul: avaliação da Bloquo (henrik.walvag@bloquo.io) como parceiro/ferramenta p/ a emissão de NFs; Ramon encaminhou as notas à Maiara p/ desdobramento. Antes: Reunião 'Atualizações automações fornecedores' 09/jul — falhas de integração (KIV×Pipefy×OME) elevaram a conferência manual das notas; triagem por IA em teste (Adriano/Kamilla) e Ramon ajusta o N8n p/ leitura automatizada de documentos fiscais; Carol valida o novo fluxo do Ronaldo em 10/jul. (21/jul)",
+        statusNow:"Fórum Mensal Integração 28/jul: equipe passa a desenvolver internamente as automações de API (mais agilidade); processo de emissão de fatura simplificado; alertas nativos de notas canceladas na Kiv configurados no Slack/e-mail (Kamilla + Nicc). Governança de Automações 28/jul: protocolo — toda alteração no formato de saída de qualquer automação deve ser registrada na planilha p/ evitar quebra e permitir teste prévio; projeto do Ronaldo (leitura de docs) complementado na planilha (Kamilla); Carol alinha com Ramon as mudanças previstas nas automações dela. Antes — Reunião 'Logcomex × Bloquo | Emissão NFs' 21/jul: avaliação da Bloquo (henrik.walvag@bloquo.io) como parceiro/ferramenta p/ a emissão de NFs; Ramon encaminhou as notas à Maiara p/ desdobramento. (28/jul)",
         insightToday:"Mateus lançava 2 dias por semana + Nicc nos 2 primeiros dias do fechamento, com regras de rateio manuais.",
         insightFuture:"Robô lança NFs e invoices direto no Omie com rateio automático, trava de conformidade (nº doc + CNPJ vs. Qive) e dashboards de volume e correções.",
         keywords:["nf","nfs","invoice","invoices","ome"] },
       { id:8, num:6, name:"Obrigações Fiscais", wave:3, status:"done", statusLabel:"75% concluído",
         economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
-        owner:"Thay", area:"Contabilidade", color:"green", updated:false,
+        owner:"Thay", area:"Contabilidade", color:"green", updated:true,
         tagline:"Calendário fiscal com alertas de vencimento e cálculos automatizados",
-        statusNow:"ECD 2025 e ECF 2025 entregues (jul/26); IRPJ/CSLL mensal rodando com validação assistida (memória de cálculo + controle de diferidos). ~18 das 24h/mês já capturadas. Resta: re-tuning anual da ECF (layout muda todo ano, mar–jun), os 2 pontos de decisão humana do IRPJ/CSLL (entrada do balancete + valor final no Domínio — por design, não gap) e o hardening pós-ciclo 2025. Escopo = 3 automações: ECD (anual), ECF (anual, a mais complexa, depende da ECD) e IRPJ/CSLL (única mensal). Reforma Tributária IBS/CBS corre à parte. (21/jul)",
+        statusNow:"Reunião 'Automações Fiscais e Lei do Bem' 28/jul: Thaynara vai padronizar ECD, ECF e IRPJ/CSLL como skills no CWork (ganho de precisão); integração com o jurídico aprovada p/ evitar disparidades; Lei do Bem entra no escopo com faixas estimadas de valores (detalhamento na reunião de setembro); agenda fiscal dividida em dois blocos (ago e set); apresentação com horas automatizadas, % do processo e arquitetura técnica p/ Daniel/Adriano/Duda/Cam/Ana entre 10-14/ago. Antes: ECD 2025 e ECF 2025 entregues (jul/26); IRPJ/CSLL mensal rodando com validação assistida (memória de cálculo + controle de diferidos). ~18 das 24h/mês já capturadas. Resta: re-tuning anual da ECF (layout muda todo ano, mar–jun), os 2 pontos de decisão humana do IRPJ/CSLL (entrada do balancete + valor final no Domínio — por design, não gap) e o hardening pós-ciclo 2025. Escopo = 3 automações: ECD (anual), ECF (anual, a mais complexa, depende da ECD) e IRPJ/CSLL (única mensal). Reforma Tributária IBS/CBS corre à parte. (21/jul)",
         insightToday:"cálculos fiscais (RCS) manuais no Excel — erro já pego pela auditoria. 1 dia no fechamento + 2–3 dias depois.",
         insightFuture:"Calendário fiscal automático com alertas de vencimento e cálculos em nuvem, sem depender de máquina local. Mantido no Domínio pela complexidade tributária BR.",
         keywords:["obrigações fiscais","sped","darf","cprb","lalur","ecf"] },
       { id:9, num:14, name:"Conciliação Fornecedores e Adiantamento Fornecedor", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-20h/mês", economyHours:20, goLive:"Jul/26", periodLabel:"Mai–Jul",
-        owner:"Carol", area:"Contabilidade", color:"orange", updated:true,
+        owner:"Carol", area:"Contabilidade", color:"orange", updated:false,
         tagline:"Concilia razão × ERP, alerta fornecedores sem pipe aberto e concilia adiantamentos a fornecedores",
         statusNow:"Conciliação semanal do Contas a Pagar formalizada 27/jul (Nicc): passa a ser por competência (garante todos os documentos emitidos até a véspera já lançados no Omie), cobertura ampliada (antes só até a sexta da semana anterior) e envio único semanal — cartões + demais lançamentos num só arquivo, já que as automações eliminaram o lançamento manual. Carol criou as novas regras de conciliação do CP, a validar com Nick e Tainara (1:1 Maiara 27/jul). Antes: avançado, testado no fechamento de jul/26 — cobre também a conciliação de adiantamentos a fornecedores (owner Carol); alertas automáticos p/ divergências de departamento × centro de custo e integração da base à triagem; conciliação segue prioridade crítica do mês (meta ≥70%). (27/jul)",
         insightToday:"Mateus faz compilado manual a cada 15 dias (~8h/semana); limpeza do razão e nomes de fornecedores batidos um a um.",
@@ -455,15 +455,15 @@
         keywords:["conciliação balanço","balanço"] },
       { id:13, num:5, name:"Base Fornecedores", wave:2, status:"done", statusLabel:"80% concluído",
         economyLabel:"-29h/mês", economyHours:29, goLive:"Jun/26", periodLabel:"Mai–Jun",
-        owner:"Martin (co: Nicc)", area:"Contabilidade", color:"green", updated:false,
+        owner:"Martin (co: Nicc)", area:"Contabilidade", color:"green", updated:true,
         tagline:"Base única de fornecedores no Supabase como fonte da verdade",
-        statusNow:"Follow-up base de fornecedores 15/jul: cadastro de fornecedores nacionais finalizado; internacionais passam a ser geridos via automações internas (integração à automação de lançamentos da Carol), mitigando risco das APIs; hierarquia de acessos administrativos e regras de manutenção manual definidas; Nicc exporta a base completa p/ Martin validar as contas contábeis. Apresentação de resultados p/ Adriano e Daniel confirmada 23/jul (Nicc + Martin, material revisado com Maiara); Carol prepara compilado bimestral de erros/acertos. (15/jul)",
+        statusNow:"Fórum Mensal Integração 28/jul: classificação de despesas passa a ser por fornecedor (nova categoria 'Licenças Custos') p/ eliminar divergências custo × despesa; Martin mapeia fornecedores + centro de custo e envia lista consolidada à Kamilla; Nicc dá acesso à base à Kamilla e executa a alteração em massa; reclassificação retroativa abr-jun no fechamento de agosto; Kamilla ajusta os fornecedores no OME. Governança de Automações 28/jul: foco atual na inclusão de centros de custo e na vinculação da API de fornecedores ao sistema operacional vigente. Antes — Follow-up base de fornecedores 15/jul: cadastro de fornecedores nacionais finalizado; internacionais passam a ser geridos via automações internas (integração à automação de lançamentos da Carol), mitigando risco das APIs; hierarquia de acessos administrativos e regras de manutenção manual definidas; Nicc exporta a base completa p/ Martin validar as contas contábeis. Apresentação de resultados p/ Adriano e Daniel confirmada 23/jul (Nicc + Martin, material revisado com Maiara); Carol prepara compilado bimestral de erros/acertos. (15/jul)",
         insightToday:"dados de fornecedores fragmentados em planilhas, Pipefy, Omie e Arquivei — sem source of truth única.",
         insightFuture:"Base no Supabase mapeia fornecedor→categoria (cobre ~80% dos erros), alimenta a conciliação (#9) e vira gabarito que cruza razão e orçamento. Match semântico via pgvector.",
         keywords:["base fornecedores","fornecedor base"] },
       { id:12, num:16, name:"DF Auditoria (mensal)", wave:3, status:"prog", statusLabel:"MVP em construção",
         economyLabel:"~80h/ano", economyHours:7, goLive:"Ago/26", periodLabel:"Mai–Ago",
-        owner:"Maiara", area:"Contabilidade", color:"orange", updated:true,
+        owner:"Maiara", area:"Contabilidade", color:"orange", updated:false,
         tagline:"Transforma a DF anual da KPMG em processo mensal automatizado",
         statusNow:"1:1 Maiara 27/jul: estudo de Impairment (Ágio UXCOMEX) a finalizar p/ apresentar na reunião de NetSuite (compartilhar resultados com Ramon e Adriano); reunião 'DF Automação' confirmada p/ 29/jul. Antes — Reunião 'DF Automação' 22/jul: reclassificações no balanço corrigiram dividendos e patrimônio; automação da PDD (Provisão p/ Devedores Duvidosos) definida com base no razão contábil; contingências judiciais e obrigações sociais validadas, itens de arrendamento mercantil adiados; equipe optou por rotinas de conferência eficientes em vez da automação completa do balancete mensal (mitiga risco de erro nos impostos). Próximos passos: Maiara envia suporte de PDD e de contingências/IR-CS diferidos e valida o balancete mensal; Ramon apoia a validação mensal e linka a receita diferida (conta 313010). Antes: 'DF Automação' 17/jul — estruturas de relatórios + reconciliação de ativos (imobilizado/intangível direto do razão, DFC após reconciliação dos balanços); proposta/contrato KPMG (4% de desconto) em minuta 20/jul, encaminhada ao jurídico. (27/jul)",
         insightToday:"DF anual montada à mão em jan-fev: planilha de 42 abas + Word de 707 parágrafos / 54 tabelas. Erros só aparecem na auditoria.",
@@ -606,6 +606,19 @@
       { date:"2026-07-27", projectId:0, field:"UI", from:"'Diretrizes Omie API' fixo em todas as abas; header com 'Processos' e 'Planejados'; tooltip da onda listava todas as automações da onda; barra de conectores/HTML/PDF/skill no topo", to:"'Diretrizes Omie API' movido p/ dentro do 'Resumo atualizações' (só na aba Impacto); header passa a 'Automações' e 'Já capturada' (horas entregues); gráfico e tooltip por onda recalculados por mês de go-live (mostram só as automações que compõem as horas daquele mês); barra de conectores/exportar/skill removida do topo", evidence:"Pedido Ramon 27/jul" }
     ]));
     store.set(seedKey_v66, true);
+    history = store.get(KEY_HIST, []);
+  }
+
+  const seedKey_v67 = "seed_2026-07-28-v67";
+  if (!store.get(seedKey_v67)) {
+    const prevHist67 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist67.concat([
+      { date:"2026-07-28", projectId:8, field:"statusNow", from:"ECD/ECF 2025 entregues; IRPJ/CSLL mensal com validação assistida (~18/24h capturadas)", to:"Reunião 'Automações Fiscais e Lei do Bem' 28/jul: Thaynara vai padronizar ECD, ECF e IRPJ/CSLL como skills no CWork; integração com o jurídico aprovada; Lei do Bem entra no escopo (faixas estimadas, detalhe em set); agenda fiscal em dois blocos (ago/set); apresentação (horas automatizadas, % do processo, arquitetura) p/ Daniel/Adriano/Duda/Cam/Ana entre 10-14/ago", evidence:"Gemini notes 'Automações Fiscais e Lei do Bem' 28/jul" },
+      { date:"2026-07-28", projectId:13, field:"statusNow", from:"Follow-up 15/jul: cadastro nacional finalizado, internacionais via automações internas; apresentação p/ Adriano e Daniel 23/jul", to:"Fórum Mensal Integração 28/jul: classificação de despesas por fornecedor (nova categoria 'Licenças Custos') p/ eliminar divergências custo × despesa; Martin mapeia fornecedor + CC e envia lista à Kamilla; Nicc dá acesso e faz alteração em massa na base; reclassificação retroativa abr-jun no fechamento de agosto; ajuste por fornecedor no OME. Governança 28/jul: foco em centros de custo + vinculação da API de fornecedores ao sistema vigente", evidence:"Gemini notes 'Fórum Mensal - Integração entre as áreas' + 'Governança de Automações - Time Financeiro' 28/jul" },
+      { date:"2026-07-28", projectId:4, field:"statusNow", from:"Reunião 'Logcomex × Bloquo | Emissão NFs' 21/jul (avaliação Bloquo p/ emissão de NFs)", to:"Fórum Mensal Integração 28/jul: equipe passa a desenvolver internamente as automações de API; processo de fatura simplificado; alertas nativos de notas canceladas na Kiv (Slack/e-mail, Kamilla + Nicc). Governança 28/jul: protocolo — toda alteração no formato de saída de automação registrada na planilha (evita quebra, permite teste prévio); projeto do Ronaldo complementado (Kamilla); Carol alinha mudanças com Ramon", evidence:"Gemini notes 'Fórum Mensal - Integração' + 'Governança de Automações' 28/jul" },
+      { date:"2026-07-28", projectId:3, field:"statusNow", from:"Log US lançamento 06/jul (transição p/ Carol, exceções Stripe, script em ajuste)", to:"Reunião 'Dúvidas fiscais investimento Log US – Citibank' 28/jul: decisão de repatriar ~US$411k (de ~US$960k parados sem remuneração) p/ a Limitada no Brasil — câmbio + aplicação após o fechamento de julho (Kamilla), NF + contrato de câmbio vinculados; Maiara consolida Intercompany jan-jun", evidence:"Gemini notes 'Dúvidas fiscais investimento Log US - Citibank' 28/jul" }
+    ]));
+    store.set(seedKey_v67, true);
     history = store.get(KEY_HIST, []);
   }
 
