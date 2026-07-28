@@ -370,26 +370,6 @@
 </div>
 
 <div class="container">
-  <div class="refresh-bar">
-    <div class="refresh-info">
-      <span class="dot" id="refresh-dot"></span>
-      <span id="refresh-text">Inicializando…</span>
-      <span class="source-pill" id="src-slack">Slack</span>
-      <span class="source-pill" id="src-gmail">Gmail</span>
-      <span class="source-pill" id="src-claude">Claude</span>
-    </div>
-    <div class="btn-row">
-      <button class="btn-secondary" onclick="downloadHTML()" title="Baixar HTML completo">⬇ HTML</button>
-      <button class="btn-secondary" onclick="downloadPDF()" title="Salvar como PDF (use 'Salvar em PDF' no diálogo)">⬇ PDF</button>
-      <button class="btn-primary" onclick="runSkill()">Atualizar com skill</button>
-    </div>
-  </div>
-
-  <div class="arch-banner">
-    <div class="arch-title">Diretrizes Omie API</div>
-    Toda automação que toca Omie segue: <strong>Web Hooks &gt; endpoints diretos</strong> (otimiza consumo, evita suspensão aleatória) · <strong>somente leitura</strong>, nunca escrita · alinhar projeto com Ana Lyvia <strong>antes</strong> de prod (rastreabilidade da chave única) · janela de execução <strong>19h–7h ou 12h–13h</strong>.
-  </div>
-
   <div class="tabs">
     <button class="tab-btn active" data-tab="overview">Automações</button>
     <button class="tab-btn" data-tab="impact">Impacto</button>
@@ -414,7 +394,7 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v65",
+    version: "v66",
     lastUpdated: "2026-07-27",
     projects: [
       { id:1, num:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
@@ -616,6 +596,16 @@
       { date:"2026-07-27", projectId:12, field:"statusNow", from:"DF Automação 22/jul (PDD/contingências/receita diferida)", to:"1:1 Maiara 27/jul: estudo de Impairment (Ágio UXCOMEX) a finalizar p/ apresentar na reunião de NetSuite (compartilhar com Ramon e Adriano); reunião 'DF Automação' confirmada p/ 29/jul", evidence:"Gemini notes 1:1 Maiara 27/jul + convite 'DF Automação' 29/jul" }
     ]));
     store.set(seedKey_v65, true);
+    history = store.get(KEY_HIST, []);
+  }
+
+  const seedKey_v66 = "seed_2026-07-27-v66";
+  if (!store.get(seedKey_v66)) {
+    const prevHist66 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist66.concat([
+      { date:"2026-07-27", projectId:0, field:"UI", from:"'Diretrizes Omie API' fixo em todas as abas; header com 'Processos' e 'Planejados'; tooltip da onda listava todas as automações da onda; barra de conectores/HTML/PDF/skill no topo", to:"'Diretrizes Omie API' movido p/ dentro do 'Resumo atualizações' (só na aba Impacto); header passa a 'Automações' e 'Já capturada' (horas entregues); gráfico e tooltip por onda recalculados por mês de go-live (mostram só as automações que compõem as horas daquele mês); barra de conectores/exportar/skill removida do topo", evidence:"Pedido Ramon 27/jul" }
+    ]));
+    store.set(seedKey_v66, true);
     history = store.get(KEY_HIST, []);
   }
 
@@ -903,13 +893,13 @@
     const total = snapshot.projects.length;
     const done = snapshot.projects.filter(p => p.status === "done").length;
     const prog = snapshot.projects.filter(p => p.status === "prog").length;
-    const plan = snapshot.projects.filter(p => p.status === "plan").length;
     const econ = snapshot.projects.reduce((s,p)=>s+(p.economyHours||0),0);
+    const doneH = snapshot.projects.filter(p => p.status === "done").reduce((s,p)=>s+(p.economyHours||0),0);
     const stats = [
-      { n: total, l: "Processos" },
+      { n: total, l: "Automações" },
       { n: done, l: "Concluídos" },
       { n: prog, l: "Em Andamento" },
-      { n: plan, l: "Planejados" },
+      { n: "-" + doneH + "h", l: "Já capturada" },
       { n: "-" + econ + "h", l: "Economia/mês" },
     ];
     document.getElementById("hero-stats").innerHTML = stats.map(s => `<div class="stat-card"><div class="n">${s.n}</div><div class="l">${esc(s.l)}</div></div>`).join("");
@@ -1185,6 +1175,10 @@
         <div class="impact-note" style="margin-top:8px;">
           Onda 1 entregou 32h/mês (Cohort 8h + Gerencial 16h + Log US 8h — 3/3 concluídos, Log US validado em prod no fech. abr/26). Onda 2 adiciona 61h/mês até junho — NFs/Invoices empurrado pra mai pelos ajustes pós-teste; bug Trem×Domínio agora contornado pela própria automação (Nick + Carol). Fech. Contábil com fluxo CP desenhado em 29/abr; <strong>reunião Oracle 14/mai</strong> consolidou premissas (Looker mantido p/ receita diferida, OME +1 semestre, PO obrigatório non-recurring). <strong>Reunião Oracle Netsuite × Project Dome 15/mai (sexta)</strong>: Project Dome alegou incapacidade técnica para CPRB/Lalur/ECF — decisão de escalar diretamente p/ Oracle (Adriano via Mônica), revisar contrato, arquitetar middleware NetSuite. Onda 3 completa com ~74h/mês recorrente até ago — Obrig. Fiscais e Conc. Fornecedor 24h cada, <strong>Conc. Balanço + DF Auditoria entregam ~80h/ano cada</strong> (recorrência baixa, ganho qualitativo). <strong>Conc. e Alertas Fornecedor (#9 merged) já está a 40%</strong> sob owner Nicc, com automação Claude + arquivo .md. <strong>Base Fornecedores (#13 NOVO)</strong> entra como source of truth única (Martin owner, Nicc co-owner, mai→jun/26). DF Auditoria mensal começa em mai com Discovery e go-live em ago. <strong>Diretrizes Omie API (15/abr)</strong> agora obrigatórias em todos os projetos que tocam Omie: Web Hooks, leitura, janela 12h-14h, base local — preparando migração pra NetSuite em 2027. Ao final de Ago/26: <strong>~${econ}h/mês</strong> de trabalho manual recorrente eliminado + ~160h/ano (Conc. Balanço + DF Auditoria).
         </div>
+        <div class="arch-banner" style="margin-top:12px; margin-bottom:0;">
+          <div class="arch-title">Diretrizes Omie API</div>
+          Toda automação que toca Omie segue: <strong>Web Hooks &gt; endpoints diretos</strong> (otimiza consumo, evita suspensão aleatória) · <strong>somente leitura</strong>, nunca escrita · alinhar projeto com Ana Lyvia <strong>antes</strong> de prod (rastreabilidade da chave única) · janela de execução <strong>19h–7h ou 12h–13h</strong>.
+        </div>
         </div>
       </div>`;
     const impactToggle = document.getElementById("impact-toggle");
@@ -1193,28 +1187,32 @@
 
   function initCharts() {
     if (typeof Chart === "undefined") return;
-    // Composição por onda: quais automações somam as horas de cada barra empilhada
-    const waveComp = { 1:[], 2:[], 3:[] };
-    snapshot.projects.forEach(p => { if (p.economyHours) waveComp[p.wave].push({ name:p.name, h:p.economyHours }); });
-    [1,2,3].forEach(w => waveComp[w].sort((a,b)=>b.h-a.h));
+    // Composição por onda por mês: só as automações cujo go-live já ocorreu até o mês (acumulado)
+    const MONTHS = ["Abr","Mai","Jun","Jul","Ago"];
+    const MONTH_IDX = { abr:0, mai:1, jun:2, jul:3, ago:4 };
+    const goLiveIdx = p => { const m = (p.goLive||"").toLowerCase().slice(0,3); return (m in MONTH_IDX) ? MONTH_IDX[m] : 0; };
+    const waveProj = { 1:[], 2:[], 3:[] };
+    snapshot.projects.forEach(p => { if (p.economyHours) waveProj[p.wave].push(p); });
+    const waveSeries = w => MONTHS.map((_,mi) => waveProj[w].filter(p=>goLiveIdx(p)<=mi).reduce((s,p)=>s+p.economyHours,0));
     const waveAfterBody = (items) => {
       if (!items || !items.length) return "";
-      const lbl = items[0].dataset.label || "";
-      const w = parseInt(lbl.replace(/[^0-9]/g,""),10);
-      const comp = waveComp[w] || [];
+      const it = items[0];
+      const w = parseInt((it.dataset.label||"").replace(/[^0-9]/g,""),10);
+      const mi = it.dataIndex;
+      const comp = (waveProj[w]||[]).filter(p=>goLiveIdx(p)<=mi).sort((a,b)=>b.economyHours-a.economyHours);
       if (!comp.length) return "";
-      const total = comp.reduce((s,c)=>s+c.h,0);
-      return ["", "Automações (h/mês):"]
-        .concat(comp.map(c => "• " + c.name + ": " + c.h + "h"))
-        .concat(["Onda completa: " + total + "h/mês"]);
+      const total = comp.reduce((s,p)=>s+p.economyHours,0);
+      return ["", "Automações neste mês (h/mês):"]
+        .concat(comp.map(p => "• " + p.name + ": " + p.economyHours + "h"))
+        .concat(["Total acumulado: " + total + "h/mês"]);
     };
     new Chart(document.getElementById("chartStack").getContext("2d"), {
       type:"bar",
       data:{ labels:["Abr","Mai","Jun","Jul","Ago"],
         datasets:[
-          { label:"Onda 1", data:[32,32,32,32,32], backgroundColor:"rgba(254,143,28,0.85)", borderRadius:4 },
-          { label:"Onda 2", data:[0,32,61,61,61], backgroundColor:"rgba(102,19,208,0.85)", borderRadius:4 },
-          { label:"Onda 3", data:[0,0,0,27,74], backgroundColor:"rgba(39,215,128,0.85)", borderRadius:4 }
+          { label:"Onda 1", data:waveSeries(1), backgroundColor:"rgba(254,143,28,0.85)", borderRadius:4 },
+          { label:"Onda 2", data:waveSeries(2), backgroundColor:"rgba(102,19,208,0.85)", borderRadius:4 },
+          { label:"Onda 3", data:waveSeries(3), backgroundColor:"rgba(39,215,128,0.85)", borderRadius:4 }
         ] },
       options:{ responsive:true, maintainAspectRatio:false,
         plugins:{ legend:{ position:"bottom", labels:{ boxWidth:10, padding:12, font:{ size:11 } } },
@@ -1355,7 +1353,7 @@
   }
 
   // ===== SIGNALS =====
-  function setRefreshState(s, t) { document.getElementById("refresh-dot").className = "dot " + (s||""); document.getElementById("refresh-text").textContent = t; }
+  function setRefreshState(s, t) { const _d=document.getElementById("refresh-dot"); if(_d) _d.className="dot "+(s||""); const _t=document.getElementById("refresh-text"); if(_t) _t.textContent=t; }
   function setSourceState(id, s) { const el = document.getElementById("src-"+id); if (el) el.className = "source-pill " + s; }
   function parseSlackMd(md) {
     const blocks = (md||"").split(/\n(?=\d+\.\s)/); const items = [];
