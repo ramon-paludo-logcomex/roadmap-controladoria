@@ -394,8 +394,8 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v67",
-    lastUpdated: "2026-07-28",
+    version: "v68",
+    lastUpdated: "2026-09-09",
     projects: [
       { id:1, num:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
@@ -417,13 +417,13 @@
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
         owner:"Ramon / Maiara", area:"Contabilidade", color:"green", updated:true,
         tagline:"Concilia Stripe, invoices e Citibank via N8N + Claude",
-        statusNow:"Reunião 'Dúvidas fiscais investimento Log US – Citibank' 28/jul: decisão de repatriar ~US$411k (de ~US$960k parados na conta Log US sem remuneração) p/ a Limitada no Brasil — fechamento de câmbio + aplicação após o fechamento de julho (Kamilla), NF do valor transferido + contrato de câmbio vinculados; Maiara consolida o Intercompany jan-jun e envia ao grupo após o fechamento. Antes — Log US lançamento 06/jul: transição da automação p/ a Carol em treinamento; padronização dos dados da Poli como solução p/ exceções do Stripe; script com falhas (permissão de pasta + limite de token, Ramon corrige) e testes contínuos no mês. Fechamento jun/26 enviado 07/jul (folha BR atrasada). (28/jul)",
+        statusNow:"Fechamento Agosto/26 v4 rodou limpo (9/set): 420 lançamentos, 9 blocos OK, Stripe Coll $43.227,37 · Citi Coll $86.675,89, saldo diff $0,00, IC bate, fee ratio 3,98%, 0 não-classificados; Consolidado YTD atualizado (v6, jan-ago). Antes — decisão de repatriar ~US$411k (de ~US$960k parados na conta Log US sem remuneração) p/ a Limitada no Brasil, fechamento de câmbio + aplicação após o fechamento de julho (Kamilla), NF do valor transferido + contrato de câmbio vinculados (28/jul). (09/set)",
         insightToday:"Maiara fazia à mão — baixava CSV do Stripe, cruzava invoices, categorizava Citibank e montava a planilha. 1 dia por mês.",
         insightFuture:"Conciliação Stripe × invoice × Citibank fecha sozinha (9 blocos, 14 abas), com saldo Citi batendo em zero e exceções tratadas por padronização.",
         keywords:["log us","fechamento internacional","citibank","stripe us"] },
       { id:4, num:4, name:"Lanç. NFs/Invoices", wave:2, status:"done", statusLabel:"Concluído",
         economyLabel:"-32h/mês", economyHours:32, goLive:"Jun/26", periodLabel:"Abr–Jun",
-        owner:"Carol", area:"Contabilidade", color:"green", updated:true,
+        owner:"Carol", area:"Contabilidade", color:"green", updated:false,
         tagline:"Lança NFs e invoices no Omie com rateio automático por centro de custo",
         statusNow:"Fórum Mensal Integração 28/jul: equipe passa a desenvolver internamente as automações de API (mais agilidade); processo de emissão de fatura simplificado; alertas nativos de notas canceladas na Kiv configurados no Slack/e-mail (Kamilla + Nicc). Governança de Automações 28/jul: protocolo — toda alteração no formato de saída de qualquer automação deve ser registrada na planilha p/ evitar quebra e permitir teste prévio; projeto do Ronaldo (leitura de docs) complementado na planilha (Kamilla); Carol alinha com Ramon as mudanças previstas nas automações dela. Antes — Reunião 'Logcomex × Bloquo | Emissão NFs' 21/jul: avaliação da Bloquo (henrik.walvag@bloquo.io) como parceiro/ferramenta p/ a emissão de NFs; Ramon encaminhou as notas à Maiara p/ desdobramento. (28/jul)",
         insightToday:"Mateus lançava 2 dias por semana + Nicc nos 2 primeiros dias do fechamento, com regras de rateio manuais.",
@@ -431,7 +431,7 @@
         keywords:["nf","nfs","invoice","invoices","ome"] },
       { id:8, num:6, name:"Obrigações Fiscais", wave:3, status:"done", statusLabel:"75% concluído",
         economyLabel:"-24h/mês", economyHours:24, goLive:"Jul/26", periodLabel:"Mai–Jul",
-        owner:"Thay", area:"Contabilidade", color:"green", updated:true,
+        owner:"Thay", area:"Contabilidade", color:"green", updated:false,
         tagline:"Calendário fiscal com alertas de vencimento e cálculos automatizados",
         statusNow:"Reunião 'Automações Fiscais e Lei do Bem' 28/jul: Thaynara vai padronizar ECD, ECF e IRPJ/CSLL como skills no CWork (ganho de precisão); integração com o jurídico aprovada p/ evitar disparidades; Lei do Bem entra no escopo com faixas estimadas de valores (detalhamento na reunião de setembro); agenda fiscal dividida em dois blocos (ago e set); apresentação com horas automatizadas, % do processo e arquitetura técnica p/ Daniel/Adriano/Duda/Cam/Ana entre 10-14/ago. Antes: ECD 2025 e ECF 2025 entregues (jul/26); IRPJ/CSLL mensal rodando com validação assistida (memória de cálculo + controle de diferidos). ~18 das 24h/mês já capturadas. Resta: re-tuning anual da ECF (layout muda todo ano, mar–jun), os 2 pontos de decisão humana do IRPJ/CSLL (entrada do balancete + valor final no Domínio — por design, não gap) e o hardening pós-ciclo 2025. Escopo = 3 automações: ECD (anual), ECF (anual, a mais complexa, depende da ECD) e IRPJ/CSLL (única mensal). Reforma Tributária IBS/CBS corre à parte. (21/jul)",
         insightToday:"cálculos fiscais (RCS) manuais no Excel — erro já pego pela auditoria. 1 dia no fechamento + 2–3 dias depois.",
@@ -439,9 +439,9 @@
         keywords:["obrigações fiscais","sped","darf","cprb","lalur","ecf"] },
       { id:9, num:14, name:"Conciliação Fornecedores e Adiantamento Fornecedor", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-20h/mês", economyHours:20, goLive:"Jul/26", periodLabel:"Mai–Jul",
-        owner:"Carol", area:"Contabilidade", color:"orange", updated:false,
+        owner:"Carol", area:"Contabilidade", color:"orange", updated:true,
         tagline:"Concilia razão × ERP, alerta fornecedores sem pipe aberto e concilia adiantamentos a fornecedores",
-        statusNow:"Conciliação semanal do Contas a Pagar formalizada 27/jul (Nicc): passa a ser por competência (garante todos os documentos emitidos até a véspera já lançados no Omie), cobertura ampliada (antes só até a sexta da semana anterior) e envio único semanal — cartões + demais lançamentos num só arquivo, já que as automações eliminaram o lançamento manual. Carol criou as novas regras de conciliação do CP, a validar com Nick e Tainara (1:1 Maiara 27/jul). Antes: avançado, testado no fechamento de jul/26 — cobre também a conciliação de adiantamentos a fornecedores (owner Carol); alertas automáticos p/ divergências de departamento × centro de custo e integração da base à triagem; conciliação segue prioridade crítica do mês (meta ≥70%). (27/jul)",
+        statusNow:"Maiara 1/set (DM): conciliação de fornecedor 'não está ok' — nem fornecedor, nem cartão, nem adiantamento; muitos ajustes ainda pendentes; abordagem manual dela (mais lenta, mais certeira) sendo cruzada com a automação pra calibrar os valores; ~10 contas importantes ainda em aberto; prazo definido até 14/set pra finalizar. Risco adicional: NetSuite vai travar lançamento de fornecedor após dia 25 do mês (sem entrada no mês seguinte) — Carol já sinaliza risco com fornecedores de faturamento tardio (ex. DHL, 26/ago). Antes — conciliação semanal do Contas a Pagar formalizada 27/jul: por competência, cobertura ampliada, envio único semanal. (09/set)",
         insightToday:"Mateus faz compilado manual a cada 15 dias (~8h/semana); limpeza do razão e nomes de fornecedores batidos um a um.",
         insightFuture:"Arquivei detecta fornecedores recorrentes, N8N alerta no Slack e cobra abertura de pipe na competência; conciliação com o ERP aponta diferenças sem trabalho manual, incluindo os adiantamentos a fornecedores.",
         keywords:["alertas fornecedor","conciliação fornecedor","conc fornecedor","adiantamento fornecedor","adiantamento fornecedores"] },
@@ -453,11 +453,11 @@
         insightToday:"1 semana do Nicc + 1 semana da Tha; nem 50% das contas que deveriam ser conciliadas são.",
         insightFuture:"Busca automática dos relatórios que comprovam cada saldo, eliminando o gargalo manual da conciliação de contas do balanço.",
         keywords:["conciliação balanço","balanço"] },
-      { id:13, num:5, name:"Base Fornecedores", wave:2, status:"done", statusLabel:"80% concluído",
+      { id:13, num:5, name:"Base Fornecedores", wave:2, status:"done", statusLabel:"Em produção",
         economyLabel:"-29h/mês", economyHours:29, goLive:"Jun/26", periodLabel:"Mai–Jun",
         owner:"Martin (co: Nicc)", area:"Contabilidade", color:"green", updated:true,
         tagline:"Base única de fornecedores no Supabase como fonte da verdade",
-        statusNow:"Fórum Mensal Integração 28/jul: classificação de despesas passa a ser por fornecedor (nova categoria 'Licenças Custos') p/ eliminar divergências custo × despesa; Martin mapeia fornecedores + centro de custo e envia lista consolidada à Kamilla; Nicc dá acesso à base à Kamilla e executa a alteração em massa; reclassificação retroativa abr-jun no fechamento de agosto; Kamilla ajusta os fornecedores no OME. Governança de Automações 28/jul: foco atual na inclusão de centros de custo e na vinculação da API de fornecedores ao sistema operacional vigente. Antes — Follow-up base de fornecedores 15/jul: cadastro de fornecedores nacionais finalizado; internacionais passam a ser geridos via automações internas (integração à automação de lançamentos da Carol), mitigando risco das APIs; hierarquia de acessos administrativos e regras de manutenção manual definidas; Nicc exporta a base completa p/ Martin validar as contas contábeis. Apresentação de resultados p/ Adriano e Daniel confirmada 23/jul (Nicc + Martin, material revisado com Maiara); Carol prepara compilado bimestral de erros/acertos. (15/jul)",
+        statusNow:"Automação em produção desde ago/26: canal dedicado (#base-de-fornecedores-logcomex-alertas) roda sync diário — 'Juiz LLM' classifica fornecedores novos (nacionais e internacionais) por matching semântico (ex.: rounds #408 a #413+, 01-09/set), com fila de revisão pros casos ambíguos (17 pendentes de classificação em 02/set) e leitura automática dos novos documentos do Domínio. Antes — Fórum Mensal Integração 28/jul: classificação de despesas passa a ser por fornecedor (nova categoria 'Licenças Custos'); Martin mapeia fornecedores + centro de custo; Nicc dá acesso à base à Kamilla e executa a alteração em massa; reclassificação retroativa abr-jun no fechamento de agosto. (09/set)",
         insightToday:"dados de fornecedores fragmentados em planilhas, Pipefy, Omie e Arquivei — sem source of truth única.",
         insightFuture:"Base no Supabase mapeia fornecedor→categoria (cobre ~80% dos erros), alimenta a conciliação (#9) e vira gabarito que cruza razão e orçamento. Match semântico via pgvector.",
         keywords:["base fornecedores","fornecedor base"] },
@@ -544,6 +544,18 @@
     store.set(KEY_SNAP, snapshot);
   }
   let history = store.get(KEY_HIST, []);
+
+  const seedKey_v68 = "seed_2026-09-09-v68";
+  if (!store.get(seedKey_v68)) {
+    const prevHist68 = store.get(KEY_HIST, []);
+    store.set(KEY_HIST, prevHist68.concat([
+      { date:"2026-09-09", projectId:13, field:"statusNow", from:"Fórum Mensal Integração 28/jul: classificação de despesas por fornecedor (nova categoria 'Licenças Custos'); Martin mapeia fornecedores + CC; Nicc dá acesso e faz alteração em massa na base", to:"Automação em produção desde ago/26: canal dedicado (#base-de-fornecedores-logcomex-alertas) roda sync diário — 'Juiz LLM' classifica fornecedores novos por matching semântico (rounds #408-413+), fila de revisão pra ambíguos", evidence:"Slack #base-de-fornecedores-logcomex-alertas, syncs 01-09/set (rounds #408 a #413)" },
+      { date:"2026-09-09", projectId:9, field:"statusNow", from:"Conciliação semanal do CP formalizada 27/jul (por competência, cobertura ampliada, envio único)", to:"Maiara 1/set: conciliação de fornecedor 'não está ok'; nem fornecedor, nem cartão, nem adiantamento; ~10 contas importantes em aberto; prazo até 14/set; risco adicional do corte NetSuite (lançamento até dia 25)", evidence:"Slack DM Maiara×Ramon 01/set + #contas-a-pagar-compras-contabilidade 26/ago (Carol sobre DHL)" },
+      { date:"2026-09-09", projectId:3, field:"statusNow", from:"Reunião 'Dúvidas fiscais investimento Log US – Citibank' 28/jul: decisão de repatriar ~US$411k p/ a Limitada no Brasil", to:"Fechamento Agosto/26 v4 rodou limpo (9/set): 420 lançamentos, saldo diff $0,00, IC bate, fee ratio 3,98%, 0 não-classificados; Consolidado YTD v6 atualizado", evidence:"Slack #cowork-log-us-automacao 9/set" }
+    ]));
+    store.set(seedKey_v68, true);
+    history = store.get(KEY_HIST, []);
+  }
 
   const seedKey_v61 = "seed_2026-07-24-v61";
   if (!store.get(seedKey_v61)) {
@@ -1021,150 +1033,6 @@
     });
   }
 
-  // ===== TAB 2: CRONOGRAMA =====
-  function renderTimeline() {
-    const months = ["Abr","Mai","Jun","Jul","Ago"];
-    const monthIdx = m => { const map = {"Abr":0,"Mai":1,"Jun":2,"Jul":3,"Ago":4}; for (const k of Object.keys(map)) if ((m||"").includes(k)) return map[k]; return 4; };
-    const rows = snapshot.projects.map(p => {
-      const gIdx = monthIdx(p.goLive);
-      const startIdx = p.status === "plan" ? 1 : 0;
-      const cells = months.map((m, i) => {
-        if (i < startIdx || i > gIdx) return `<div class="gantt-bar-area"></div>`;
-        const isGo = (i === gIdx);
-        const barColor = p.blocker && i === gIdx-1 ? "var(--lx-red)" : colorFor(p.color);
-        const opacity = p.status === "plan" ? "opacity:0.45;" : "";
-        const bar = `<div class="gantt-bar" style="width:${isGo?85:100}%;left:0;background:${barColor};${opacity}"></div>`;
-        const dia = isGo ? `<div class="gantt-diamond" style="left:78%;background:${colorFor(p.color)};"></div>` : "";
-        return `<div class="gantt-bar-area">${bar}${dia}</div>`;
-      }).join("");
-      const mark = (p.blocker?"⚠ ":"");
-      return `
-        <div class="gantt-row" onclick="toggleGantt(${p.id})">
-          <span class="gantt-label">${mark}${esc(p.name)}</span>
-          ${cells}
-        </div>
-        <div class="gantt-detail" id="gd-${p.id}">
-          <p style="font-size:12px;color:var(--lx-gray);margin-bottom:8px;">${esc(p.tagline)}</p>
-          <div class="detail-grid">
-            <div class="detail-item"><div class="dl">Owner</div><div class="dv">${esc(p.owner)}</div></div>
-            <div class="detail-item"><div class="dl">Área</div><div class="dv">${esc(p.area)}</div></div>
-            <div class="detail-item"><div class="dl">Status</div><div class="dv">${esc(p.statusLabel)}</div></div>
-            <div class="detail-item"><div class="dl">Economia</div><div class="dv">${esc(p.economyLabel)}</div></div>
-          </div>
-          <div class="insight-block">
-            <strong>Hoje:</strong> ${esc(p.insightToday)}<br>
-            <strong>Futuro:</strong> ${esc(p.insightFuture)}
-          </div>
-          ${p.blocker ? `<div class="blocker-block"><div class="bl-head">⚠ Bloqueio ativo</div><div>${esc(p.blocker)}</div></div>` : ""}
-        </div>`;
-    }).join("");
-    document.getElementById("tab-timeline").innerHTML = `
-      <div class="section">
-        <div class="section-title">Cronograma · Abr–Jul 2026</div>
-        <p style="font-size:12px;color:var(--lx-gray);margin-bottom:14px;">Clique em qualquer linha pra ver tudo do projeto.</p>
-        <div class="gantt-wrapper">
-          <div class="gantt">
-            <div class="gantt-header-row">
-              <span>Processo</span>${months.map(m => `<span>${m}</span>`).join("")}
-            </div>
-            ${rows}
-          </div>
-        </div>
-        <p style="margin-top:12px;font-size:11px;color:var(--lx-gray);">⚠ bloqueio · ◆ go-live · borda laranja = atualizado</p>
-      </div>`;
-  }
-  window.toggleGantt = function(pid) {
-    const el = document.getElementById("gd-" + pid);
-    if (el) el.classList.toggle("open");
-  };
-
-  // ===== TAB 3: DETALHAMENTO =====
-  function renderDetail() {
-    const waves = {
-      1: { title:"Onda 1 — Cohort + Gerencial + Log US", sub:"Abr–Mai 2026 · 3 processos · 3 concluídos · -32h/mês (Cohort 8h + Gerencial 16h + Log US 8h)", cls:"w1",
-        steps:[
-          { num:"01 · Mar", title:"Mapeamento e definição",
-            items:["9 processos mapeados (252h/mês) com Maiara","Log US escolhido como piloto: baixa complexidade","Stack: N8N + Claude + Drive + Slack","Cohort e Gerencial em paralelo"] },
-          { num:"02 · Mar–Abr", title:"Construção e entrega",
-            items:["Cohort: pipeline automatizado, entregue","Gerencial: fechamento + budget vs realizado, entregue","Log US: 2 workflows N8N + 4 skills Cowork","Coleta validada: 168 invoices em ~17s"] },
-          { num:"03 · Mai", title:"Validação operacional concluída",
-            items:["DEV finalizado 16/abr, Jan+Fev+Mar validados 100% (comparativo histórico)","Maiara operou ciclo completo no fech. de abr/26 (08/mai) — 412 linhas, Saldo Citi diff $0,00 ✓","2 meses em prod (mar+abr) — go-live efetivo confirmado","Stack Supabase+Omie firmou-se como referência arquitetural","Ponto de atenção: webhook N8N falha recorrente (erro 500) — fallback Drive MCP"] },
-        ],
-        metrics:[ { v:"-32h/mês", l:"Economia total da onda" }, { v:"3/3", l:"Concluídos" }, { v:"4 skills", l:"Cowork (Log US)" }, { v:"~22s", l:"Tempo execução" } ],
-        insight:'A Onda 1 validou a arquitetura "N8N magro + Claude gordo" e entregou os 3 processos. O Log US definiu o padrão técnico replicado pela Carol no projeto de NFs. <strong>Validação operacional concluída em 08/mai</strong> com o fech. de abril/26 (Maiara em prod, 412 linhas, Saldo Citi diff $0,00). 2 meses operados em prod (mar+abr). Stack Supabase+Omie firmou-se como referência arquitetural. Atenção contínua ao webhook N8N (falha recorrente erro 500 — fallback Drive MCP).' },
-      2: { title:"Onda 2 — NFs + Zapier + Base Fornecedores", sub:"Abr–Jun 2026 · 3 processos · -61h/mês · Bug Trem×Domínio contornado pela automação · Escalonamento Oracle pós reunião Project Dome 15/mai", cls:"w2",
-        steps:[
-          { num:"01 · Abr", title:"Mapeamento e início",
-            items:["NFs: testes oficiais APIs 23/abr (Match 100% no fech. abr)","Zapier: robô já identifica casos no Pipefy CP"] },
-          { num:"02 · Mai", title:"Desenvolvimento",
-            items:["NFs: ajustes pós-teste, Carol cobrindo Match 100% (validação 3º dia útil)","NFs: bug Trem×Domínio contornado pela automação (Nick + Carol) — sem bloqueio ativo","1:1 Maia/Ramon 14/mai: Nick+Carol automatizam NFs e cartões ainda em mai · transição até set/26 (gestação Maiara)","Reunião Oracle Netsuite × Project Dome 15/mai: middleware confirmado, escalonamento Oracle p/ CPRB/Lalur/ECF"] },
-          { num:"03 · Jun", title:"Go-live",
-            items:["NFs/Invoices: go-live (push de abr→mai/26)","Base Fornecedores: concluída jun/26","Reunião Oracle Arquivei × Pipefy 14/mai redefiniu escopo: PO obrigatório non-recurring, data corte mensal, Looker mantido p/ receita diferida, OME +1 semestre"] },
-        ],
-        metrics:[ { v:"-61h/mês", l:"Economia da onda" }, { v:"3 frentes", l:"Processos" }, { v:"0 bloqueios", l:"Trem×Domínio contornado" }, { v:"OMIE + Zapier", l:"Integrações" } ],
-        insight:'NFs/Invoices teve testes 100% e Carol já cobre Match 100% no fech. de abril (~20h economizadas), mas o full go-live empurrou pra mai. <strong>Bug Trem×Domínio</strong> (CC não subindo pra Domínio): contornado pela própria automação (Nick + Carol) — sem bloqueio ativo no roadmap. <strong>1:1 Maia/Ramon 14/mai</strong>: gestação Maiara confirmada — Nick + Carol assumem automação de NFs e cartões em maio; transição de processos críticos até set/26 com documentação obrigatória. <strong>Reunião Oracle Arquivei × Pipefy 14/mai</strong> redefiniu escopo: Looker mantido para receita diferida (não desenvolver no NetSuite), OME ativo +1 semestre, pedidos de compra obrigatórios para itens não recorrentes, data de corte mensal fixa, custos extras integrador rejeitados. <strong>Reunião Oracle Netsuite × Project Dome 15/mai (sexta)</strong>: Project Dome alegou incapacidade técnica para entregar obrigações fiscais (CPRB, Lalur, ECF) — decisão de escalar diretamente para Oracle (Adriano via Mônica), revisar cláusulas contratuais Project Dome, e arquitetar middleware centralizando controle contábil no NetSuite pra evitar dependência de terceiros. Danilo solicitará aprovação da receita diferida durante a renovação contratual. <strong>Diretrizes Omie API (15/abr)</strong>: Web Hooks, leitura, janela almoço — aplicáveis a NFs, Fech. Contábil e Zapier.' },
-      3: { title:"Onda 3 — Fech. Contábil + Fiscal + Fornecedores + Conc. Balanço + DF Auditoria", sub:"Mai–Ago 2026 · 5 processos · -102h/mês recorrente + ~160h/ano (Conc. Balanço + DF Auditoria) · Recalibrado em 07/mai", cls:"w3",
-        steps:[
-          { num:"01 · Mai", title:"Mapeamento e Discovery",
-            items:["Fech. Contábil: reunião Oracle semana 16/jun (09/jun) · Adriano formaliza bloqueio: sem op. assistida sem os 4 pontos tributários · aguarda ≥22/jun","Obrig. Fiscais: mapeamento iniciado pela Tai · reunião fiscal Oracle agendada (Adriano via Mônica) p/ CPRB+Lalur+ECF","DF Auditoria: Discovery & De-Para Balancete Base (BR+US+UX)","Conc. e Alertas Fornecedor (#9 merged): 40% resolvido — Nicc owner, automação Claude com .md"] },
-          { num:"02 · Jun–Jul", title:"Desenvolvimento",
-            items:["Fech. Contábil: checklist digital N8N + Slack (5 frentes: Bancos, Faturamento, Folha, Provisões, Despesas Antecipadas)","Obrig. Fiscais: calendário automático no Domínio","DF Auditoria: MVP BP/DRE/DFC mensais + 28 notas explicativas","Conc. e Alertas Fornecedor: compilado + conciliação automática consumindo a Base","Conc. Balanço: ~80h/ano (recorrência baixa, ganho qualitativo)"] },
-          { num:"03 · Jul–Ago", title:"Go-live",
-            items:["#5 / #8 / #9 / #11 em operação até jul–ago","DF Auditoria V2 (templating Word KPMG) jul, V3 go-live ago","Time contábil migra de operacional pra analítico","Economia total acumulada: ~178h/mês recorrente"] },
-        ],
-        metrics:[ { v:"-102h/mês", l:"Economia recorrente" }, { v:"5 frentes", l:"Processos" }, { v:"Mai–Ago", l:"Período" }, { v:"#9 a 40%", l:"Adiantado" } ],
-        insight:'A Onda 3 concentra ~102h/mês recorrentes — Fech. Contábil 40h, Obrig. Fiscais e Conc. Fornecedor 24h cada, e Conc. Balanço + DF Auditoria entregam ~80h/ano cada (recorrência baixa, ganho qualitativo). <strong>Conc. e Alertas Fornecedor (#9 merged)</strong> já está a 40% — Nicc owner, arquitetura automação Claude consumindo arquivo .md. <strong>Obrigações Fiscais</strong> em mapeamento (Tai) — reunião Oracle Netsuite × Project Dome 15/mai identificou CPRB/Lalur/ECF como gaps do fornecedor atual; Adriano vai agendar reunião urgente com equipe tributária Oracle via Mônica pra discutir arquitetura e funcionalidades nativas. DF Auditoria começa agora em mai com Discovery; vai até ago com go-live. Pré-balance contínuo com KPMG passa a ser mensal. <strong>Stack obrigatória pós-15/abr</strong>: leitura, Web Hooks, base local Supabase/RDS — evolução pra NetSuite em 2027.' },
-    };
-
-    const tabsHtml = `
-      <div class="wave-tabs">
-        <button class="wave-btn active" data-wave="1">Onda 1 — Entregue</button>
-        <button class="wave-btn" data-wave="2">Onda 2 — Em Andamento</button>
-        <button class="wave-btn" data-wave="3">Onda 3 — Próximo</button>
-      </div>`;
-
-    const panels = [1,2,3].map(w => {
-      const W = waves[w];
-      return `
-        <div class="wave-panel ${w===1?"active":""}" id="wave-${w}">
-          <div class="wave-card ${W.cls}">
-            <div style="font-size:15px;font-weight:700;margin-bottom:2px;">${esc(W.title)}</div>
-            <div style="font-size:11.5px;color:var(--lx-gray);">${esc(W.sub)}</div>
-            <div class="wave-meta-grid">
-              ${W.metrics.map(m => `<div class="wave-meta-item"><div class="v">${esc(m.v)}</div><div class="l">${esc(m.l)}</div></div>`).join("")}
-            </div>
-            <div class="step-list">
-              ${W.steps.map(s => `
-                <div class="step-row">
-                  <div class="step-num">${esc(s.num)}</div>
-                  <div class="step-content">
-                    <strong>${esc(s.title)}</strong>
-                    <ul>${s.items.map(it => `<li>${esc(it)}</li>`).join("")}</ul>
-                  </div>
-                </div>`).join("")}
-            </div>
-            <div class="wave-insight">${W.insight}</div>
-          </div>
-        </div>`;
-    }).join("");
-
-    document.getElementById("tab-detail").innerHTML = `
-      <div class="section">
-        <div class="section-title">Detalhamento por Onda</div>
-        ${tabsHtml}
-        ${panels}
-      </div>`;
-
-    document.querySelectorAll(".wave-btn").forEach(b => {
-      b.onclick = () => {
-        document.querySelectorAll(".wave-btn").forEach(x => x.classList.remove("active"));
-        document.querySelectorAll(".wave-panel").forEach(x => x.classList.remove("active"));
-        b.classList.add("active");
-        document.getElementById("wave-" + b.dataset.wave).classList.add("active");
-      };
-    });
-  }
-
   // ===== TAB 4: IMPACTO =====
   function renderImpact() {
     const econ = snapshot.projects.reduce((s,p)=>s+(p.economyHours||0),0);
@@ -1186,7 +1054,7 @@
         </div>
         <div class="history-panel" id="impact-panel">
         <div class="impact-note" style="margin-top:8px;">
-          Onda 1 entregou 32h/mês (Cohort 8h + Gerencial 16h + Log US 8h — 3/3 concluídos, Log US validado em prod no fech. abr/26). Onda 2 adiciona 61h/mês até junho — NFs/Invoices empurrado pra mai pelos ajustes pós-teste; bug Trem×Domínio agora contornado pela própria automação (Nick + Carol). Fech. Contábil com fluxo CP desenhado em 29/abr; <strong>reunião Oracle 14/mai</strong> consolidou premissas (Looker mantido p/ receita diferida, OME +1 semestre, PO obrigatório non-recurring). <strong>Reunião Oracle Netsuite × Project Dome 15/mai (sexta)</strong>: Project Dome alegou incapacidade técnica para CPRB/Lalur/ECF — decisão de escalar diretamente p/ Oracle (Adriano via Mônica), revisar contrato, arquitetar middleware NetSuite. Onda 3 completa com ~74h/mês recorrente até ago — Obrig. Fiscais e Conc. Fornecedor 24h cada, <strong>Conc. Balanço + DF Auditoria entregam ~80h/ano cada</strong> (recorrência baixa, ganho qualitativo). <strong>Conc. e Alertas Fornecedor (#9 merged) já está a 40%</strong> sob owner Nicc, com automação Claude + arquivo .md. <strong>Base Fornecedores (#13 NOVO)</strong> entra como source of truth única (Martin owner, Nicc co-owner, mai→jun/26). DF Auditoria mensal começa em mai com Discovery e go-live em ago. <strong>Diretrizes Omie API (15/abr)</strong> agora obrigatórias em todos os projetos que tocam Omie: Web Hooks, leitura, janela 12h-14h, base local — preparando migração pra NetSuite em 2027. Ao final de Ago/26: <strong>~${econ}h/mês</strong> de trabalho manual recorrente eliminado + ~160h/ano (Conc. Balanço + DF Auditoria).
+          Onda 1 entregou 32h/mês (Cohort 8h + Gerencial 16h + Log US 8h — 3/3 concluídos, Log US validado em prod no fech. abr/26). Onda 2 adiciona 61h/mês até junho — NFs/Invoices empurrado pra mai pelos ajustes pós-teste; bug Trem×Domínio agora contornado pela própria automação (Nick + Carol). Fech. Contábil com fluxo CP desenhado em 29/abr; <strong>reunião Oracle 14/mai</strong> consolidou premissas (Looker mantido p/ receita diferida, OME +1 semestre, PO obrigatório non-recurring). <strong>Reunião Oracle Netsuite × Project Dome 15/mai (sexta)</strong>: Project Dome alegou incapacidade técnica para CPRB/Lalur/ECF — decisão de escalar diretamente p/ Oracle (Adriano via Mônica), revisar contrato, arquitetar middleware NetSuite. Onda 3 completa com ~74h/mês recorrente até ago — Obrig. Fiscais e Conc. Fornecedor 24h cada, <strong>Conc. Balanço + DF Auditoria entregam ~80h/ano cada</strong> (recorrência baixa, ganho qualitativo). <strong>Conc. e Alertas Fornecedor (#9 merged) já está a 40%</strong> sob owner Nicc, com automação Claude + arquivo .md. <strong>Base Fornecedores (#13 NOVO)</strong> entra como source of truth única (Martin owner, Nicc co-owner, mai→jun/26). DF Auditoria mensal começa em mai com Discovery e go-live em ago. <strong>Diretrizes Omie API (15/abr)</strong> agora obrigatórias em todos os projetos que tocam Omie: Web Hooks, leitura, janela 12h-14h, base local — preparando migração pra NetSuite em 2027. Ao final de Ago/26: <strong>~${econ}h/mês</strong> de trabalho manual recorrente eliminado + ~160h/ano (Conc. Balanço + DF Auditoria). <strong>Atualização 09/set</strong>: Base Fornecedores (#13) passou pra produção plena — matching semântico automático via Juiz LLM rodando diariamente. Conciliação Fornecedores (#9) mostra dificuldade real (Maiara: "não está ok"), com prazo até 14/set; NetSuite vai travar lançamentos de fornecedor após dia 25 do mês. Log US confirma operação estável (fechamento ago/26 v4 limpo).
         </div>
         <div class="arch-banner" style="margin-top:12px; margin-bottom:0;">
           <div class="arch-title">Diretrizes Omie API</div>
@@ -1272,9 +1140,9 @@
       summary:"Consolidação contábil-societária do grupo após aquisição UXComex (set/25). Bookkeeping provisório com goodwill de R$8,963M até saída do PPA definitivo. DF anual KPMG consolidando BR + Log US + UXComex.",
       detail:"Premissas atuais (até PPA): Logcomex registra investimento R$10M via MEP + obrigações (5M caixa + 3M passivo + 2M earn-out swap). UXComex segue escrituração própria até dez/24 com tocada paralela. Goodwill provisório R$8,963M entra no consolidado. PPA contratado com IRKO (alternativa: empresa do DD original). DF anual de 2025 emitida em mar/26 com KPMG (Isabella Bonan, Allan Camargo); auditoria 2026 em planejamento. Conexão direta com #12 DF Auditoria (mensal) — projeto de automação que transforma esse processo anual em mensal. Owner: Maiara + Adriano + Daniel." },
     { letter:"F", name:"NetSuite", area:"Sistemas/Estratégico", color:"green",
-      tagline:"Substituir Omie em 2027 · Faturamento + Contas a Receber · Domínio mantido pra fiscal BR · Escalonamento Oracle (15/mai)",
+      tagline:"Substituir Omie em 2027 · Faturamento + Contas a Receber · Domínio mantido pra fiscal BR · Testes O2C/P2P em ago/26",
       summary:"Migração do ERP de Omie para NetSuite, prevista pra 2027. Decidida em mar/abr/26 nas reuniões com Ana Lyvia + Danilo. NetSuite cobre faturamento e AR; Domínio permanece para declarações fiscais brasileiras (complexidade tributária BR não comporta NetSuite full).",
-      detail:"Razão da migração: Omie suspende API aleatoriamente (913s observados), tem limites pra escala internacional, e não acompanha visão multi-empresa do grupo. NetSuite traz consolidação multi-entity nativa, suporte global, robustez API. Implicação no roadmap de automações: tudo que está sendo construído agora (Log US, NFs, Fech. Contábil, DF Auditoria) deve ser arquitetado já pensando na migração — base local Supabase/RDS intermediando consumo Omie evita rebuild. Reunião Oracle Netsuite × Project Dome 15/mai (sexta): Project Dome alegou incapacidade técnica para entregar obrigações fiscais (CPRB, Lalur, ECF) — decisão de escalar diretamente para Oracle via Mônica pra esclarecer lacunas, solicitar informações sobre arquitetura e funcionalidades nativas, e agendar reunião urgente com equipe tributária Oracle no início da semana. Adriano vai revisar cláusulas contratuais Project Dome (responsabilidades de entrega + obrigações fiscais) e esclarecer grupo sobre recusa do pagamento de taxas comerciais que já estavam no escopo original. Danilo solicitará aprovação da receita diferida durante a renovação contratual. Maiara incluirá Ramon nos convites das reuniões de checkpoint. Owner: Adriano + Daniel + Ana Lyvia. Diretrizes obrigatórias pra todos os projetos que tocam Omie hoje: leitura, Web Hooks, janela 19h-7h ou 12h-13h." },
+      detail:"Razão da migração: Omie suspende API aleatoriamente (913s observados), tem limites pra escala internacional, e não acompanha visão multi-empresa do grupo. NetSuite traz consolidação multi-entity nativa, suporte global, robustez API. Implicação no roadmap de automações: tudo que está sendo construído agora (Log US, NFs, Fech. Contábil, DF Auditoria) deve ser arquitetado já pensando na migração — base local Supabase/RDS intermediando consumo Omie evita rebuild. Reunião Oracle Netsuite × Project Dome 15/mai (sexta): Project Dome alegou incapacidade técnica para entregar obrigações fiscais (CPRB, Lalur, ECF) — decisão de escalar diretamente para Oracle via Mônica pra esclarecer lacunas, solicitar informações sobre arquitetura e funcionalidades nativas, e agendar reunião urgente com equipe tributária Oracle no início da semana. Adriano vai revisar cláusulas contratuais Project Dome (responsabilidades de entrega + obrigações fiscais) e esclarecer grupo sobre recusa do pagamento de taxas comerciais que já estavam no escopo original. Danilo solicitará aprovação da receita diferida durante a renovação contratual. Maiara incluirá Ramon nos convites das reuniões de checkpoint. Canal dedicado #netsuite_oracle criado em ago/26: cenários de teste O2C (Order to Cash) e P2P (Procure to Pay) documentados por Adriano (13/ago); regra definida — sem entrada de documentos após dia 25 do mês, sem lançamento no mês seguinte (impacta fornecedores de faturamento tardio, ex. DHL). Testes de agosto adiados pelas férias de Maiara/Ramon/Danilo — Thaynara assume o acompanhamento. Owner: Adriano + Daniel + Ana Lyvia. Diretrizes obrigatórias pra todos os projetos que tocam Omie hoje: leitura, Web Hooks, janela 19h-7h ou 12h-13h." },
     { letter:"G", name:"LogAI", area:"Produto/Tecnologia", color:"teal",
       tagline:"Produto AI da Logcomex · Agente de embarques · Equipe Edu",
       summary:"Produto de inteligência artificial da Logcomex, em rollout interno e com clientes piloto. Inclui agente de embarques (consulta de exportadores, incoterms, dados de supply chain) e outros agentes em desenvolvimento. Equipe liderada pelo Edu.",
