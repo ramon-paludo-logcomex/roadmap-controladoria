@@ -394,8 +394,8 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v68",
-    lastUpdated: "2026-09-09",
+    version: "v69",
+    lastUpdated: "2026-10-26",
     projects: [
       { id:1, num:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
@@ -415,7 +415,7 @@
         keywords:["fechamento gerencial","gerencial"] },
       { id:3, num:3, name:"Log US (Internacional)", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
-        owner:"Ramon / Maiara", area:"Contabilidade", color:"green", updated:true,
+        owner:"Ramon / Maiara", area:"Contabilidade", color:"green", updated:false,
         tagline:"Concilia Stripe, invoices e Citibank via N8N + Claude",
         statusNow:"Fechamento Agosto/26 v4 rodou limpo (9/set): 420 lançamentos, 9 blocos OK, Stripe Coll $43.227,37 · Citi Coll $86.675,89, saldo diff $0,00, IC bate, fee ratio 3,98%, 0 não-classificados; Consolidado YTD atualizado (v6, jan-ago). Antes — decisão de repatriar ~US$411k (de ~US$960k parados na conta Log US sem remuneração) p/ a Limitada no Brasil, fechamento de câmbio + aplicação após o fechamento de julho (Kamilla), NF do valor transferido + contrato de câmbio vinculados (28/jul). (09/set)",
         insightToday:"Maiara fazia à mão — baixava CSV do Stripe, cruzava invoices, categorizava Citibank e montava a planilha. 1 dia por mês.",
@@ -439,7 +439,7 @@
         keywords:["obrigações fiscais","sped","darf","cprb","lalur","ecf"] },
       { id:9, num:14, name:"Conciliação Fornecedores e Adiantamento Fornecedor", wave:3, status:"prog", statusLabel:"Em Andamento",
         economyLabel:"-20h/mês", economyHours:20, goLive:"Jul/26", periodLabel:"Mai–Jul",
-        owner:"Carol", area:"Contabilidade", color:"orange", updated:true,
+        owner:"Carol", area:"Contabilidade", color:"orange", updated:false,
         tagline:"Concilia razão × ERP, alerta fornecedores sem pipe aberto e concilia adiantamentos a fornecedores",
         statusNow:"Maiara 1/set (DM): conciliação de fornecedor 'não está ok' — nem fornecedor, nem cartão, nem adiantamento; muitos ajustes ainda pendentes; abordagem manual dela (mais lenta, mais certeira) sendo cruzada com a automação pra calibrar os valores; ~10 contas importantes ainda em aberto; prazo definido até 14/set pra finalizar. Risco adicional: NetSuite vai travar lançamento de fornecedor após dia 25 do mês (sem entrada no mês seguinte) — Carol já sinaliza risco com fornecedores de faturamento tardio (ex. DHL, 26/ago). Antes — conciliação semanal do Contas a Pagar formalizada 27/jul: por competência, cobertura ampliada, envio único semanal. (09/set)",
         insightToday:"Mateus faz compilado manual a cada 15 dias (~8h/semana); limpeza do razão e nomes de fornecedores batidos um a um.",
@@ -455,7 +455,7 @@
         keywords:["conciliação balanço","balanço"] },
       { id:13, num:5, name:"Base Fornecedores", wave:2, status:"done", statusLabel:"Em produção",
         economyLabel:"-29h/mês", economyHours:29, goLive:"Jun/26", periodLabel:"Mai–Jun",
-        owner:"Martin (co: Nicc)", area:"Contabilidade", color:"green", updated:true,
+        owner:"Martin (co: Nicc)", area:"Contabilidade", color:"green", updated:false,
         tagline:"Base única de fornecedores no Supabase como fonte da verdade",
         statusNow:"Automação em produção desde ago/26: canal dedicado (#base-de-fornecedores-logcomex-alertas) roda sync diário — 'Juiz LLM' classifica fornecedores novos (nacionais e internacionais) por matching semântico (ex.: rounds #408 a #413+, 01-09/set), com fila de revisão pros casos ambíguos (17 pendentes de classificação em 02/set) e leitura automática dos novos documentos do Domínio. Antes — Fórum Mensal Integração 28/jul: classificação de despesas passa a ser por fornecedor (nova categoria 'Licenças Custos'); Martin mapeia fornecedores + centro de custo; Nicc dá acesso à base à Kamilla e executa a alteração em massa; reclassificação retroativa abr-jun no fechamento de agosto. (09/set)",
         insightToday:"dados de fornecedores fragmentados em planilhas, Pipefy, Omie e Arquivei — sem source of truth única.",
@@ -525,6 +525,15 @@
         insightToday:"valores de cartão em trânsito conferidos manualmente até a compensação.",
         insightFuture:"Numerários em trânsito de cartão conciliados automaticamente entre operadora e razão.",
         keywords:["numerários em trânsito","numerarios em transito","cartão de crédito","cartao de credito"] },
+      { id:28, num:17, name:"App FP&A (Sistema FP&A · Budget 2027)", wave:3, status:"prog", statusLabel:"Em Andamento",
+        economyLabel:"A mapear (h/ano)", economyHours:0, goLive:"A definir", periodLabel:"Set–Dez",
+        owner:"Ramon / Martin", area:"FP&A", color:"orange", updated:true,
+        tagline:"App interno (Next.js/Vercel + Supabase + motor Python) que substitui o ciclo de Budget em Excel",
+        statusNow:"App no ar (fpa-logcomex.vercel.app), motor 0.12.2; Revenue Build-up em uso na rodada de cenários do Budget 2027. Ramon abriu 22+ melhorias em 14-15/out (segmentação por Teses, MRR Walk, IA, wizard de cenário) e confirmou 'tudo endereçado no app' em 16/out; Martin segue com a varredura (itens 22-54), com bloqueio aberto na Modelagem HC (erro 'b is not iterable' ao gravar o 3º movimento; Eng +7 do business case fora do cenário, ~R$ 2,1 mi/ano carregados fora do app). Base de Despesas e FOPAG com set/26 entregues em 19/out; Ramon apontou que fpa_data não traz set/26. Módulos B (P&L/Opex/HC) e C (Cenários) seguem em construção. Economia é por ciclo anual (h/ano), base de horas do ciclo 2026 pendente. Próximo marco: offsite de liderança 05/nov; budget definido na última semana de nov; deck do Board em dez. (26/out)",
+        insightToday:"Budget montado em Excel, ciclo longo, premissas espalhadas e cenários refeitos à mão a cada rodada com a diretoria.",
+        insightFuture:"Build-up de receita, P&L/Opex/HC e cenários rodando no mesmo app, com premissas por Tese, comparação entre cenários e leitura por IA.",
+        blocker:"Modelagem HC: erro ao gravar 3º movimento (16/out)",
+        keywords:["app fp&a","sistema fp&a","budget 2027","fpa-logcomex"] },
     ]
   };
 
@@ -538,6 +547,9 @@
     set(k, v) { try { if (window.storage && typeof window.storage.set === "function") { window.storage.set(k, v); return; } } catch(e) {} memStore[k] = v; }
   };
 
+  const __changelog_v69 = [
+    {date:"2026-10-26", projectId:28, field:"escopo", from:"fora do roadmap", to:"App FP&A entra como projeto (Em Andamento)", evidence:"Ramon 14-16/out #melhorias-app-fpna: app em uso, 'tudo endereçado no app'; entrada aprovada por Ramon em 16/out", level:"B"}
+  ];
   let snapshot = store.get(KEY_SNAP, DEFAULT_SNAPSHOT);
   if (!snapshot || snapshot.version !== DEFAULT_SNAPSHOT.version) {
     snapshot = DEFAULT_SNAPSHOT;
