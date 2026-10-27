@@ -394,8 +394,8 @@
 <script>
 (function() {
   const DEFAULT_SNAPSHOT = {
-    version: "v69",
-    lastUpdated: "2026-10-26",
+    version: "v70",
+    lastUpdated: "2026-10-27",
     projects: [
       { id:1, num:1, name:"Cohort Analysis", wave:1, status:"done", statusLabel:"Concluído",
         economyLabel:"-8h/mês", economyHours:8, goLive:"Abr/26", periodLabel:"Abr/26",
@@ -534,6 +534,36 @@
         insightFuture:"Build-up de receita, P&L/Opex/HC e cenários rodando no mesmo app, com premissas por Tese, comparação entre cenários e leitura por IA.",
         blocker:"Modelagem HC: erro ao gravar 3º movimento (16/out)",
         keywords:["app fp&a","sistema fp&a","budget 2027","fpa-logcomex"] },
+    ],
+    changelog: [
+    {date:"2026-10-26", projectId:28, projectName:"App FP&A", field:"escopo", from:"fora do roadmap", to:"entra como projeto (Em Andamento)", evidence:"Ramon 14-16/out #melhorias-app-fpna; entrada aprovada em 16/out", level:"B"},
+    {date:"2026-10-27", projectId:0, projectName:"ARR Forecast Bottoms-up", field:"arquivado", from:"Projetos · Não-automação", to:"Arquivado", evidence:"Pedido do Ramon em 27/out", level:"B"},
+    {date:"2026-10-27", projectId:0, projectName:"Consolidações", field:"arquivado", from:"Projetos · Não-automação", to:"Arquivado", evidence:"Pedido do Ramon em 27/out", level:"B"},
+    {date:"2026-10-27", projectId:0, projectName:"LCC — Logcomex Certified Consultants", field:"arquivado", from:"Projetos · Não-automação", to:"Arquivado", evidence:"Pedido do Ramon em 27/out", level:"B"},
+    {date:"2026-10-27", projectId:0, projectName:"Documentação de Processos", field:"arquivado", from:"Projetos · Não-automação", to:"Arquivado", evidence:"Pedido do Ramon em 27/out", level:"B"},
+    {date:"2026-10-27", projectId:0, projectName:"IBGE — Pesquisas Econômicas Anuais", field:"arquivado", from:"Projetos · Não-automação", to:"Arquivado", evidence:"Pedido do Ramon em 27/out", level:"B"}
+    ],
+    archived: [
+      { archivedOn:"2026-10-27", letter:"C", name:"ARR Forecast Bottoms-up", area:"FP&A", color:"green",
+      tagline:"Forecast por logo · saiu do roadmap de automação, segue como projeto estratégico",
+      summary:"Forecast de ARR construído de baixo pra cima (logo-a-logo, contrato por contrato), em vez de projeção macro. Removido do roadmap de automação em 04/mai porque é projeto, não automação.",
+      detail:"Lógica: cada cliente atual + cada deal em andamento entram no forecast com probabilidade ponderada e timeline de início. Output: ARR projetado por mês, com cenários (worst/base/best) e drivers visíveis. Substitui o forecast macro atual baseado em crescimento histórico. Conexão direta com GTM 2 offsite e 5Y Plan (apresentação Carlos COO). Owner: Martin (FP&A) + Ramon. Stack candidata: Looker (já tem licença) ou Excel + skill Claude. Decisão pendente: usar dados Salesforce (deals) ou planilha consolidada do Comercial?" },
+      { archivedOn:"2026-10-27", letter:"E", name:"Consolidações", area:"Contábil", color:"orange",
+      tagline:"Consolidação Logcomex + UXComex pós-M&A · MEP + goodwill provisório · DF anual KPMG",
+      summary:"Consolidação contábil-societária do grupo após aquisição UXComex (set/25). Bookkeeping provisório com goodwill de R$8,963M até saída do PPA definitivo. DF anual KPMG consolidando BR + Log US + UXComex.",
+      detail:"Premissas atuais (até PPA): Logcomex registra investimento R$10M via MEP + obrigações (5M caixa + 3M passivo + 2M earn-out swap). UXComex segue escrituração própria até dez/24 com tocada paralela. Goodwill provisório R$8,963M entra no consolidado. PPA contratado com IRKO (alternativa: empresa do DD original). DF anual de 2025 emitida em mar/26 com KPMG (Isabella Bonan, Allan Camargo); auditoria 2026 em planejamento. Conexão direta com #12 DF Auditoria (mensal) — projeto de automação que transforma esse processo anual em mensal. Owner: Maiara + Adriano + Daniel." },
+      { archivedOn:"2026-10-27", letter:"I", name:"LCC — Logcomex Certified Consultants", area:"Comercial/Estratégico", color:"green",
+      tagline:"Programa de vendas indiretas via despachantes aduaneiros · Lançamento jun/26 · Ramon owner Controladoria",
+      summary:"Programa de canal aprovado pelo Allan (CSO) com despachantes aduaneiros atuando como consultores certificados pra ampliar cobertura comercial. Remuneração: 30% receita recorrente mensal no 1º ano, 20% no 2º, 10% no 3º. Carga tributária do consultor (custo empresa fica em 30%). Mirando lançamento em jun/26.",
+      detail:"Reunião 'Programa LCC - Finance' 14/mai com Rodrigo Mota, Allan, Daniel e Adriano. Estrutura: portal de parceiros conectado direto ao Data Lake (Damaceno) pra evitar dados inconsistentes; conflitos de venda arbitrados por tempo de inatividade dos leads. Pendências da Controladoria/Ramon: (1) estudar CPC 47 — exigências contábeis e provisionamento de comissões; (2) revisar tributação — implicações fiscais e emissão de NFs pra pagamento de comissões a terceiros; (3) revisar documento LCC e mapear riscos contábeis/fiscais/tributários; (4) validar processos fiscais com Tainara antes do lançamento. 1:1 PDI Carol/Ramon 15/mai: Carol vai apoiar a Maia no comissionamento LCC e avaliar o CPC correspondente. Owner: Rodrigo Mota (programa) + Ramon (frente contábil/fiscal) + Tainara (fiscal)." },
+      { archivedOn:"2026-10-27", letter:"K", name:"Documentação de Processos", area:"Governança/Processos", color:"purple",
+      tagline:"Owner: Maiara · Consolidação central das regras de negócio · revisor único · sustenta as automações",
+      summary:"Decisão da Mensal Controladoria 19/jun: nomear um responsável pela revisão e consolidação centralizada das regras de negócio e da documentação dos processos automatizados. Owner: Maiara. Objetivo: centralizar conhecimento, evitar falhas recorrentes e padronizar operações para sustentar automações consistentes.",
+      detail:"Driver: só o projeto de lançamentos já tem 114 regras mapeadas — sem documentação formal, o conhecimento fica em cabeças e gera erro recorrente. A escrita é conjunta (cada dono documenta suas parametrizações), com um revisor final único (Maiara) garantindo consistência. Conecta com a rotina nova de pós-mortem assíncrono pós-fechamento (mapear divergências antes da reunião) e com a preparação para o NetSuite — processo bem documentado é pré-requisito de maturidade para o ERP. Próximo passo: formalizar as regras de parametrização e definir o template/repositório único." },
+      { archivedOn:"2026-10-27", letter:"M", name:"IBGE — Pesquisas Econômicas Anuais", area:"Obrigação Estatística", color:"purple",
+      tagline:"Owner: Maiara · Declaração obrigatória anual ao IBGE (ano-base 2024) · Logcomex + UXComex · Daniel no loop (assina com CRC)",
+      summary:"Declaração obrigatória das Pesquisas Econômicas Anuais do IBGE (ano-base 2024). A Logcomex LTDA foi selecionada (contato do agente Paulo Ricardo) e precisa confirmar dados cadastrais e responder o questionário enviado por e-mail. Owner: Maiara.",
+      detail:"Obrigação federal recorrente, tratada por entidade: Logcomex BR conduzida internamente pela Controladoria (Maiara, com apoio da Thaynara) e Daniel no loop por assinar com o CRC; UXComex terceirizada à Controle Agora (Samuel Lopes), orçamento de R$399 aprovado em 23/abr. Risco: prazo legal e multa por não entrega. Próximo passo: consolidar os dados das pesquisas econômicas e responder o(s) questionário(s) dentro do prazo, mantendo o Daniel em cópia para a assinatura final." }
     ]
   };
 
@@ -547,9 +577,6 @@
     set(k, v) { try { if (window.storage && typeof window.storage.set === "function") { window.storage.set(k, v); return; } } catch(e) {} memStore[k] = v; }
   };
 
-  const __changelog_v69 = [
-    {date:"2026-10-26", projectId:28, field:"escopo", from:"fora do roadmap", to:"App FP&A entra como projeto (Em Andamento)", evidence:"Ramon 14-16/out #melhorias-app-fpna: app em uso, 'tudo endereçado no app'; entrada aprovada por Ramon em 16/out", level:"B"}
-  ];
   let snapshot = store.get(KEY_SNAP, DEFAULT_SNAPSHOT);
   if (!snapshot || snapshot.version !== DEFAULT_SNAPSHOT.version) {
     snapshot = DEFAULT_SNAPSHOT;
@@ -1139,50 +1166,31 @@
       tagline:"IBS + CBS + IS substituindo PIS/COFINS/ICMS/ISS · Transição até 2033",
       summary:"Mudança estrutural do sistema tributário brasileiro. CBS (federal) e IBS (estadual+municipal) substituem PIS/COFINS/ICMS/ISS gradualmente. Imposto Seletivo (IS) sobre itens específicos. Logcomex precisa preparar precificação, sistemas e contabilidade.",
       detail:"Cronograma da reforma: 2026 alíquota teste 0,9% CBS + 0,1% IBS, 2027 CBS plena substituindo PIS/COFINS, 2029-2032 transição IBS substituindo ICMS/ISS, 2033 sistema novo pleno. Impactos a mapear: (1) precificação SaaS — alíquota total provavelmente sobe, repasse ao cliente; (2) sistêmico — Omie/NetSuite precisam suportar novos tributos; (3) crédito tributário — regime de não cumulatividade muda, mapear cadeia de fornecedores; (4) operações cross-border — Log US e clientes internacionais. Owner natural: Tai (Obrigações Fiscais) + Adriano (Head Financeiro). Falta: criar grupo de trabalho com data de kickoff." },
-    { letter:"C", name:"ARR Forecast Bottoms-up", area:"FP&A", color:"green",
-      tagline:"Forecast por logo · saiu do roadmap de automação, segue como projeto estratégico",
-      summary:"Forecast de ARR construído de baixo pra cima (logo-a-logo, contrato por contrato), em vez de projeção macro. Removido do roadmap de automação em 04/mai porque é projeto, não automação.",
-      detail:"Lógica: cada cliente atual + cada deal em andamento entram no forecast com probabilidade ponderada e timeline de início. Output: ARR projetado por mês, com cenários (worst/base/best) e drivers visíveis. Substitui o forecast macro atual baseado em crescimento histórico. Conexão direta com GTM 2 offsite e 5Y Plan (apresentação Carlos COO). Owner: Martin (FP&A) + Ramon. Stack candidata: Looker (já tem licença) ou Excel + skill Claude. Decisão pendente: usar dados Salesforce (deals) ou planilha consolidada do Comercial?" },
-    { letter:"D", name:"Estrutura Societária", area:"Societário/Tributário", color:"purple",
+    { letter:"C", name:"Estrutura Societária", area:"Societário/Tributário", color:"purple",
       tagline:"Logcomex BR + UXComex BR + Logcomex US Corp + UXUS · Otimização da estrutura",
       summary:"Revisão da estrutura societária do grupo pós-aquisição UXComex. Inclui Log BR, UX BR, Log US Corp (Delaware), UXUS, holding e sociedades veículo. Tema reaberto pelo IRS Letter 2030 (2024) e pelo PPA UXComex.",
       detail:"Estado atual: Logcomex BR controladora, UXComex BR adquirida set/25 (R$10M, 5+3+2 cash/parcelado/swap), Log US Corp recebe pela Stripe (10% intercompany agreement com Log BR), UXUS estrutura paralela. Pontos abertos: (1) IRS Letter 2030 — IRS cruzou Stripe US com receita reportada, Baker Tilly (Moss Adams) liderando resposta, intercompany agreement ainda procurado; (2) repasses Citi → Log BR pararam em mai/25; (3) pós-PPA, definir se UXComex permanece subsidiária ou se incorpora; (4) estrutura para CTF 2026 (eventos) — ISS São Paulo, CCM aberto. Owner: Adriano + Daniel + Ana Busato (Legal) + Carolina Tremel." },
-    { letter:"E", name:"Consolidações", area:"Contábil", color:"orange",
-      tagline:"Consolidação Logcomex + UXComex pós-M&A · MEP + goodwill provisório · DF anual KPMG",
-      summary:"Consolidação contábil-societária do grupo após aquisição UXComex (set/25). Bookkeeping provisório com goodwill de R$8,963M até saída do PPA definitivo. DF anual KPMG consolidando BR + Log US + UXComex.",
-      detail:"Premissas atuais (até PPA): Logcomex registra investimento R$10M via MEP + obrigações (5M caixa + 3M passivo + 2M earn-out swap). UXComex segue escrituração própria até dez/24 com tocada paralela. Goodwill provisório R$8,963M entra no consolidado. PPA contratado com IRKO (alternativa: empresa do DD original). DF anual de 2025 emitida em mar/26 com KPMG (Isabella Bonan, Allan Camargo); auditoria 2026 em planejamento. Conexão direta com #12 DF Auditoria (mensal) — projeto de automação que transforma esse processo anual em mensal. Owner: Maiara + Adriano + Daniel." },
-    { letter:"F", name:"NetSuite", area:"Sistemas/Estratégico", color:"green",
+    { letter:"D", name:"NetSuite", area:"Sistemas/Estratégico", color:"green",
       tagline:"Substituir Omie em 2027 · Faturamento + Contas a Receber · Domínio mantido pra fiscal BR · Testes O2C/P2P em ago/26",
       summary:"Migração do ERP de Omie para NetSuite, prevista pra 2027. Decidida em mar/abr/26 nas reuniões com Ana Lyvia + Danilo. NetSuite cobre faturamento e AR; Domínio permanece para declarações fiscais brasileiras (complexidade tributária BR não comporta NetSuite full).",
       detail:"Razão da migração: Omie suspende API aleatoriamente (913s observados), tem limites pra escala internacional, e não acompanha visão multi-empresa do grupo. NetSuite traz consolidação multi-entity nativa, suporte global, robustez API. Implicação no roadmap de automações: tudo que está sendo construído agora (Log US, NFs, Fech. Contábil, DF Auditoria) deve ser arquitetado já pensando na migração — base local Supabase/RDS intermediando consumo Omie evita rebuild. Reunião Oracle Netsuite × Project Dome 15/mai (sexta): Project Dome alegou incapacidade técnica para entregar obrigações fiscais (CPRB, Lalur, ECF) — decisão de escalar diretamente para Oracle via Mônica pra esclarecer lacunas, solicitar informações sobre arquitetura e funcionalidades nativas, e agendar reunião urgente com equipe tributária Oracle no início da semana. Adriano vai revisar cláusulas contratuais Project Dome (responsabilidades de entrega + obrigações fiscais) e esclarecer grupo sobre recusa do pagamento de taxas comerciais que já estavam no escopo original. Danilo solicitará aprovação da receita diferida durante a renovação contratual. Maiara incluirá Ramon nos convites das reuniões de checkpoint. Canal dedicado #netsuite_oracle criado em ago/26: cenários de teste O2C (Order to Cash) e P2P (Procure to Pay) documentados por Adriano (13/ago); regra definida — sem entrada de documentos após dia 25 do mês, sem lançamento no mês seguinte (impacta fornecedores de faturamento tardio, ex. DHL). Testes de agosto adiados pelas férias de Maiara/Ramon/Danilo — Thaynara assume o acompanhamento. Owner: Adriano + Daniel + Ana Lyvia. Diretrizes obrigatórias pra todos os projetos que tocam Omie hoje: leitura, Web Hooks, janela 19h-7h ou 12h-13h." },
-    { letter:"G", name:"LogAI", area:"Produto/Tecnologia", color:"teal",
+    { letter:"E", name:"LogAI", area:"Produto/Tecnologia", color:"teal",
       tagline:"Produto AI da Logcomex · Agente de embarques · Equipe Edu",
       summary:"Produto de inteligência artificial da Logcomex, em rollout interno e com clientes piloto. Inclui agente de embarques (consulta de exportadores, incoterms, dados de supply chain) e outros agentes em desenvolvimento. Equipe liderada pelo Edu.",
       detail:"Status (mai/26): demos com clientes em andamento, dados completos sendo entregues mas tempo de resposta sendo ajustado. Fórum interno #logcomex-ai-fórum ativo com Amanda Conde, Andreza Sandim, Rafael Anaya, Laryssa Andrade testando prompts e validando casos. Padrão emergente de uso: quebrar pedidos complexos em prompts menores (ex: ler docs → classificar → simular custo importação). Conexão com Controladoria: campanha Logcomex.AI Intermodal/26 → comissionamento CS (Alipio Leal 06/mai). Owner: Edu + time produto. Risco/oportunidade: como Controladoria, mapear modelo de receita (assinatura/uso/setup), revenue recognition e impacto fiscal." },
-    { letter:"H", name:"Conta Global", area:"Tesouraria/Internacional", color:"purple",
+    { letter:"F", name:"Conta Global", area:"Tesouraria/Internacional", color:"purple",
       tagline:"Estruturação de conta global pra operações cross-border · Em definição",
       summary:"Nova conta global em estruturação (mai/26), substituindo movimentações via Citi US. Maiara estudando como operacionalizar — caso de uso atual: reembolsos internacionais (Carlos pediu 05/mai) e pagamentos de fornecedores externos (Baker Tilly, Moss Adams).",
       detail:"Contexto operacional: conta Citi US (Log US) parou de fazer repasses regulares pra Log BR em mai/25, hoje guarda recursos pra folha e eventos México. Reembolso internacional Carlos (05/mai) abriu discussão sobre rota: Log US Citi (escolhido), Conta Global (em estudo) ou pessoa física (descartado). Conta Global resolveria: tesouraria multi-moeda centralizada, fricção de câmbio, rastreabilidade. Owner: Maiara + Kamilla + Adriano. Pendente: definir banco/provedor (BTG Global Account? Wise Business? Citi Global?), governança de uso (quem aprova movimentações), contabilização. Decisão se sai antes ou depois da migração NetSuite." },
-    { letter:"I", name:"LCC — Logcomex Certified Consultants", area:"Comercial/Estratégico", color:"green",
-      tagline:"Programa de vendas indiretas via despachantes aduaneiros · Lançamento jun/26 · Ramon owner Controladoria",
-      summary:"Programa de canal aprovado pelo Allan (CSO) com despachantes aduaneiros atuando como consultores certificados pra ampliar cobertura comercial. Remuneração: 30% receita recorrente mensal no 1º ano, 20% no 2º, 10% no 3º. Carga tributária do consultor (custo empresa fica em 30%). Mirando lançamento em jun/26.",
-      detail:"Reunião 'Programa LCC - Finance' 14/mai com Rodrigo Mota, Allan, Daniel e Adriano. Estrutura: portal de parceiros conectado direto ao Data Lake (Damaceno) pra evitar dados inconsistentes; conflitos de venda arbitrados por tempo de inatividade dos leads. Pendências da Controladoria/Ramon: (1) estudar CPC 47 — exigências contábeis e provisionamento de comissões; (2) revisar tributação — implicações fiscais e emissão de NFs pra pagamento de comissões a terceiros; (3) revisar documento LCC e mapear riscos contábeis/fiscais/tributários; (4) validar processos fiscais com Tainara antes do lançamento. 1:1 PDI Carol/Ramon 15/mai: Carol vai apoiar a Maia no comissionamento LCC e avaliar o CPC correspondente. Owner: Rodrigo Mota (programa) + Ramon (frente contábil/fiscal) + Tainara (fiscal)." },
-    { letter:"J", name:"Lei do Bem", area:"Fiscal/Incentivo", color:"purple",
+    { letter:"G", name:"Lei do Bem", area:"Fiscal/Incentivo", color:"purple",
       tagline:"Owner: Thaynara · Recuperação de créditos de P&D (ano-base 2025) · estudo até 31/ago · aprovação MCTI + Min. Fazenda",
       summary:"Novo projeto apresentado na Mensal Controladoria 19/jun: recuperação de créditos fiscais via Lei do Bem referente a 2025, mediante envio das bases de dispêndios em P&D. Owner: Thaynara. Processo federal e moroso, com aprovação em duas instâncias (MCTI e Ministério da Fazenda).",
       detail:"Risco central: usar os créditos antes da aprovação final — a homologação pode ser parcial ou inexistente, então o valor não pode ser tratado como certo no caixa. Conclusão do estudo prevista para 31/ago (prazo sujeito a alteração pela complexidade da documentação). Gargalos: comunicação com Produto (levantamento dos dispêndios elegíveis) e com o DP (dados sigilosos de folha). Próximos passos: Thaynara prepara material executivo (potencial de valor, recursos necessários de Produto e DP, plano de visibilidade) para reunião com Adriano e Daniel, e depois diretoria (Carlos, Helmuth, Aline). Recomendação da reunião: apresentar a recuperação como faixa (ex.: R$100 mil a R$1,8 mi) para gerir expectativa, sem garantir o teto." },
-    { letter:"K", name:"Documentação de Processos", area:"Governança/Processos", color:"purple",
-      tagline:"Owner: Maiara · Consolidação central das regras de negócio · revisor único · sustenta as automações",
-      summary:"Decisão da Mensal Controladoria 19/jun: nomear um responsável pela revisão e consolidação centralizada das regras de negócio e da documentação dos processos automatizados. Owner: Maiara. Objetivo: centralizar conhecimento, evitar falhas recorrentes e padronizar operações para sustentar automações consistentes.",
-      detail:"Driver: só o projeto de lançamentos já tem 114 regras mapeadas — sem documentação formal, o conhecimento fica em cabeças e gera erro recorrente. A escrita é conjunta (cada dono documenta suas parametrizações), com um revisor final único (Maiara) garantindo consistência. Conecta com a rotina nova de pós-mortem assíncrono pós-fechamento (mapear divergências antes da reunião) e com a preparação para o NetSuite — processo bem documentado é pré-requisito de maturidade para o ERP. Próximo passo: formalizar as regras de parametrização e definir o template/repositório único." },
-    { letter:"L", name:"Aprendizados de Automações", area:"Conhecimento/Automação", color:"purple",
+    { letter:"H", name:"Aprendizados de Automações", area:"Conhecimento/Automação", color:"purple",
       tagline:"Owner: Carol · Consolidar lições das automações · acompanhamento 23/jul · rascunho na próxima Mensal",
       summary:"Frente de conhecimento definida na Mensal Controladoria 19/jun: compilar as lições aprendidas sobre automações e melhorias de processos, com rascunho estruturado a ser apresentado na próxima reunião mensal. Owner: Carol.",
-      detail:"Base: Carol relatou que o sucesso da automação de lançamentos veio da colaboração próxima com o time de Contas a Pagar e que a operação exige manutenção constante — esse tipo de aprendizado precisa virar acervo reutilizável pelos demais projetos. Acompanhamento marcado para 23/jul; a discussão deve ir além de uma automação específica e cobrir competências de projeto, revisão de processos e análise de arquitetura. Saída esperada: playbook/rascunho que oriente as próximas automações da Controladoria e os times externos (ver card 1)." },
-    { letter:"M", name:"IBGE — Pesquisas Econômicas Anuais", area:"Obrigação Estatística", color:"purple",
-      tagline:"Owner: Maiara · Declaração obrigatória anual ao IBGE (ano-base 2024) · Logcomex + UXComex · Daniel no loop (assina com CRC)",
-      summary:"Declaração obrigatória das Pesquisas Econômicas Anuais do IBGE (ano-base 2024). A Logcomex LTDA foi selecionada (contato do agente Paulo Ricardo) e precisa confirmar dados cadastrais e responder o questionário enviado por e-mail. Owner: Maiara.",
-      detail:"Obrigação federal recorrente, tratada por entidade: Logcomex BR conduzida internamente pela Controladoria (Maiara, com apoio da Thaynara) e Daniel no loop por assinar com o CRC; UXComex terceirizada à Controle Agora (Samuel Lopes), orçamento de R$399 aprovado em 23/abr. Risco: prazo legal e multa por não entrega. Próximo passo: consolidar os dados das pesquisas econômicas e responder o(s) questionário(s) dentro do prazo, mantendo o Daniel em cópia para a assinatura final." },
+      detail:"Base: Carol relatou que o sucesso da automação de lançamentos veio da colaboração próxima com o time de Contas a Pagar e que a operação exige manutenção constante — esse tipo de aprendizado precisa virar acervo reutilizável pelos demais projetos. Acompanhamento marcado para 23/jul; a discussão deve ir além de uma automação específica e cobrir competências de projeto, revisão de processos e análise de arquitetura. Saída esperada: playbook/rascunho que oriente as próximas automações da Controladoria e os times externos (ver card 1)." }
+
   ];
 
   function renderProjects() {
@@ -1215,17 +1223,40 @@
 
   // ===== HISTÓRICO =====
   function renderHistory() {
-    document.getElementById("hist-count").textContent = history.length;
+    const cl = (snapshot.changelog || []).map(c => Object.assign({}, c));
+    const all = history.concat(cl).sort((x,y) => String(x.date).localeCompare(String(y.date)));
+    const arch = snapshot.archived || [];
+    document.getElementById("hist-count").textContent = all.length + (arch.length ? " · " + arch.length + " arquivados" : "");
     const panel = document.getElementById("history-panel");
-    if (!history.length) { panel.innerHTML = `<div style="padding:14px;color:var(--lx-gray);font-size:12px;">Sem mudanças registradas ainda.</div>`; return; }
-    panel.innerHTML = [...history].reverse().map(h => {
+    const archBlock = arch.length ? `
+      <div class="section-title" style="margin-top:4px;">Projetos arquivados (${arch.length})</div>
+      ${arch.map((p,i) => `
+        <div class="card proj-card arch-card">
+          <div class="card-header">
+            <span class="card-num" style="background:var(--lx-gray-light)">${i+1}</span>
+            <span class="card-title">${esc(p.name)}</span>
+            <span class="card-meta">Arquivado ${esc(p.archivedOn)} · ${esc(p.area)}</span>
+            <span class="card-chevron">›</span>
+          </div>
+          <div class="card-body">
+            <p style="font-size:12px;color:var(--lx-gray);margin-top:8px;">${esc(p.tagline)}</p>
+            <div class="insight-block"><strong>Resumo:</strong> ${esc(p.summary)}<br><br><strong>Contexto:</strong> ${esc(p.detail)}</div>
+          </div>
+        </div>`).join("")}
+      <div class="section-title" style="margin-top:18px;">Mudanças</div>` : "";
+    const items = all.length ? [...all].reverse().map(h => {
       const p = snapshot.projects.find(x => x.id === h.projectId);
+      const nm = h.projectName || (p ? p.name : (h.projectId ? ("#"+h.projectId) : "Geral"));
       return `<div class="hist-item">
-        <div class="hist-meta">${esc(h.date)} · <strong>${esc(p?p.name:(h.projectId?("#"+h.projectId):"Geral"))}</strong> · ${esc(h.field)}</div>
+        <div class="hist-meta">${esc(h.date)} · <strong>${esc(nm)}</strong> · ${esc(h.field)}</div>
         <div class="hist-change">${esc(h.from)} → <strong>${esc(h.to)}</strong></div>
         ${h.evidence ? `<div class="hist-evidence">${esc(h.evidence)}</div>` : ""}
       </div>`;
-    }).join("");
+    }).join("") : `<div style="padding:14px;color:var(--lx-gray);font-size:12px;">Sem mudanças registradas ainda.</div>`;
+    panel.innerHTML = archBlock + items;
+    panel.querySelectorAll(".arch-card .card-header").forEach(h => {
+      h.addEventListener("click", e => { if (e.target.closest("a, button, input")) return; h.parentElement.classList.toggle("open"); });
+    });
   }
 
   // ===== TABS =====
